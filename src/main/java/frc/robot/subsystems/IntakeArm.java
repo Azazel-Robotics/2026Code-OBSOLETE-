@@ -11,20 +11,32 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+
 public class IntakeArm  extends SubsystemBase{
 
     private SparkMax intakeArmMotor;
 
+    private DigitalInput armUpperLimit;
+    private DigitalInput armLowerLimit;
+    
+
       public IntakeArm() {
 
+        //configs for intake arm speed
         intakeArmMotor = new SparkMax(Constants.IntakeArm.kIntakeArmMotor, MotorType.kBrushless);
 
-        SparkMaxConfig intakeConfig = new SparkMaxConfig();
+        SparkMaxConfig intakeArmConfig = new SparkMaxConfig();
 
-        intakeConfig.smartCurrentLimit(Constants.kMaxCurrent);
-        intakeConfig.idleMode(IdleMode.kBrake);
+        intakeArmConfig.smartCurrentLimit(Constants.kMaxCurrent);
+        intakeArmConfig.idleMode(IdleMode.kBrake);
 
-        intakeArmMotor.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        intakeArmMotor.configure(intakeArmConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+        //initilaizing limit switches
+        armUpperLimit = new DigitalInput(Constants.IntakeArm.kArmUpperLimit);
+        armLowerLimit = new DigitalInput(Constants.IntakeArm.kArmLowerLimit);
 
     }
 
@@ -39,5 +51,20 @@ public class IntakeArm  extends SubsystemBase{
         return this.runOnce( () -> intakeArmMotor.set(-speed));
 
     }
+
+    public boolean isUpperLimitPressed() {
+
+        return armUpperLimit.get();
     
+
+    }
+    public Command intakeArmJiggle() {
+        return switch (isLimitedPressed()) {
+            case true -> this.InstantCommand( () -> intakeArmMotor.set(Constants.IntakeArm.kSTOP));
+            case false -> new InstantCommand( () -> intakeArmMotor.set(0.2));
+        }
+    }
+
+
+
 }

@@ -17,5 +17,15 @@ public class Constants {
     public static class IntakeArm{
         //CHANGE THIS -> WE DIDNT HAVE PORT # AT THE TIME OF CREATION -AZ
         public static final int kIntakeArmMotor = 2;
+        //CHANGE THESE
+        public static final int kArmUpperLimit = 0;
+        public static final int kArmLowerLimit = 1;
+        
+        public static final int kSTOP = 0;
+    }
+
+    public static class Index{
+        //CHANGE THIS -> WE DIDNT HAVE PORT # AT THE TIME OF CREATION -AZ
+        public static final int kIntakeIndexMotor = 3;
     }
 }

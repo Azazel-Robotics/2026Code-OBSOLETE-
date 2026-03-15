@@ -21,6 +21,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Index;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -45,6 +46,8 @@ public class RobotContainer {
     public final IntakeArm intakeArm = new IntakeArm();
 
     public final Shooter shooter = new Shooter();
+
+    public final Index index = new Index();
 
     public RobotContainer() {
         configureBindings();
@@ -81,8 +84,9 @@ public class RobotContainer {
         Driver.start().and(Driver.y()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kForward));
         Driver.start().and(Driver.x()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kReverse));
         
-        //Control for intake motor
+        //Controls for intake motor and index motor
         Operator.x().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
+        Operator.x().onTrue(index.spinIndex(0.3)).onFalse(index.spinIndex(0));
 
         //Controls for intake arm motor
         Operator.y().onTrue(intakeArm.spinIntakeArmUp(0.1)).onFalse(intakeArm.spinIntakeArmUp(0));
@@ -92,9 +96,11 @@ public class RobotContainer {
         Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.3)).onFalse(shooter.spinShooterMotor(0));
         Driver.leftTrigger().onTrue(shooter.spinNeckMotor(0.3)).onFalse(shooter.spinNeckMotor(0));
 
+
         //Control for shooter motors mid range
         Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.4)).onFalse(shooter.spinShooterMotor(0));
         Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.4)).onFalse(shooter.spinNeckMotor(0));
+        Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle).onFalse();
 
         //Control for shooter motors long range
         Driver.rightTrigger().onTrue(shooter.spinShooterMotor(0.5)).onFalse(shooter.spinShooterMotor(0));
