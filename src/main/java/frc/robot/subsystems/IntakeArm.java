@@ -62,16 +62,22 @@ public class IntakeArm extends SubsystemBase{
     }
 
     //jiggle features lol
+    boolean goUp = true; //goUp = true, motor is going positive direction
     public Command intakeArmJiggle() {
         if (isUpperPressed) {
+            goUp = false;
             return this.runOnce( () -> intakeArmMotor.set(-0.1));
         } else if (isLowerPressed) {
+            goUp = true;
             return this.runOnce( () -> intakeArmMotor.set(0.1));
+        } else if (goUp) {
+            return this.runOnce( () -> intakeArmMotor.set(0.1));
+        } else {
+            return this.runOnce( () -> intakeArmMotor.set(-0.1));
         }
-        return this.runOnce( () -> intakeArmMotor.set(0.1));
     }
-    //to reset position of intake arm
-    public Command intakeArmToResting() {
+    //to reset position of intake arm to floor, PLEASE CHANGE IDK IF WORK -JA
+    public Command intakeArmToFloor() {
         if (isLowerPressed) {
             return this.runOnce( () -> intakeArmMotor.set(Constants.kSTOP));
         } else {
@@ -80,6 +86,7 @@ public class IntakeArm extends SubsystemBase{
             }
             return this.runOnce( () -> intakeArmMotor.set(Constants.kSTOP));
         }
+        
     }
         
 }
