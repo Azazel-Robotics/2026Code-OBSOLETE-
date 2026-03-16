@@ -100,7 +100,7 @@ public class RobotContainer {
         //Control for shooter motors mid range
         Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.4)).onFalse(shooter.spinShooterMotor(0));
         Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.4)).onFalse(shooter.spinNeckMotor(0));
-        Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle).onFalse();
+        Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToResting()); //arm jiggle
 
         //Control for shooter motors long range
         Driver.rightTrigger().onTrue(shooter.spinShooterMotor(0.5)).onFalse(shooter.spinShooterMotor(0));

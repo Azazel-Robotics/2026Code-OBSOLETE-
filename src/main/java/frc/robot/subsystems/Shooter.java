@@ -14,8 +14,8 @@ public class Shooter extends SubsystemBase{
 
     public Shooter() {
 
-        shooterMotor = new TalonFX(Constants.Shooter.kShooterLeftMotor);
-        shooterNeckMotor = new TalonFX(Constants.Shooter.kShooterRightMotor);
+        shooterMotor = new TalonFX(Constants.Shooter.kShooterMotor);
+        shooterNeckMotor = new TalonFX(Constants.Shooter.kShooterNeckMotor);
 
         //resets motor to factory default config
         shooterMotor.getConfigurator().apply(new TalonFXConfiguration());
@@ -44,7 +44,7 @@ public class Shooter extends SubsystemBase{
     public Command spinShooterMotor(double speed) {
 
         return this.runOnce( () -> shooterMotor.set(speed));
-
+        
     }
     public Command spinNeckMotor(double speed) {
 
