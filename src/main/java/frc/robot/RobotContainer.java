@@ -22,6 +22,7 @@ import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
+import frc.robot.subsystems.Autonomous;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -48,6 +49,8 @@ public class RobotContainer {
     public final Shooter shooter = new Shooter();
 
     public final Index index = new Index();
+
+    public final Autonomous auto = new Autonomous(shooter, index);
 
     public RobotContainer() {
         configureBindings();
@@ -127,7 +130,11 @@ public class RobotContainer {
                     .withVelocityY(0)
                     .withRotationalRate(0)
             )
-            .withTimeout(5.0),
+            .withTimeout(3.0),
+            
+            //Activate Mid Distance Shooter and Index
+            new Autonomous(shooter, index).withTimeout(2.0),
+            
             // Finally idle for the rest of auton
             m_robotDrive.applyRequest(() -> idle)
         );
