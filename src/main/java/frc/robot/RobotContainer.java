@@ -111,7 +111,7 @@ public class RobotContainer {
         Driver.rightTrigger().onTrue(shooter.spinNeckMotor(0.5)).onFalse(shooter.spinNeckMotor(0));
 
         // Reset the field-centric heading on A button press.
-        //this was changed by Az and JA during march 14 meeting... CHECK AGAIN
+        //this was changed by AZ and JA during march 14 meeting... CHECK AGAIN
         Driver.a().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
