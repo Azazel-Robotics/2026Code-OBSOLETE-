@@ -24,7 +24,9 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Autonomous;
 
-public class RobotContainer {
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+
+public class RobotContainer extends ParallelCommandGroup{
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
@@ -88,23 +90,23 @@ public class RobotContainer {
         Driver.start().and(Driver.x()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kReverse));
         
         //Controls for intake motor and index motor
-        Operator.x().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
-        Operator.x().onTrue(index.spinIndex(0.3)).onFalse(index.spinIndex(0));
+        //Operator.x().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
+        Driver.rightBumper().onTrue(index.spinIndex(0.3)).onFalse(index.spinIndex(0));
 
         //Controls for intake arm motor
-        Operator.y().onTrue(intakeArm.spinIntakeArmUp(0.1)).onFalse(intakeArm.spinIntakeArmUp(0));
-        Operator.a().onTrue(intakeArm.spinIntakeArmDown(0.1)).onFalse(intakeArm.spinIntakeArmDown(0));
+        //Operator.y().onTrue(intakeArm.spinIntakeArmUp(0.1)).onFalse(intakeArm.spinIntakeArmUp(0));
+        //Operator.a().onTrue(intakeArm.spinIntakeArmDown(0.1)).onFalse(intakeArm.spinIntakeArmDown(0));
 
         //Control for shooter motors short range
-        Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.3)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftTrigger().onTrue(shooter.spinNeckMotor(0.3)).onFalse(shooter.spinNeckMotor(0));
+        Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.1)).onFalse(shooter.spinShooterMotor(0));
+        Driver.leftTrigger().onTrue(shooter.spinNeckMotor(0.1)).onFalse(shooter.spinNeckMotor(0));
 
 
         //Control for shooter motors mid range
-        Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.4)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.4)).onFalse(shooter.spinNeckMotor(0));
+        Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.25)).onFalse(shooter.spinShooterMotor(0));
+        Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.25)).onFalse(shooter.spinNeckMotor(0));
         //ARM JIGGLE
-        Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToFloor()); 
+        //Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToFloor()); 
 
         //Control for shooter motors long range
         Driver.rightTrigger().onTrue(shooter.spinShooterMotor(0.5)).onFalse(shooter.spinShooterMotor(0));
@@ -115,7 +117,12 @@ public class RobotContainer {
         Driver.a().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
+
+        Driver.x().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
+        .onFalse(Commands.parallel(shooter.spinShooterMotor(0), index.spinIndex(0), shooter.spinNeckMotor(0)));
     }
+
+
 
     /*public Command getAutonomousCommand() {
         // Simple drive forward auton

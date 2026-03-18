@@ -11,13 +11,13 @@ import frc.robot.subsystems.Index;
 
  public class Autonomous extends ParallelCommandGroup{
 
-    /* public Autonomous(Shooter shooter, Index index){
+    public Autonomous(Shooter shooter, Index index){
         addCommands(
 
         //Command Group will (hopefully) finish after 10 seconds -AZ
         new WaitCommand(10.0), //check if this is right -AZ
-        new RunCommand ( () -> shooter.spinShooterMotor(0.4), shooter),
-        new RunCommand ( () -> shooter.spinNeckMotor(0.4), shooter),
+        new RunCommand ( () -> shooter.spinShooterMotor(0.25), shooter),
+        new RunCommand ( () -> shooter.spinNeckMotor(0.25), shooter),
         new RunCommand (() -> index.spinIndex(0.4), index)
 
         //once completed, add command for the "jiggle"/feeder mechanism -AZ
@@ -26,17 +26,17 @@ import frc.robot.subsystems.Index;
     }
 
     //figure out if a Parallel Deadline Group will work better -AZ
-    */
 
-    public Autonomous() {
-        addCommands (
 
-        new WaitCommand (10.0),
-        new RunCommand ( () -> shooter.spinShooterMotor(0.4)),
-        new RunCommand ( () -> shooter.spinNeckMotor(0.4)),
-        new RunCommand (() -> index.spinIndex(0.4))
+    // public Autonomous() {
+    //     addCommands (
 
-        );
-    }
+    //     new WaitCommand (10.0),
+    //     new RunCommand ( () -> shooter.spinShooterMotor(0.4)),
+    //     new RunCommand ( () -> shooter.spinNeckMotor(0.4)),
+    //     new RunCommand (() -> index.spinIndex(0.4))
+
+    //     );
+    // }
 
 }
