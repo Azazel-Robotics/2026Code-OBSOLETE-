@@ -46,13 +46,13 @@ public class RobotContainer extends ParallelCommandGroup{
 
     public final IntakeSubsystem intake = new IntakeSubsystem();
 
-    public final IntakeArm intakeArm = new IntakeArm();
+    //public final IntakeArm intakeArm = new IntakeArm();
 
     public final Shooter shooter = new Shooter();
 
     public final Index index = new Index();
 
-    public final Autonomous auto = new Autonomous(shooter, index);
+    //public final Autonomous auto = new Autonomous(shooter, index);
 
     public RobotContainer() {
         configureBindings();
@@ -91,26 +91,26 @@ public class RobotContainer extends ParallelCommandGroup{
         
         //Controls for intake motor and index motor
         //Operator.x().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
-        Driver.rightBumper().onTrue(index.ToggleIndexMotor(0.3));
+        Driver.rightBumper().onTrue(index.spinIndex(-0.25)).onFalse(index.spinIndex(0));
 
         //Controls for intake arm motor
         //Operator.y().onTrue(intakeArm.spinIntakeArmUp(0.1)).onFalse(intakeArm.spinIntakeArmUp(0));
         //Operator.a().onTrue(intakeArm.spinIntakeArmDown(0.1)).onFalse(intakeArm.spinIntakeArmDown(0));
 
         //Control for shooter motors short range
-        Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.1)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftTrigger().onTrue(shooter.spinNeckMotor(0.1)).onFalse(shooter.spinNeckMotor(0));
+        Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.5)).onFalse(shooter.spinShooterMotor(0));
+        Driver.leftTrigger().onTrue(shooter.spinNeckMotor(0.5)).onFalse(shooter.spinNeckMotor(0));
 
 
         //Control for shooter motors mid range
-        Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.25)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.25)).onFalse(shooter.spinNeckMotor(0));
+        Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.75)).onFalse(shooter.spinShooterMotor(0));
+        Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.75)).onFalse(shooter.spinNeckMotor(0));
         //ARM JIGGLE
         //Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToFloor()); 
 
         //Control for shooter motors long range
-        Driver.rightTrigger().onTrue(shooter.spinShooterMotor(0.5)).onFalse(shooter.spinShooterMotor(0));
-        Driver.rightTrigger().onTrue(shooter.spinNeckMotor(0.5)).onFalse(shooter.spinNeckMotor(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterMotor(0.85)).onFalse(shooter.spinShooterMotor(0));
+        Driver.rightTrigger().onTrue(shooter.spinNeckMotor(0.85)).onFalse(shooter.spinNeckMotor(0));
 
         // Reset the field-centric heading on A button press.
         //this was changed by AZ and JA during march 14 meeting... CHECK AGAIN

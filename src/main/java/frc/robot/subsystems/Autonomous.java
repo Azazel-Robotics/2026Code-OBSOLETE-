@@ -15,7 +15,7 @@ import frc.robot.subsystems.Index;
         addCommands(
 
         //Command Group will (hopefully) finish after 10 seconds -AZ
-        new WaitCommand(10.0), //check if this is right -AZ
+        //new WaitCommand(10.0), //check if this is right -AZ
         new RunCommand ( () -> shooter.spinShooterMotor(0.25), shooter),
         new RunCommand ( () -> shooter.spinNeckMotor(0.25), shooter),
         new RunCommand( () -> Commands.waitSeconds(1.5).andThen(index.spinIndex(0.3)), index)

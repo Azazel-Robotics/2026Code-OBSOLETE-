@@ -15,13 +15,13 @@ public class Constants {
 
     public static class IntakeArm{
         //CHANGE THIS -> WE DIDNT HAVE PORT # AT THE TIME OF CREATION -AZ
-        public static final int kIntakeArmMotor = 20;
+        public static final int kIntakeArmMotor = 19;
         //CHANGE THESE
         public static final int kArmUpperLimit = 0;
         public static final int kArmLowerLimit = 1;
     }
 
     public static class Index{
-        public static final int kIntakeIndexMotor = 19;
+        public static final int kIntakeIndexMotor = 20;
     }
 }
