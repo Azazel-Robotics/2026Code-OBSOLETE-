@@ -18,8 +18,7 @@ import frc.robot.subsystems.Index;
         new WaitCommand(10.0), //check if this is right -AZ
         new RunCommand ( () -> shooter.spinShooterMotor(0.25), shooter),
         new RunCommand ( () -> shooter.spinNeckMotor(0.25), shooter),
-        new RunCommand( () -> Commands.waitSeconds(1.5), index),
-        new RunCommand (() -> index.spinIndex(0.4), index)
+        new RunCommand( () -> Commands.waitSeconds(1.5).andThen(index.spinIndex(0.3)), index)
 
         //once completed, add command for the "jiggle"/feeder mechanism -AZ
 
