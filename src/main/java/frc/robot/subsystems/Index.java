@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 public class Index extends SubsystemBase{
 
     private SparkMax indexMotor;
+    private boolean motorOn;
 
     public Index() {
 
@@ -24,11 +25,26 @@ public class Index extends SubsystemBase{
         indexConfig.idleMode(IdleMode.kBrake);
 
         indexMotor.configure(indexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        motorOn = false;
     }
 
     public Command spinIndex(double speed) {
 
         return this.runOnce( () -> indexMotor.set(speed));
 
+    }
+
+    public Command ToggleIndexMotor(double speed)
+    {
+        if(motorOn)
+        {
+            motorOn = false;
+            return this.runOnce( () -> indexMotor.set(0));
+        }
+        else 
+        {
+            motorOn = true;
+            return this.runOnce( () -> indexMotor.set(speed));
+        }
     }
 }

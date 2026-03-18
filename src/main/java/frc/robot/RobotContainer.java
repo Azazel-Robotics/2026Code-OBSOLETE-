@@ -91,7 +91,7 @@ public class RobotContainer extends ParallelCommandGroup{
         
         //Controls for intake motor and index motor
         //Operator.x().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
-        Driver.rightBumper().onTrue(index.spinIndex(0.3)).onFalse(index.spinIndex(0));
+        Driver.rightBumper().onTrue(index.ToggleIndexMotor(0.3));
 
         //Controls for intake arm motor
         //Operator.y().onTrue(intakeArm.spinIntakeArmUp(0.1)).onFalse(intakeArm.spinIntakeArmUp(0));
