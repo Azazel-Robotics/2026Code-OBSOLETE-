@@ -13,7 +13,10 @@ public class Autonomous extends ParallelCommandGroup{
         addCommands(
 
         new RunCommand ( () -> shooter.spinShooterMotor(0.4), shooter),
-        new RunCommand (() -> index.spinIndex(.4), index)
+        new RunCommand ( () -> shooter.spinNeckMotor(0.4), shooter),
+        new RunCommand (() -> index.spinIndex(0.4), index)
+
+        //once completed, add command for the "jiggle"/feeder mechanism
 
         );
     }

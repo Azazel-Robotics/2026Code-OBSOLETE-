@@ -117,7 +117,7 @@ public class RobotContainer {
         m_robotDrive.registerTelemetry(logger::telemeterize);
     }
 
-    public Command getAutonomousCommand() {
+    /*public Command getAutonomousCommand() {
         // Simple drive forward auton
         final var idle = new SwerveRequest.Idle();
         return Commands.sequence(
@@ -138,5 +138,10 @@ public class RobotContainer {
             // Finally idle for the rest of auton
             m_robotDrive.applyRequest(() -> idle)
         );
+    } */
+
+    //edited Auto to just be activating shooter and index -> mid range
+    public Command getAutonomousCommand () {
+        return new Autonomous(shooter, index).withTimeout(2.0);
     }
 }
