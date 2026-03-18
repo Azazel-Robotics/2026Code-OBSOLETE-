@@ -114,11 +114,11 @@ public class RobotContainer extends ParallelCommandGroup{
 
         // Reset the field-centric heading on A button press.
         //this was changed by AZ and JA during march 14 meeting... CHECK AGAIN
-        Driver.a().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
+        Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
 
-        Driver.x().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
+        Driver.y().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
         .onFalse(Commands.parallel(shooter.spinShooterMotor(0), index.spinIndex(0), shooter.spinNeckMotor(0)));
     }
 
