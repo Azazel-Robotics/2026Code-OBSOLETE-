@@ -87,7 +87,7 @@ public class IntakeArm extends SubsystemBase{
     boolean goUp = true; //goUp = true, motor is going positive direction
     
     
-    public void setReferencePoint 
+    public void setReferencePoint //what???? I forgot what we were going to put here??? -AZ
 
     public Command intakeArmJiggle() {
         
