@@ -97,7 +97,7 @@ public class RobotContainer {
         Driver.rightBumper().onTrue(index.spinIndex(0.5)).onFalse(index.spinIndex(0));
 
          //index reverse
-        Driver.b().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
+        Driver.y().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
 
         //shooter short range
         Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
@@ -108,8 +108,8 @@ public class RobotContainer {
         Driver.leftBumper().onTrue(shooter.spinShooterNeck(0.75)).onFalse(shooter.spinShooterNeck(0));
 
         //shooter long range
-        Driver.rightTrigger().onTrue(shooter.spinShooterMotors(1.0)).onFalse(shooter.spinShooterMotors(0));
-        Driver.rightTrigger().onTrue(shooter.spinShooterNeck(1.0)).onFalse(shooter.spinShooterNeck(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterMotors(.85)).onFalse(shooter.spinShooterMotors(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterNeck(.85)).onFalse(shooter.spinShooterNeck(0));
        
 
 
