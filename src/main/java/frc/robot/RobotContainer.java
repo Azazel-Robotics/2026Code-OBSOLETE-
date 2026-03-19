@@ -23,7 +23,8 @@ import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
-import frc.robot.subsystems.Autonomous;
+import frc.robot.subsystems.AutoCommands;
+import frc.robot.subsystems.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -96,16 +97,16 @@ public class RobotContainer {
         Driver.rightBumper().onTrue(index.spinIndex(-0.25)).onFalse(index.spinIndex(0));
 
         //shooter short range
-        Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.5)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftTrigger().onTrue(shooter.spinNeckMotor(0.5)).onFalse(shooter.spinNeckMotor(0));
+        Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.5)).onFalse(shooter.spinShooterMotors(0));
+  
 
         //shooter mid range
-        Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.75)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.75)).onFalse(shooter.spinNeckMotor(0)); 
+        Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
+
 
         //shooter long range
-        Driver.rightTrigger().onTrue(shooter.spinShooterMotor(0.85)).onFalse(shooter.spinShooterMotor(0));
-        Driver.rightTrigger().onTrue(shooter.spinNeckMotor(0.85)).onFalse(shooter.spinNeckMotor(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.85)).onFalse(shooter.spinShooterMotors(0));
+       
 
 
         // Reset the field-centric heading on X button press.
@@ -113,8 +114,8 @@ public class RobotContainer {
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
 
-        Driver.y().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(-0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
-        .onFalse(Commands.parallel(shooter.spinShooterMotor(0), index.spinIndex(0), shooter.spinNeckMotor(0)));
+        //Driver.y().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(-0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
+        //.onFalse(Commands.parallel(shooter.spinShooterMotors(0), index.spinIndex(0), shooter.spinNeckMotor(0)));
     }
 
 
@@ -144,12 +145,13 @@ public class RobotContainer {
 
     //edited Auto to just be activating shooter and index -> mid range
     public Command getAutonomousCommand () {
+        return AutoCommands.Shoot(shooter, index);
         //return new Autonomous(shooter, index).withTimeout(2.0);
-        return new SequentialCommandGroup(
-            new InstantCommand( () -> shooter.spinShooterMotor(0.5)),
-            new InstantCommand( () -> shooter.spinNeckMotor(0.5)),
-            new WaitCommand(1),
-            new InstantCommand(() -> index.spinIndex(-0.25))
-        );
+        // return new ParallelCommandGroup(
+        //     new InstantCommand( () -> shooter.spinShooterMotor(0.5)),
+        //     new InstantCommand( () -> shooter.spinNeckMotor(0.5)),
+        //     // new WaitCommand(1),
+        //     new InstantCommand(() -> index.spinIndex(-0.25))
+        // );
     }
 }
