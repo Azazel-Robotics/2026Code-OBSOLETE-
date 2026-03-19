@@ -8,6 +8,8 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import frc.robot.Constants;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class Shooter extends SubsystemBase{
@@ -42,6 +44,12 @@ public class Shooter extends SubsystemBase{
 
         return this.runOnce( () -> shooterMotor.set(speed));
         
+    }
+
+    public Command spinShooterMotors(double speed, String caller)
+    {
+        SmartDashboard.putString("Shooter Motor Call", caller);
+        return spinShooterMotors(speed);
     }
     // public Command spinNeckMotor(double speed) {
 

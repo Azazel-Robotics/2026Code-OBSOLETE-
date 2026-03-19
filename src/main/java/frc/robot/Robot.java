@@ -8,6 +8,7 @@ import com.ctre.phoenix6.HootAutoReplay;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -40,7 +41,9 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void disabledInit() {}
+    public void disabledInit() {
+        SmartDashboard.putString("Auto State", "");
+    }
 
     @Override
     public void disabledPeriodic() {}
@@ -54,6 +57,7 @@ public class Robot extends TimedRobot {
 
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().schedule(m_autonomousCommand);
+            SmartDashboard.putString("Auto State", "Start");
         }
     }
 
@@ -68,6 +72,7 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }
+        SmartDashboard.putString("Auto State", "End");
     }
 
     @Override

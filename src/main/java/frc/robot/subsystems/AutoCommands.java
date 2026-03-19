@@ -13,10 +13,10 @@ import frc.robot.subsystems.Index;
 
     public static Command Shoot(Shooter shooter, Index index){
         return Commands.parallel(
-            Commands.run(()->shooter.spinShooterMotors(0.75),shooter),
-            Commands.waitSeconds(1).andThen(
-                Commands.run(() ->index.spinIndex(-0.25), index)
-            )
+            Commands.run(()->shooter.spinShooterMotors(0.75,"AutoCommands::Command"), shooter)//,
+            //Commands.waitSeconds(1).andThen(
+            //    Commands.run(() ->index.spinIndex(-0.25,"AutoCommands::Command"), index)
+            //)
         );
         //.alongWith();
 
