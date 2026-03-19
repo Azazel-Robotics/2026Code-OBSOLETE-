@@ -93,19 +93,23 @@ public class RobotContainer {
         //Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToFloor()); //arm jiggle
 
 
-        //index
-        Driver.rightBumper().onTrue(index.spinIndex(-0.5)).onFalse(index.spinIndex(0));
+        //index forward
+        Driver.rightBumper().onTrue(index.spinIndex(0.5)).onFalse(index.spinIndex(0));
+
+         //index reverse
+        Driver.b().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
 
         //shooter short range
-        Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.50)).onFalse(shooter.spinShooterMotors(0));
-        Driver.leftTrigger().onTrue(shooter.spinShooterNeck(.50)).onFalse(shooter.spinShooterNeck((0)));
+        Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
+        Driver.leftTrigger().onTrue(shooter.spinShooterNeck(.65)).onFalse(shooter.spinShooterNeck((0)));
 
         //shooter mid range
         Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
-
+        Driver.leftBumper().onTrue(shooter.spinShooterNeck(0.75)).onFalse(shooter.spinShooterNeck(0));
 
         //shooter long range
-        Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.85)).onFalse(shooter.spinShooterMotors(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterMotors(1.0)).onFalse(shooter.spinShooterMotors(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterNeck(1.0)).onFalse(shooter.spinShooterNeck(0));
        
 
 
@@ -126,9 +130,9 @@ public class RobotContainer {
             // Reset our field centric heading to match the robot
             // facing away from our alliance station wall (0 deg).
             m_robotDrive.runOnce(() -> m_robotDrive.seedFieldCentric(Rotation2d.kZero)),
-            // Then slowly drive forward (away from us) for 5 seconds.
+            // Then slowly drive backwards (towards us) for 3 seconds.
             m_robotDrive.applyRequest(() ->
-                drive.withVelocityX(-0.5)
+                drive.withVelocityX(-0.3)
                     .withVelocityY(0)
                     .withRotationalRate(0)
             )
