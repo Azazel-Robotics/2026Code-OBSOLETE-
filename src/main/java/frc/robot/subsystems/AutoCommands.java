@@ -17,8 +17,8 @@ import frc.robot.subsystems.Index;
             Commands.waitSeconds(1).andThen(
                 Commands.run(() ->index.spinIndex(-0.25), index)
             )
-        )
-        .alongWith();
+        );
+        //.alongWith();
 
 
         
