@@ -119,7 +119,7 @@ public class RobotContainer {
 
 
 
-    /*public Command getAutonomousCommand() {
+    public Command getAutonomousCommand() {
         // Simple drive forward auton
         final var idle = new SwerveRequest.Idle();
         return Commands.sequence(
@@ -128,23 +128,23 @@ public class RobotContainer {
             m_robotDrive.runOnce(() -> m_robotDrive.seedFieldCentric(Rotation2d.kZero)),
             // Then slowly drive forward (away from us) for 5 seconds.
             m_robotDrive.applyRequest(() ->
-                drive.withVelocityX(0.5)
+                drive.withVelocityX(-0.5)
                     .withVelocityY(0)
                     .withRotationalRate(0)
             )
             .withTimeout(3.0),
             
             //Activate Mid Distance Shooter and Index
-            new Autonomous(shooter, index).withTimeout(2.0),
+            AutoCommands.Shoot(shooter, index),
             
             // Finally idle for the rest of auton
             m_robotDrive.applyRequest(() -> idle)
         );
-    } */
+    } 
 
     //edited Auto to just be activating shooter and index -> mid range
-    public Command getAutonomousCommand () {
-        return AutoCommands.Shoot(shooter, index);
+    // public Command getAutonomousCommand () {
+    //     return AutoCommands.Shoot(shooter, index);
         //return new Autonomous(shooter, index).withTimeout(2.0);
         // return new ParallelCommandGroup(
         //     new InstantCommand( () -> shooter.spinShooterMotor(0.5)),
