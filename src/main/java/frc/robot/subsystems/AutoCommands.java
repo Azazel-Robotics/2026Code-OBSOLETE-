@@ -19,6 +19,9 @@ import frc.robot.subsystems.Index;
             )
         )
         .alongWith();
+
+
+        
         // addCommands(
 
         // //Command Group will (hopefully) finish after 10 seconds -AZ
@@ -31,6 +34,8 @@ import frc.robot.subsystems.Index;
 
         // );
     }
+
+    
 
     //figure out if a Parallel Deadline Group will work better -AZ
 

@@ -114,7 +114,7 @@ public class RobotContainer {
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
 
-        //Driver.y().onTrue(AutoCommands.Shoot(shooter, index)).onFalse(shooter.spinShooterMotors(0), index.spinIndex(0));
+        //Driver.y().toggleOnTrue(AutoCommands.Shoot(shooter, index)).toggleonFalse(shooter.spinShooterMotors(0), index.spinIndex(0));
     }
 
 
