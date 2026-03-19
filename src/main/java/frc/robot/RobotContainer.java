@@ -27,37 +27,33 @@ import frc.robot.subsystems.Autonomous;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 public class RobotContainer extends ParallelCommandGroup{
+    
+    //SWERVE STUFF
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
     private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-
     private final Telemetry logger = new Telemetry(MaxSpeed);
+    public final CommandSwerveDrivetrain m_robotDrive = TunerConstants.createDrivetrain();
+
 
     private final CommandXboxController Driver = new CommandXboxController(0);
     private final CommandXboxController Operator = new CommandXboxController(1);
 
-    public final CommandSwerveDrivetrain m_robotDrive = TunerConstants.createDrivetrain();
-
-    public final IntakeSubsystem intake = new IntakeSubsystem();
-
+    //public final IntakeSubsystem intake = new IntakeSubsystem();
     //public final IntakeArm intakeArm = new IntakeArm();
-
     public final Shooter shooter = new Shooter();
-
     public final Index index = new Index();
-
     //public final Autonomous auto = new Autonomous(shooter, index);
+
 
     public RobotContainer() {
         configureBindings();
     }
-
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
@@ -69,19 +65,16 @@ public class RobotContainer extends ParallelCommandGroup{
                     .withRotationalRate(-Driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
-
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
         final var idle = new SwerveRequest.Idle();
         RobotModeTriggers.disabled().whileTrue(
             m_robotDrive.applyRequest(() -> idle).ignoringDisable(true)
         );
-
         Driver.a().whileTrue(m_robotDrive.applyRequest(() -> brake));
         Driver.b().whileTrue(m_robotDrive.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-Driver.getLeftY(), -Driver.getLeftX()))
         ));
-
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
         Driver.back().and(Driver.y()).whileTrue(m_robotDrive.sysIdDynamic(Direction.kForward));
@@ -89,31 +82,30 @@ public class RobotContainer extends ParallelCommandGroup{
         Driver.start().and(Driver.y()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kForward));
         Driver.start().and(Driver.x()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kReverse));
         
-        //Controls for intake motor and index motor
+        //INTAKE & INTAKE ARM
         //Operator.x().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
-        Driver.rightBumper().onTrue(index.spinIndex(-0.25)).onFalse(index.spinIndex(0));
-
-        //Controls for intake arm motor
         //Operator.y().onTrue(intakeArm.spinIntakeArmUp(0.1)).onFalse(intakeArm.spinIntakeArmUp(0));
         //Operator.a().onTrue(intakeArm.spinIntakeArmDown(0.1)).onFalse(intakeArm.spinIntakeArmDown(0));
+        //Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToFloor()); //arm jiggle
 
-        //Control for shooter motors short range
+
+        //index
+        Driver.rightBumper().onTrue(index.spinIndex(-0.25)).onFalse(index.spinIndex(0));
+
+        //shooter short range
         Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.5)).onFalse(shooter.spinShooterMotor(0));
         Driver.leftTrigger().onTrue(shooter.spinNeckMotor(0.5)).onFalse(shooter.spinNeckMotor(0));
 
-
-        //Control for shooter motors mid range
+        //shooter mid range
         Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.75)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.75)).onFalse(shooter.spinNeckMotor(0));
-        //ARM JIGGLE
-        //Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToFloor()); 
+        Driver.leftBumper().onTrue(shooter.spinNeckMotor(0.75)).onFalse(shooter.spinNeckMotor(0)); 
 
-        //Control for shooter motors long range
+        //shooter long range
         Driver.rightTrigger().onTrue(shooter.spinShooterMotor(0.85)).onFalse(shooter.spinShooterMotor(0));
         Driver.rightTrigger().onTrue(shooter.spinNeckMotor(0.85)).onFalse(shooter.spinNeckMotor(0));
 
-        // Reset the field-centric heading on A button press.
-        //this was changed by AZ and JA during march 14 meeting... CHECK AGAIN
+
+        // Reset the field-centric heading on X button press.
         Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
         m_robotDrive.registerTelemetry(logger::telemeterize);

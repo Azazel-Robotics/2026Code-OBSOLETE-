@@ -9,21 +9,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class Shooter extends SubsystemBase{
     
-    private TalonFX shooterMotor;
-    private TalonFX shooterNeckMotor;
+    private TalonFX shooterMotor = new TalonFX(Constants.Shooter.kShooterMotor);
+    private TalonFX shooterNeckMotor = new TalonFX(Constants.Shooter.kShooterNeckMotor);
 
     public Shooter() {
-
-        shooterMotor = new TalonFX(Constants.Shooter.kShooterMotor);
-        shooterNeckMotor = new TalonFX(Constants.Shooter.kShooterNeckMotor);
 
         //resets motor to factory default config
         shooterMotor.getConfigurator().apply(new TalonFXConfiguration());
         shooterNeckMotor.getConfigurator().apply(new TalonFXConfiguration());
 
-
         var currentConfig = new CurrentLimitsConfigs();
-
         TalonFXConfiguration config = new TalonFXConfiguration();
 
         //configs current of motor
@@ -35,8 +30,6 @@ public class Shooter extends SubsystemBase{
         shooterMotor.getConfigurator().apply(currentConfig);
         shooterNeckMotor.getConfigurator().refresh(currentConfig);
         shooterNeckMotor.getConfigurator().apply(currentConfig);
-
-
         
     }
 

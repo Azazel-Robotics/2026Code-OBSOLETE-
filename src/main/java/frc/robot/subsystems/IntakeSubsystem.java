@@ -12,17 +12,13 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class IntakeSubsystem extends SubsystemBase {
     
-    private SparkMax intakeMotor;
+    private SparkMax intakeMotor = new SparkMax(Constants.Intake.kIntakeMotor, MotorType.kBrushless);
 
     public IntakeSubsystem() {
-
-        intakeMotor = new SparkMax(Constants.Intake.kIntakeMotor, MotorType.kBrushless);
-
+        
         SparkMaxConfig intakeConfig = new SparkMaxConfig();
-
         intakeConfig.smartCurrentLimit(Constants.kMaxCurrent);
         intakeConfig.idleMode(IdleMode.kBrake);
-
         intakeMotor.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     }

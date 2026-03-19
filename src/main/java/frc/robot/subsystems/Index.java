@@ -13,35 +13,34 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Index extends SubsystemBase{
 
-    private SparkMax indexMotor;
-    private boolean motorOn;
+    private SparkMax indexMotor = new SparkMax(Constants.Index.kIntakeIndexMotor, MotorType.kBrushless);
+    private boolean motorOn; //used for toggle method
 
     public Index() {
-
-        indexMotor = new SparkMax(Constants.Index.kIntakeIndexMotor, MotorType.kBrushless);
-
+        //configs and sets limits for index motor
         SparkMaxConfig indexConfig = new SparkMaxConfig();
-
         indexConfig.smartCurrentLimit(Constants.kMaxCurrent);
-        indexConfig.idleMode(IdleMode.kBrake);
-
+        indexConfig.idleMode(IdleMode.kBrake); //stops motor from moving when button is not pressed
         indexMotor.configure(indexConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
         motorOn = false;
     }
 
+    //@override and periodic() means it is always running
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Index Motor On", motorOn);
-    }
-    public Command spinIndex(double speed) {
-
-        return this.runOnce( () -> indexMotor.set(speed));
-
+        SmartDashboard.putBoolean("Index Motor On", motorOn); //words that show up on dashboard screen :D
     }
 
-    public Command ToggleIndexMotor(double speed)
+    //Hold down button to spin motor
+    public Command spinIndex(double speed) 
     {
+        return this.runOnce( () -> indexMotor.set(speed));
+    }
 
+    //press button to toggle motor on/off
+    public Command toggleIndexMotor(double speed)
+    {
         if(motorOn)
         {
             motorOn = false;

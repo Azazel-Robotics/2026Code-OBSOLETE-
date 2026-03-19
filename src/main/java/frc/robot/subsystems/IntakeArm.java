@@ -70,28 +70,27 @@ public class IntakeArm extends SubsystemBase{
     public Command spinIntakeArmUp(double speed) {
         //account for limit switches
         if (isUpperPressed) {
-            return this.runOnce( () -> intakeArmMotor.set(Constants.kSTOP));
+            return this.runOnce( () -> intakeArmMotor.set(0));
+        } else {
+        return this.runOnce( () -> intakeArmMotor.set(speed));
         }
-        return this.runOnce( () -> intakeArmMotor.set(speed)); //manually move intake arm up
     }
     public Command spinIntakeArmDown(double speed) {
         //account for limit switches
         if (isLowerPressed) {
-            return this.runOnce( () -> intakeArmMotor.set(Constants.kSTOP));
+            return this.runOnce( () -> intakeArmMotor.set(0));
+        } else {
+        return this.runOnce( () -> intakeArmMotor.set(-speed)); 
         }
-        return this.runOnce( () -> intakeArmMotor.set(-speed)); //manually move intake arm down
     }
 
 
     //JIGGLE FEATURES LOL
     boolean goUp = true; //goUp = true, motor is going positive direction
     
-    
     //public void setReferencePoint //what???? I forgot what we were going to put here??? -AZ
 
     public Command intakeArmJiggle() {
-        
-
         if (isUpperPressed) {
             goUp = false;
             return this.runOnce( () -> intakeArmMotor.set(-0.1));
@@ -107,16 +106,17 @@ public class IntakeArm extends SubsystemBase{
     //to reset position of intake arm to floor, PLEASE CHANGE IDK IF WORK -JA
     public Command intakeArmToFloor() {
         if (isLowerPressed) {
-            return this.runOnce( () -> intakeArmMotor.set(Constants.kSTOP));
+            return this.runOnce( () -> intakeArmMotor.set(0));
         } else {
             while (!isLowerPressed) {
                 return this.runOnce( () -> intakeArmMotor.set(-0.1));
             }
-            return this.runOnce( () -> intakeArmMotor.set(Constants.kSTOP));
+            return this.runOnce( () -> intakeArmMotor.set(0));
         }
         
     }
 
+    /*
     //SMARTDASHBOARD THINGS
     @Override
     public void periodic() {
@@ -126,5 +126,6 @@ public class IntakeArm extends SubsystemBase{
         SmartDashboard.putNumber("Arm Motor Current", intakeArmMotor.getOutputCurrent());
         SmartDashboard.putNumber("Arm Motor Output", intakeArmMotor.getAppliedOutput());
     }
+    */
         
 }
