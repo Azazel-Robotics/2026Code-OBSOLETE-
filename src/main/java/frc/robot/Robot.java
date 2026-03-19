@@ -7,6 +7,7 @@ package frc.robot;
 import com.ctre.phoenix6.HootAutoReplay;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,14 +31,6 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run(); 
-        /* 
-        double omegaRps = Units.degreesToRotations(m_robotContainer.m_robotDrive.getPigeon2().);
-        var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-        if(llMeasurement != null && llMeasurement.tagCount >0) // Missing Math.abs(omegaRps)
-        {
-            //m_robotContainer
-        }
-            */
     }
 
     @Override
@@ -62,7 +55,10 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+        CommandScheduler.getInstance().run();
+        
+    }
 
     @Override
     public void autonomousExit() {}

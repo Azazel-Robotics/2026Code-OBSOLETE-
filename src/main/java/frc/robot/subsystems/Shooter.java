@@ -26,6 +26,7 @@ public class Shooter extends SubsystemBase{
         var currentConfig = new CurrentLimitsConfigs();
         TalonFXConfiguration config = new TalonFXConfiguration();
 
+
         //configs current of motor
         currentConfig.StatorCurrentLimit = Constants.kMaxCurrent;
         currentConfig.StatorCurrentLimitEnable = true;
@@ -33,16 +34,23 @@ public class Shooter extends SubsystemBase{
         //refreshes and applies current config
         shooterMotor.getConfigurator().refresh(currentConfig);
         shooterMotor.getConfigurator().apply(currentConfig);
-        shooterNeckMotor.getConfigurator().refresh(currentConfig);
-        shooterNeckMotor.getConfigurator().apply(currentConfig);
-        shooterMotor.setControl(new Follower(shooterNeckMotor.getDeviceID(), MotorAlignmentValue.Aligned));
         
+        shooterMotor.setControl(new Follower(shooterNeckMotor.getDeviceID(), MotorAlignmentValue.Aligned));
+
+        shooterNeckMotor.getConfigurator().refresh(currentConfig);
+        shooterNeckMotor.getConfigurator().apply(currentConfig);        
     }
 
     //set speed of shooter motors
     public Command spinShooterMotors(double speed) {
 
         return this.runOnce( () -> shooterMotor.set(speed));
+        
+    }
+
+        public Command spinShooterNeck(double speed) {
+
+        return this.runOnce( () -> shooterNeckMotor.set(speed));
         
     }
 
