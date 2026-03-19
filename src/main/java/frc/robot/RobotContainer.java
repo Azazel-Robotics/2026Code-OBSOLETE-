@@ -12,6 +12,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -25,8 +26,10 @@ import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
-public class RobotContainer extends ParallelCommandGroup{
+public class RobotContainer {
     
     //SWERVE STUFF
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -110,7 +113,7 @@ public class RobotContainer extends ParallelCommandGroup{
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
 
-        Driver.y().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
+        Driver.y().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(-0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
         .onFalse(Commands.parallel(shooter.spinShooterMotor(0), index.spinIndex(0), shooter.spinNeckMotor(0)));
     }
 
@@ -141,6 +144,12 @@ public class RobotContainer extends ParallelCommandGroup{
 
     //edited Auto to just be activating shooter and index -> mid range
     public Command getAutonomousCommand () {
-        return new Autonomous(shooter, index).withTimeout(2.0);
+        //return new Autonomous(shooter, index).withTimeout(2.0);
+        return new SequentialCommandGroup(
+            new InstantCommand( () -> shooter.spinShooterMotor(0.5)),
+            new InstantCommand( () -> shooter.spinNeckMotor(0.5)),
+            new WaitCommand(1),
+            new InstantCommand(() -> index.spinIndex(-0.25))
+        );
     }
 }
