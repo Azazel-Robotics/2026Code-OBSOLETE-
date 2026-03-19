@@ -42,7 +42,7 @@ public class Shooter extends SubsystemBase{
     }
 
     //set speed of shooter motors
-    public Command spinShooterMotors(double speed) {
+    public Command spinShooterMotor(double speed) {
 
         return this.runOnce( () -> shooterMotor.set(speed));
         
@@ -54,11 +54,35 @@ public class Shooter extends SubsystemBase{
         
     }
 
-    public Command spinShooterMotors(double speed, String caller)
+    public Command spinShooterMotor(double speed, String caller)
     {
         SmartDashboard.putString("Shooter Motor Call", caller);
-        return spinShooterMotors(speed);
+        return spinShooterMotor(speed);
     }
+
+    public Command spinShooterMotorAuto(double autoSpeed)
+    {
+        return this.run( () -> shooterMotor.set(autoSpeed));
+    }
+
+    public Command spinShooterMotorAuto(double autoSpeed, String caller)
+    {
+        SmartDashboard.putString("Shooter Motor Call Auto", caller);
+        return spinShooterMotorAuto(autoSpeed);
+    }
+
+    public Command spinShooterNeckAuto (double autoSpeed)
+    {
+        return this.run( () -> shooterNeckMotor.set(autoSpeed));
+    }
+
+    public Command spinShooterNeckAuto (double autoSpeed, String caller)
+    {
+        SmartDashboard.putString("Shooter Neck Motor Call Auto", caller);
+        return spinShooterMotorAuto(autoSpeed);
+    }
+
+
     // public Command spinNeckMotor(double speed) {
 
     //     return this.runOnce( () -> shooterNeckMotor.set(speed));

@@ -49,6 +49,17 @@ public class Index extends SubsystemBase{
         return this.runOnce( () -> indexMotor.set(speed));
     }
 
+    public Command spinIndexAuto(double autoSpeed)
+    {
+        return this.run( () -> indexMotor.set(autoSpeed));
+    }
+
+    public Command spinIndexAuto(double autoSpeed, String caller)
+    {
+        SmartDashboard.putString("Index Motor Call Auto", caller);
+        return spinIndexAuto(autoSpeed);
+    }
+
 
     //press button to toggle motor on/off
     public Command toggleIndexMotor(double speed)

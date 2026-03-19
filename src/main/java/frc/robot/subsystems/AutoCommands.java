@@ -18,20 +18,21 @@ public class AutoCommands {
     }
 
     public static Command Shoot(Shooter shooter, Index index) {
-        if (beenDelayed) {
+        if (!beenDelayed) {
             beenDelayed = true;
             DriverStation.reportWarning("Calling AutoCommands::Shoot with Delay", false);
 
             return Commands.parallel(
-                    Commands.run(() -> shooter.spinShooterMotors(0.75, "AutoCommands::Shoot"), shooter),
+                    Commands.run(() -> shooter.spinShooterMotorAuto(0.75, "AutoCommands::Shoot"), shooter),
+                    Commands.run( () -> shooter.spinShooterNeckAuto(0.75, "AutoCommands::Shoot"), shooter),
                     Commands.waitSeconds(1).andThen(
-                            Commands.run(() -> index.spinIndex(-0.25, "AutoCommands::Shoot"), index))
+                            Commands.run(() -> index.spinIndexAuto(-0.25, "AutoCommands::Shoot"), index))
             );
         } else {
             DriverStation.reportWarning("Calling AutoCommands::Shoot without delay", false);
             return Commands.parallel(
-                    Commands.run(() -> shooter.spinShooterMotors(0.75, "AutoCommands::Shoot"), shooter),
-                    Commands.run(() -> index.spinIndex(-0.25, "AutoCommands::Command::Shoot"), index));
+                    Commands.run(() -> shooter.spinShooterMotorAuto(0.75, "AutoCommands::Shoot"), shooter),
+                    Commands.run(() -> index.spinIndexAuto(-0.25, "AutoCommands::Command::Shoot"), index));
         }
 
         // .alongWith();

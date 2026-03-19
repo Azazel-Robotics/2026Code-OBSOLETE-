@@ -100,15 +100,15 @@ public class RobotContainer {
         Driver.y().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
 
         //shooter short range
-        Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
+        Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.65)).onFalse(shooter.spinShooterMotor(0));
         Driver.leftTrigger().onTrue(shooter.spinShooterNeck(.65)).onFalse(shooter.spinShooterNeck((0)));
 
         //shooter mid range
-        Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
+        Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.75)).onFalse(shooter.spinShooterMotor(0));
         Driver.leftBumper().onTrue(shooter.spinShooterNeck(0.75)).onFalse(shooter.spinShooterNeck(0));
 
         //shooter long range
-        Driver.rightTrigger().onTrue(shooter.spinShooterMotors(.85)).onFalse(shooter.spinShooterMotors(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterMotor(.85)).onFalse(shooter.spinShooterMotor(0));
         Driver.rightTrigger().onTrue(shooter.spinShooterNeck(.85)).onFalse(shooter.spinShooterNeck(0));
        
 
@@ -138,8 +138,8 @@ public class RobotContainer {
             )
             .withTimeout(3.0),
             
-            //Activate Mid Distance Shooter and Index
-            AutoCommands.Shoot(shooter, index),
+            //Activate Shooter and Index
+            AutoCommands.Shoot(shooter, index).withTimeout(10.0),
             
             // Finally idle for the rest of auton
             m_robotDrive.applyRequest(() -> idle)
