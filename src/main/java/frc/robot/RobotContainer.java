@@ -24,7 +24,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
 import frc.robot.subsystems.AutoCommands;
-import frc.robot.subsystems.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -53,7 +52,8 @@ public class RobotContainer {
     public final Shooter shooter = new Shooter();
     public final Index index = new Index();
     //public final Autonomous auto = new Autonomous(shooter, index);
-
+    //public final AutoCommands AutoCommands = new AutoCommands(shooter, index);
+    
 
     public RobotContainer() {
         configureBindings();
@@ -114,8 +114,7 @@ public class RobotContainer {
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
 
-        //Driver.y().onTrue(Commands.parallel(Commands.waitSeconds(1.5).andThen(index.spinIndex(-0.3)), shooter.spinShooterMotor(0.5), shooter.spinNeckMotor(0.5) ))
-        //.onFalse(Commands.parallel(shooter.spinShooterMotors(0), index.spinIndex(0), shooter.spinNeckMotor(0)));
+        //Driver.y().onTrue(AutoCommands.Shoot(shooter, index)).onFalse(shooter.spinShooterMotors(0), index.spinIndex(0));
     }
 
 
