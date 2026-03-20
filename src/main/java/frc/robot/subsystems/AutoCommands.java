@@ -11,44 +11,19 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
 
 public class AutoCommands {
-    private static boolean beenDelayed;
 
-    public AutoCommands() {
-        beenDelayed = false;
-    }
 
     public static Command Shoot(Shooter shooter, Index index) {
-        if (!beenDelayed) {
-            beenDelayed = true;
+
+
             DriverStation.reportWarning("Calling AutoCommands::Shoot with Delay", false);
 
             return Commands.parallel(
-                    Commands.run(() -> shooter.spinShooterMotorsAuto(0.75), shooter),
-                    //Commands.run( () -> shooter.spinShooterNeckAuto(0.75, "AutoCommands::Shoot"), shooter),
+                    shooter.spinShooterMotorsAuto(0.75),
                     Commands.waitSeconds(1).andThen(
-                            Commands.run(() -> index.spinIndexAuto(0.25, "AutoCommands::Shoot"), index))
+                            index.spinIndexAuto(0.25, "AutoCommands::Shoot"))
             );
-        } else {
-            DriverStation.reportWarning("Calling AutoCommands::Shoot without delay", false);
-            return Commands.parallel(
-                    Commands.run(() -> shooter.spinShooterMotorsAuto(0.75), shooter),
-                    Commands.run(() -> index.spinIndexAuto(0.25, "AutoCommands::Command::Shoot"), index));
-        }
 
-        // .alongWith();
-
-        // addCommands(
-
-        // //Command Group will (hopefully) finish after 10 seconds -AZ
-        // //new WaitCommand(10.0), //check if this is right -AZ
-        // new RunCommand ( () -> shooter.spinShooterMotor(0.25), shooter),
-        // new RunCommand ( () -> shooter.spinNeckMotor(0.25), shooter),
-        // new RunCommand( () ->
-        // Commands.waitSeconds(1.5).andThen(index.spinIndex(0.3)), index)
-
-        // //once completed, add command for the "jiggle"/feeder mechanism -AZ
-
-        // );
     }
 
     // figure out if a Parallel Deadline Group will work better -AZ
