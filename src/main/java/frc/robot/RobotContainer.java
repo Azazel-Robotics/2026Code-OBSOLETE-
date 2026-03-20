@@ -135,7 +135,7 @@ public class RobotContainer {
             m_robotDrive.applyRequest(() ->
                 drive.withVelocityX(-0.3)
                     .withVelocityY(0)
-                    .withRotationalRate(0)
+                    .withRotationalRate(0.3)
             )
             .withTimeout(3.0),
             
