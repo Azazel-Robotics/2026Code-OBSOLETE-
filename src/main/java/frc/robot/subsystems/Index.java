@@ -51,7 +51,7 @@ public class Index extends SubsystemBase{
 
     public Command spinIndexAuto(double autoSpeed)
     {
-        return this.run( () -> indexMotor.set(autoSpeed));
+        return this.run( () -> indexMotor.set(-autoSpeed));
     }
 
     public Command spinIndexAuto(double autoSpeed, String caller)
