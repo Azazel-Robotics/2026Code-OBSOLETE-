@@ -148,7 +148,11 @@ public class RobotContainer {
             m_robotDrive.applyRequest(() ->
                 drive.withVelocityX(0)
                     .withVelocityY(0)
+                    //starting on the right side 
                     .withRotationalRate(.48)
+
+                    // //starting on the left side
+                    // .withRotationalRate(-0.48)
             )
             .withTimeout(2.0),
             //Activate Shooter and Index
