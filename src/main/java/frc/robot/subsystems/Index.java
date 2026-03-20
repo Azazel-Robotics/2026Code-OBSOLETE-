@@ -72,12 +72,12 @@ public class Index extends SubsystemBase{
         if(motorOn)
         {
             motorOn = false;
-            return this.runOnce( () -> indexMotor.set(0));
+            return this.run( () -> indexMotor.set(0));
         }
         else 
         {
             motorOn = true;
-            return this.runOnce( () -> indexMotor.set(speed));
+            return this.run( () -> indexMotor.set(speed));
         }
     }
 }

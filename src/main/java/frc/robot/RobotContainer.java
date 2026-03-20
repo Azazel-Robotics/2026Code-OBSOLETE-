@@ -10,21 +10,22 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
+import frc.robot.commands.AutoCommands;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeArm;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
-import frc.robot.subsystems.AutoCommands;
-
+import frc.robot.commands.*;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -114,11 +115,12 @@ public class RobotContainer {
 
 
         // Reset the field-centric heading on X button press.
-        Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
+        //Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
         m_robotDrive.registerTelemetry(logger::telemeterize);
 
-        //Driver.y().toggleOnTrue(AutoCommands.Shoot(shooter, index)).toggleonFalse(shooter.spinShooterMotors(0), index.spinIndex(0));
+        Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75)).onFalse(AutoCommands.Shoot(shooter, index, 0));
+        Driver.x().toggleOnTrue(index.toggleIndexMotor(0.5));
     }
 
 
@@ -128,19 +130,29 @@ public class RobotContainer {
         final var idle = new SwerveRequest.Idle();
         
         return Commands.sequence(
+            // new InstantCommand(() -> {
+            //     if (DriverStation.getAlliance() == Alliance.Red) {
+            //         m_robotDrive.seedFieldCentric(Rotation2d.fromDegrees(90))
+            //     }
+            // }),
             // Reset our field centric heading to match the robot
             // facing away from our alliance station wall (0 deg).
-            m_robotDrive.runOnce(() -> m_robotDrive.seedFieldCentric(Rotation2d.kZero)),
+            // m_robotDrive.runOnce(() -> m_robotDrive.seedFieldCentric(Rotation2d.kZero)),
             // Then slowly drive backwards (towards us) for 3 seconds.
             m_robotDrive.applyRequest(() ->
                 drive.withVelocityX(-0.3)
                     .withVelocityY(0)
-                    .withRotationalRate(0.3)
+                    .withRotationalRate(0)
             )
             .withTimeout(3.0),
-            
+            m_robotDrive.applyRequest(() ->
+                drive.withVelocityX(0)
+                    .withVelocityY(0)
+                    .withRotationalRate(.48)
+            )
+            .withTimeout(2.0),
             //Activate Shooter and Index
-            AutoCommands.Shoot(shooter, index).withTimeout(10.0),
+            AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0),
             
             // Finally idle for the rest of auton
             m_robotDrive.applyRequest(() -> idle)

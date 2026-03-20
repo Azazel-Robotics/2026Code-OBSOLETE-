@@ -24,8 +24,8 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public Command spinIntake(double speed) {
-
         return this.runOnce( () -> intakeMotor.set(speed));
-
     }
+    
+
 }
