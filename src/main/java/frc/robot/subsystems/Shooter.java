@@ -25,6 +25,7 @@ public class Shooter extends SubsystemBase{
 
         var currentConfig = new CurrentLimitsConfigs();
         TalonFXConfiguration config = new TalonFXConfiguration();
+        
 
 
         //configs current of motor
@@ -71,9 +72,9 @@ public class Shooter extends SubsystemBase{
         return spinShooterMotorAuto(autoSpeed);
     }
 
-    public Command spinShooterNeckAuto (double autoSpeed)
+    public Command spinShooterMotorsAuto (double autoSpeed)
     {
-        return this.run( () -> shooterNeckMotor.set(autoSpeed));
+        return this.run( () -> {shooterNeckMotor.set(autoSpeed); shooterMotor.set(autoSpeed);});
     }
 
     public Command spinShooterNeckAuto (double autoSpeed, String caller)

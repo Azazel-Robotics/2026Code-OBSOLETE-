@@ -23,15 +23,15 @@ public class AutoCommands {
             DriverStation.reportWarning("Calling AutoCommands::Shoot with Delay", false);
 
             return Commands.parallel(
-                    Commands.run(() -> shooter.spinShooterMotorAuto(0.75, "AutoCommands::Shoot"), shooter),
-                    Commands.run( () -> shooter.spinShooterNeckAuto(0.75, "AutoCommands::Shoot"), shooter),
+                    Commands.run(() -> shooter.spinShooterMotorsAuto(0.75), shooter),
+                    //Commands.run( () -> shooter.spinShooterNeckAuto(0.75, "AutoCommands::Shoot"), shooter),
                     Commands.waitSeconds(1).andThen(
                             Commands.run(() -> index.spinIndexAuto(0.25, "AutoCommands::Shoot"), index))
             );
         } else {
             DriverStation.reportWarning("Calling AutoCommands::Shoot without delay", false);
             return Commands.parallel(
-                    Commands.run(() -> shooter.spinShooterMotorAuto(0.75, "AutoCommands::Shoot"), shooter),
+                    Commands.run(() -> shooter.spinShooterMotorsAuto(0.75), shooter),
                     Commands.run(() -> index.spinIndexAuto(0.25, "AutoCommands::Command::Shoot"), index));
         }
 

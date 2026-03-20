@@ -57,13 +57,13 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousPeriodic() {
-        DriverStation.reportError("Report::autonomousPeriodic: Periodic()", isAutonomous());
-        SmartDashboard.putString("Auto State", "running");
+        //DriverStation.reportError("Report::autonomousPeriodic: Periodic()", isAutonomous());
+        //SmartDashboard.putString("Auto State", "running");
     }
 
     @Override
     public void autonomousExit() {
-        DriverStation.reportError("Report::autonomousExit: Done", isAutonomous());
+        DriverStation.reportWarning("Report::autonomousExit: Done", isAutonomous());
         SmartDashboard.putString("Auto State", "end");
     }
 

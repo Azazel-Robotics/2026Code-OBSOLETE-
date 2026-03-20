@@ -126,6 +126,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // Simple drive forward auton
         final var idle = new SwerveRequest.Idle();
+        /* 
         return Commands.sequence(
             // Reset our field centric heading to match the robot
             // facing away from our alliance station wall (0 deg).
@@ -144,6 +145,8 @@ public class RobotContainer {
             // Finally idle for the rest of auton
             m_robotDrive.applyRequest(() -> idle)
         );
+        */
+        return AutoCommands.Shoot(shooter, index).withTimeout(10.0);
     } 
 
     //edited Auto to just be activating shooter and index -> mid range
