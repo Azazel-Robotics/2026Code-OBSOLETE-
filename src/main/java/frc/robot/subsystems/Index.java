@@ -46,6 +46,11 @@ public class Index extends SubsystemBase{
 
     public Command spinIndexReverse(double speed) 
     {
+        if(speed != 0)
+        {
+            SmartDashboard.putBoolean("Index Motor On", true);
+        }
+        else SmartDashboard.putBoolean("Index Motor On", false);
         return this.runOnce( () -> indexMotor.set(speed));
     }
 

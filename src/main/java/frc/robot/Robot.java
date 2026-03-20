@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        DriverStation.reportError("Report::autonomousInit: Started!", isAutonomous());
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         if (m_autonomousCommand != null) {
@@ -56,12 +57,15 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousPeriodic() {
-        CommandScheduler.getInstance().run();
-        
+        DriverStation.reportError("Report::autonomousPeriodic: Periodic()", isAutonomous());
+        SmartDashboard.putString("Auto State", "running");
     }
 
     @Override
-    public void autonomousExit() {}
+    public void autonomousExit() {
+        DriverStation.reportError("Report::autonomousExit: Done", isAutonomous());
+        SmartDashboard.putString("Auto State", "end");
+    }
 
     @Override
     public void teleopInit() {
