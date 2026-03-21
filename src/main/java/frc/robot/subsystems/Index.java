@@ -32,18 +32,20 @@ public class Index extends SubsystemBase{
         SmartDashboard.putBoolean("Index Motor On", motorOn); //words that show up on dashboard screen :D
     }
 
-    //Hold down button to spin motor
+    //Hold down button to spin Index motor
     public Command spinIndex(double speed) 
     {
         return this.runOnce( () -> indexMotor.set(-speed));
     }
 
+    //Prints out on SmartDashboard if the Index Motor is called
     public Command spinIndex(double speed,String caller) 
     {
         SmartDashboard.putString("Index Motor Call", caller);
         return spinIndex(speed);
     }
 
+    //prints out on SmartDashboard if the Index Motor is called and spins Index Motor in Reverse
     public Command spinIndexReverse(double speed) 
     {
         if(speed != 0)
@@ -54,11 +56,14 @@ public class Index extends SubsystemBase{
         return this.runOnce( () -> indexMotor.set(speed));
     }
 
+
+    //method used to set the speed of the Index during Auto continuously
     public Command spinIndexAuto(double autoSpeed)
     {
         return this.run( () -> indexMotor.set(-autoSpeed));
     }
 
+    //prints out on SmartDashboard if the Index Motor is called during Auto
     public Command spinIndexAuto(double autoSpeed, String caller)
     {
         SmartDashboard.putString("Index Motor Call Auto", caller);
@@ -66,7 +71,7 @@ public class Index extends SubsystemBase{
     }
 
 
-    //press button to toggle motor on/off
+    //press button to toggle Index motor on/off
     public Command toggleIndexMotor(double speed)
     {
         if(motorOn)

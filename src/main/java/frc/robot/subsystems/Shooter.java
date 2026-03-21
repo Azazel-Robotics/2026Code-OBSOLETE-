@@ -15,12 +15,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class Shooter extends SubsystemBase {
 
+    //declaring and intiallizing Shooter Motors
     private TalonFX shooterMotor = new TalonFX(Constants.Shooter.kShooterMotor);
     private TalonFX shooterNeckMotor = new TalonFX(Constants.Shooter.kShooterNeckMotor);
 
     public Shooter() {
 
-        // resets motor to factory default config
+        // resets motors to factory default config
         shooterMotor.getConfigurator().apply(new TalonFXConfiguration());
         shooterNeckMotor.getConfigurator().apply(new TalonFXConfiguration());
 
@@ -35,26 +36,30 @@ public class Shooter extends SubsystemBase {
         shooterMotor.getConfigurator().refresh(currentConfig);
         shooterMotor.getConfigurator().apply(currentConfig);
 
-        shooterMotor.setControl(new Follower(shooterNeckMotor.getDeviceID(), MotorAlignmentValue.Aligned));
+        //decided not to be used since it was messing up Command calls
+        //shooterMotor.setControl(new Follower(shooterNeckMotor.getDeviceID(), MotorAlignmentValue.Aligned));
 
         shooterNeckMotor.getConfigurator().refresh(currentConfig);
         shooterNeckMotor.getConfigurator().apply(currentConfig);
     }
 
-    // set speed of shooter motors
+    // set speed of shooter motor
     public Command spinShooterMotor(double speed) {
         return this.runOnce(() -> shooterMotor.set(speed));
     }
 
+    //set speed of shooter neck motor
     public Command spinShooterNeck(double speed) {
 
         return this.runOnce(() -> shooterNeckMotor.set(speed));
     }
 
-    public Command spinShooterMotorAuto(double autoSpeed) {
-        return this.run(() -> shooterMotor.set(autoSpeed));
-    }
+    // //sets speed of the shooter motor during auto
+    // public Command spinShooterMotorAuto(double autoSpeed) {
+    //     return this.run(() -> shooterMotor.set(autoSpeed));
+    // }
 
+    //sets speed of the shooter and shooter neck motor during auto
     public Command spinShooterMotors(double autoSpeed) {
         return this.run(() -> {
             shooterNeckMotor.set(autoSpeed);

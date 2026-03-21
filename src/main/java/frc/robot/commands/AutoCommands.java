@@ -13,7 +13,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
 
 public class AutoCommands {
-
+        //spins the shooter motors and waits until full speed before activating the index
         public static Command Shoot(Shooter shooter, Index index, double shooterSpeed) {
 
                 DriverStation.reportWarning("Calling AutoCommands::Shoot with Delay", false);

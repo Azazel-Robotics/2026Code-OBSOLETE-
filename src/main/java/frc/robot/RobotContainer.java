@@ -120,6 +120,7 @@ public class RobotContainer {
         m_robotDrive.registerTelemetry(logger::telemeterize);
 
         Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75)).onFalse(AutoCommands.Shoot(shooter, index, 0));
+        
         Driver.x().toggleOnTrue(index.toggleIndexMotor(0.5));
     }
 
@@ -156,7 +157,7 @@ public class RobotContainer {
                     // .withRotationalRate(-0.48)
             )
             .withTimeout(2.0),
-            
+
             //Activate Shooter and Index
             AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0),
             
