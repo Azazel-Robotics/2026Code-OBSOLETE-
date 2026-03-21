@@ -145,6 +145,7 @@ public class RobotContainer {
                     .withRotationalRate(0)
             )
             .withTimeout(3.0),
+
             m_robotDrive.applyRequest(() ->
                 drive.withVelocityX(0)
                     .withVelocityY(0)
@@ -155,6 +156,7 @@ public class RobotContainer {
                     // .withRotationalRate(-0.48)
             )
             .withTimeout(2.0),
+            
             //Activate Shooter and Index
             AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0),
             
