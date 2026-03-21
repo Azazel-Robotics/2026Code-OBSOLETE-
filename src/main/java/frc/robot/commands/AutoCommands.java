@@ -16,8 +16,6 @@ public class AutoCommands {
         //spins the shooter motors and waits until full speed before activating the index
         public static Command Shoot(Shooter shooter, Index index, double shooterSpeed) {
 
-                DriverStation.reportWarning("Calling AutoCommands::Shoot with Delay", false);
-
                 return Commands.parallel(
                                 shooter.spinShooterMotors(shooterSpeed),
                                 Commands.waitSeconds(1).andThen(
@@ -25,17 +23,7 @@ public class AutoCommands {
 
         }
 
-        // figure out if a Parallel Deadline Group will work better -AZ
-
-        // public Autonomous() {
-        // addCommands (
-
-        // new WaitCommand (10.0),
-        // new RunCommand ( () -> shooter.spinShooterMotor(0.4)),
-        // new RunCommand ( () -> shooter.spinNeckMotor(0.4)),
-        // new RunCommand (() -> index.spinIndex(0.4))
-
-        // );
-        // }
+        //Testing for Auto
+        
 
 }

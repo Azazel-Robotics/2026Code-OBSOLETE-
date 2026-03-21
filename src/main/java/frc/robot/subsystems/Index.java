@@ -85,4 +85,13 @@ public class Index extends SubsystemBase{
             return this.run( () -> indexMotor.set(speed));
         }
     }
+
+        //Using for Testing
+    public Command TestCommandFunction(double autoSpeed) {
+        return this.startEnd(() -> {
+            indexMotor.set(autoSpeed);
+        }, ()-> {
+            indexMotor.set(0);
+        });
+    }
 }

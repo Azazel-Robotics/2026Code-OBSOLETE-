@@ -125,47 +125,49 @@ public class RobotContainer {
     }
 
 
-
     public Command getAutonomousCommand() {
+        
+        
+       // return index.TestCommandFunction(.75).withTimeout(2)
+        //.andThen(Commands.waitSeconds(2)).andThen(index.TestCommandFunction(-.75).withTimeout(5))
+        
+         
         // Simple drive forward auton
         final var idle = new SwerveRequest.Idle();
         
         return Commands.sequence(
-            // new InstantCommand(() -> {
-            //     if (DriverStation.getAlliance() == Alliance.Red) {
-            //         m_robotDrive.seedFieldCentric(Rotation2d.fromDegrees(90))
-            //     }
-            // }),
-            // Reset our field centric heading to match the robot
-            // facing away from our alliance station wall (0 deg).
-            // m_robotDrive.runOnce(() -> m_robotDrive.seedFieldCentric(Rotation2d.kZero)),
-            // Then slowly drive backwards (towards us) for 3 seconds.
-            m_robotDrive.applyRequest(() ->
-                drive.withVelocityX(-0.3)
+            m_robotDrive.applyRequest(() ->{
+                return drive.withVelocityX(-2)
                     .withVelocityY(0)
-                    .withRotationalRate(0)
+                    .withRotationalRate(0);}
             )
-            .withTimeout(3.0),
+            .withTimeout(3.0),           
 
             m_robotDrive.applyRequest(() ->
                 drive.withVelocityX(0)
                     .withVelocityY(0)
-                    //starting on the right side 
-                    .withRotationalRate(.48)
+                    // //starting on the right side 
+                    // .withRotationalRate(.48)
 
-                    // //starting on the left side
-                    // .withRotationalRate(-0.48)
+                    //starting on the left side
+                    .withRotationalRate(-0.48)
             )
-            .withTimeout(2.0),
+            .withTimeout(2.0).andThen( m_robotDrive.applyRequest(() ->
+                drive.withVelocityX(0)
+                    .withVelocityY(0)
+                    // //starting on the right side 
+                    // .withRotationalRate(.48)
+
+                    //starting on the left side
+                    .withRotationalRate(0)
+            )),
 
             //Activate Shooter and Index
-            AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0),
-            
-            // Finally idle for the rest of auton
-            m_robotDrive.applyRequest(() -> idle)
+            AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0)
         );
         
         //return AutoCommands.Shoot(shooter, index).withTimeout(10.0);
+        
     } 
 
     //edited Auto to just be activating shooter and index -> mid range

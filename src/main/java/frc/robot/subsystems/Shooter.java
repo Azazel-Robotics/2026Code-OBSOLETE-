@@ -54,16 +54,22 @@ public class Shooter extends SubsystemBase {
         return this.runOnce(() -> shooterNeckMotor.set(speed));
     }
 
-    // //sets speed of the shooter motor during auto
-    // public Command spinShooterMotorAuto(double autoSpeed) {
-    //     return this.run(() -> shooterMotor.set(autoSpeed));
-    // }
-
     //sets speed of the shooter and shooter neck motor during auto
     public Command spinShooterMotors(double autoSpeed) {
         return this.run(() -> {
             shooterNeckMotor.set(autoSpeed);
             shooterMotor.set(autoSpeed);
+        });
+    }
+
+    //Using for Testing
+    public Command TestCommandFunction(double autoSpeed) {
+        return this.startEnd(() -> {
+            shooterNeckMotor.set(autoSpeed);
+            shooterMotor.set(autoSpeed);
+        }, ()-> {
+            shooterNeckMotor.set(0);
+            shooterMotor.set(0);
         });
     }
 
