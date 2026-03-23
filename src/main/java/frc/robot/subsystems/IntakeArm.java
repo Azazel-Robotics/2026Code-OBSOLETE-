@@ -20,7 +20,7 @@ public class IntakeArm extends SubsystemBase{
 
     private SparkMax intakeArmMotor;
 
-    //declaring limit switches
+    //declaring limit switches if we use them..?
     private DigitalInput armUpperLimit;
     private DigitalInput armLowerLimit;
 
@@ -44,6 +44,7 @@ public class IntakeArm extends SubsystemBase{
     }
 
     //POSITIONS OF INTAKE ARM
+    //Was this for the encoders or for the limit switches? I'm pretty sure this was for the switches but I forgot? -AZ
     public static enum armStates{
         //change parameters to match positions of arm
         START(0),
