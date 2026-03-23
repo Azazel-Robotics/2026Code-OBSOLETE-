@@ -44,7 +44,7 @@ public class IntakeArm extends SubsystemBase{
     }
 
     //POSITIONS OF INTAKE ARM
-    //Was this for the encoders or for the limit switches? I'm pretty sure this was for the switches but I forgot? -AZ
+    //encoders stuff
     public static enum armStates{
         //change parameters to match positions of arm
         START(0),
@@ -67,7 +67,7 @@ public class IntakeArm extends SubsystemBase{
     boolean isUpperPressed = !armUpperLimit.get(); //.get() returns false when button is pressed
     boolean isLowerPressed = !armLowerLimit.get();
 
-   //MANUAL INTAKE ARM UP AND DOWN
+   //MANUAL INTAKE ARM UP AND DOWN limit switches
     public Command spinIntakeArmUp(double speed) {
         //account for limit switches
         if (isUpperPressed) {
