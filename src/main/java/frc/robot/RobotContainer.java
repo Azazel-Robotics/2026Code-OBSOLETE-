@@ -101,16 +101,19 @@ public class RobotContainer {
         Driver.y().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
 
         //shooter short range
-        Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.65)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftTrigger().onTrue(shooter.spinShooterNeck(.65)).onFalse(shooter.spinShooterNeck((0)));
+        // Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.65)).onFalse(shooter.spinShooterMotor(0));
+        // Driver.leftTrigger().onTrue(shooter.spinShooterNeck(.65)).onFalse(shooter.spinShooterNeck((0)));
+        Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
 
         //shooter mid range
-        Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.75)).onFalse(shooter.spinShooterMotor(0));
-        Driver.leftBumper().onTrue(shooter.spinShooterNeck(0.75)).onFalse(shooter.spinShooterNeck(0));
+        // Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.75)).onFalse(shooter.spinShooterMotor(0));
+        // Driver.leftBumper().onTrue(shooter.spinShooterNeck(0.75)).onFalse(shooter.spinShooterNeck(0));
+        Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
 
         //shooter long range
-        Driver.rightTrigger().onTrue(shooter.spinShooterMotor(.8)).onFalse(shooter.spinShooterMotor(0));
-        Driver.rightTrigger().onTrue(shooter.spinShooterNeck(.8)).onFalse(shooter.spinShooterNeck(0));
+        // Driver.rightTrigger().onTrue(shooter.spinShooterMotor(.8)).onFalse(shooter.spinShooterMotor(0));
+        // Driver.rightTrigger().onTrue(shooter.spinShooterNeck(.8)).onFalse(shooter.spinShooterNeck(0));
+        Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
        
 
 
@@ -164,6 +167,8 @@ public class RobotContainer {
 
             //Activate Shooter and Index
             AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0)
+            .andThen(shooter.spinShooterMotorsAuto(0)),
+            index.spinIndexAuto(0)
         );
         
         //return AutoCommands.Shoot(shooter, index).withTimeout(10.0);

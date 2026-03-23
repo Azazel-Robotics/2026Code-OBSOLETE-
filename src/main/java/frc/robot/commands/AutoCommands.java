@@ -17,7 +17,7 @@ public class AutoCommands {
         public static Command Shoot(Shooter shooter, Index index, double shooterSpeed) {
 
                 return Commands.parallel(
-                                shooter.spinShooterMotors(shooterSpeed),
+                                shooter.spinShooterMotorsAuto(shooterSpeed),
                                 Commands.waitSeconds(1).andThen(
                                                 index.spinIndexAuto(0.25, "AutoCommands::Shoot")));
 
