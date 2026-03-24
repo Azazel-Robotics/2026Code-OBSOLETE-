@@ -59,11 +59,12 @@ public class RobotContainer {
     public RobotContainer() {
         configureBindings();
 
-        //testing for multiple autos
+        //testing for multiple autos 
         m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
         m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
         m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
 
+        //the input thingy that SHOULD be found on Smart Dashboard
         SmartDashboard.putData("Choose Auto Position", m_autoChooser);
 
     }
