@@ -40,6 +40,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
 
+    //check what this line does? -AZ
     private final Field2d field2d = new Field2d();
     //SwerveDriveOdometry m_Odometry = new SwerveDriveOdometry(null, Rotation2d.fromDegrees())
 
