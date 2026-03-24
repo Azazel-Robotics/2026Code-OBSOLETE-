@@ -127,7 +127,7 @@ public class RobotContainer {
 
         Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75)).onFalse(AutoCommands.Shoot(shooter, index, 0));
         
-        Driver.x().toggleOnTrue(index.toggleIndexMotor(0.5));
+
     }
 
 
