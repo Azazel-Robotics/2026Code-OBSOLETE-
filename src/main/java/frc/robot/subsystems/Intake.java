@@ -10,11 +10,11 @@ import frc.robot.Constants;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class Intake extends SubsystemBase {
     
     private SparkMax intakeMotor = new SparkMax(Constants.Intake.kIntakeMotor, MotorType.kBrushless);
 
-    public IntakeSubsystem() {
+    public Intake() {
         
         SparkMaxConfig intakeConfig = new SparkMaxConfig();
         intakeConfig.smartCurrentLimit(Constants.kMaxCurrent);

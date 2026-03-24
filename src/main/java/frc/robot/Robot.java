@@ -47,7 +47,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         DriverStation.reportError("Report::autonomousInit: Started!", isAutonomous());
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        //had to change this -> figure out if this is fine -AZ
+        m_autonomousCommand = m_robotContainer.getAutonomousCommandMiddle();
 
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().schedule(m_autonomousCommand);
