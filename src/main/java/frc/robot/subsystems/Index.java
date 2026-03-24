@@ -70,28 +70,4 @@ public class Index extends SubsystemBase{
         return spinIndexAuto(autoSpeed);
     }
 
-
-    //press button to toggle Index motor on/off
-    public Command toggleIndexMotor(double speed)
-    {
-        if(motorOn)
-        {
-            motorOn = false;
-            return this.run( () -> indexMotor.set(0));
-        }
-        else 
-        {
-            motorOn = true;
-            return this.run( () -> indexMotor.set(speed));
-        }
-    }
-
-        //Using for Testing
-    public Command TestCommandFunction(double autoSpeed) {
-        return this.startEnd(() -> {
-            indexMotor.set(autoSpeed);
-        }, ()-> {
-            indexMotor.set(0);
-        });
-    }
 }
