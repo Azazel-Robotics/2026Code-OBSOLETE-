@@ -13,6 +13,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -48,11 +49,21 @@ public class RobotContainer {
     public final Index index = new Index();
     //public final Autonomous auto = new Autonomous(shooter, index);
     //public final AutoCommands AutoCommands = new AutoCommands(shooter, index);
+    
+    //testing for multiple autos
     SendableChooser<Command> m_autoChooser = new SendableChooser<>();
     
 
     public RobotContainer() {
         configureBindings();
+
+        //testing for multiple autos
+        m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
+        m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
+        m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
+
+        SmartDashboard.putData("Choose Auto Position", m_autoChooser);
+
     }
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
@@ -96,18 +107,12 @@ public class RobotContainer {
         Driver.y().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
 
         //shooter short range
-        // Driver.leftTrigger().onTrue(shooter.spinShooterMotor(0.65)).onFalse(shooter.spinShooterMotor(0));
-        // Driver.leftTrigger().onTrue(shooter.spinShooterNeck(.65)).onFalse(shooter.spinShooterNeck((0)));
         Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
 
         //shooter mid range
-        // Driver.leftBumper().onTrue(shooter.spinShooterMotor(0.75)).onFalse(shooter.spinShooterMotor(0));
-        // Driver.leftBumper().onTrue(shooter.spinShooterNeck(0.75)).onFalse(shooter.spinShooterNeck(0));
         Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
 
         //shooter long range
-        // Driver.rightTrigger().onTrue(shooter.spinShooterMotor(.8)).onFalse(shooter.spinShooterMotor(0));
-        // Driver.rightTrigger().onTrue(shooter.spinShooterNeck(.8)).onFalse(shooter.spinShooterNeck(0));
         Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
        
 
@@ -123,15 +128,7 @@ public class RobotContainer {
     }
 
 
-    public Command getAutonomousCommand() {
-        
-        
-       // return index.TestCommandFunction(.75).withTimeout(2)
-        //.andThen(Commands.waitSeconds(2)).andThen(index.TestCommandFunction(-.75).withTimeout(5))
-        
-         
-        // Simple drive forward auton
-        final var idle = new SwerveRequest.Idle();
+    public Command getAutonomousCommandLeft() {
         
         return Commands.sequence(
             m_robotDrive.applyRequest(() ->{
@@ -144,19 +141,11 @@ public class RobotContainer {
             m_robotDrive.applyRequest(() ->
                 drive.withVelocityX(0)
                     .withVelocityY(0)
-                    // //starting on the right side 
-                    // .withRotationalRate(.48)
-
-                    //starting on the left side
                     .withRotationalRate(-0.48)
             )
             .withTimeout(2.0).andThen( m_robotDrive.applyRequest(() ->
                 drive.withVelocityX(0)
                     .withVelocityY(0)
-                    // //starting on the right side 
-                    // .withRotationalRate(.48)
-
-                    //starting on the left side
                     .withRotationalRate(0)
             )),
 
@@ -166,19 +155,59 @@ public class RobotContainer {
             index.spinIndexAuto(0)
         );
         
-        //return AutoCommands.Shoot(shooter, index).withTimeout(10.0);
+    } 
+
+    public Command getAutonomousCommandRight() {
+  
+        return Commands.sequence(
+            m_robotDrive.applyRequest(() ->{
+                return drive.withVelocityX(-2)
+                    .withVelocityY(0)
+                    .withRotationalRate(0);}
+            )
+            .withTimeout(3.0),           
+
+            m_robotDrive.applyRequest(() ->
+                drive.withVelocityX(0)
+                    .withVelocityY(0)
+                    .withRotationalRate(0.48)
+            )
+            .withTimeout(2.0).andThen( m_robotDrive.applyRequest(() ->
+                drive.withVelocityX(0)
+                    .withVelocityY(0)
+                    .withRotationalRate(0)
+            )),
+
+            //Activate Shooter and Index
+            AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0)
+            .andThen(shooter.spinShooterMotorsAuto(0)),
+            index.spinIndexAuto(0)
+        );
         
     } 
 
-    //edited Auto to just be activating shooter and index -> mid range
-    // public Command getAutonomousCommand () {
-    //     return AutoCommands.Shoot(shooter, index);
-        //return new Autonomous(shooter, index).withTimeout(2.0);
-        // return new ParallelCommandGroup(
-        //     new InstantCommand( () -> shooter.spinShooterMotor(0.5)),
-        //     new InstantCommand( () -> shooter.spinNeckMotor(0.5)),
-        //     // new WaitCommand(1),
-        //     new InstantCommand(() -> index.spinIndex(-0.25))
-        // );
+    public Command getAutonomousCommandMiddle() {
+        
+        return Commands.sequence(
+            m_robotDrive.applyRequest(() ->{
+                return drive.withVelocityX(-2)
+                    .withVelocityY(0)
+                    .withRotationalRate(0);}
+            )
+            .withTimeout(3.0)
+            .andThen( m_robotDrive.applyRequest(() ->
+                drive.withVelocityX(0)
+                    .withVelocityY(0)
+                    .withRotationalRate(0)
+            )),
+
+            //Activate Shooter and Index
+            AutoCommands.Shoot(shooter, index,.75).withTimeout(10.0)
+            .andThen(shooter.spinShooterMotorsAuto(0)),
+            index.spinIndexAuto(0)
+        );
+        
+    } 
+
     }
 
