@@ -45,10 +45,12 @@ public class RobotContainer {
     private final CommandXboxController Driver = new CommandXboxController(0);
     private final CommandXboxController Operator = new CommandXboxController(1);
 
-    public final Intake intake = new Intake();
-    public final IntakeArm intakeArm = new IntakeArm();
+    //public final IntakeSubsystem intake = new IntakeSubsystem();
+    //public final IntakeArm intakeArm = new IntakeArm();
     public final Shooter shooter = new Shooter();
     public final Index index = new Index();
+    //public final Autonomous auto = new Autonomous(shooter, index);
+    //public final AutoCommands AutoCommands = new AutoCommands(shooter, index);
     
     //testing for multiple autos
     SendableChooser<Command> m_autoChooser = new SendableChooser<>();
@@ -125,7 +127,7 @@ public class RobotContainer {
 
         Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75)).onFalse(AutoCommands.Shoot(shooter, index, 0));
         
-
+        //Driver.x().toggleOnTrue(index.toggleIndexMotor(0.5));
     }
 
 
@@ -209,6 +211,5 @@ public class RobotContainer {
         );
         
     } 
-
-    }
+}
 
