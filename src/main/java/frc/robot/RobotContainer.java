@@ -45,12 +45,10 @@ public class RobotContainer {
     private final CommandXboxController Driver = new CommandXboxController(0);
     private final CommandXboxController Operator = new CommandXboxController(1);
 
-    //public final IntakeSubsystem intake = new IntakeSubsystem();
-    //public final IntakeArm intakeArm = new IntakeArm();
+    public final Intake intake = new Intake();
+    public final IntakeArm intakeArm = new IntakeArm();
     public final Shooter shooter = new Shooter();
     public final Index index = new Index();
-    //public final Autonomous auto = new Autonomous(shooter, index);
-    //public final AutoCommands AutoCommands = new AutoCommands(shooter, index);
     
     //testing for multiple autos
     SendableChooser<Command> m_autoChooser = new SendableChooser<>();
