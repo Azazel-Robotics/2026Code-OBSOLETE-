@@ -51,8 +51,6 @@ public class RobotContainer {
     // public final IntakeArm intakeArm = new IntakeArm();
     public final Shooter shooter = new Shooter();
     public final Index index = new Index();
-    // public final Autonomous auto = new Autonomous(shooter, index);
-    // public final AutoCommands AutoCommands = new AutoCommands(shooter, index);
 
     // testing for multiple autos
     SendableChooser<Command> m_autoChooser = new SendableChooser<>();
@@ -64,6 +62,7 @@ public class RobotContainer {
         m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
         m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
         m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
+        m_autoChooser.addOption("Path Planner Option", getAutonomousPathPlanner());
 
         // the input thingy that SHOULD be found on Smart Dashboard
         SmartDashboard.putData("Choose Auto Position", m_autoChooser);
