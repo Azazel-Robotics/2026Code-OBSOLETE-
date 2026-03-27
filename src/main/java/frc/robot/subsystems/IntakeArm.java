@@ -13,7 +13,6 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,9 +29,6 @@ public class IntakeArm extends SubsystemBase {
     private RelativeEncoder encoder;
     private SparkClosedLoopController armController;
 
-    //testing PID for encoder
-    private SparkMaxPIDController pidController;
-
     public IntakeArm() {
 
         // configs for intake arm speed
@@ -48,7 +44,6 @@ public class IntakeArm extends SubsystemBase {
 
         //initalizing encoder and stuff
         encoder = intakeArmMotor.getEncoder();
-        pidController = intakeArmMotor.getPIDController();
 
     }
 
