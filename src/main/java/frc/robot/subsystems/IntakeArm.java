@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -14,13 +13,11 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
-
-import com.revrobotics.AbsoluteEncoder;
 
 public class IntakeArm extends SubsystemBase {
 
@@ -30,10 +27,11 @@ public class IntakeArm extends SubsystemBase {
     private DigitalInput armUpperLimit;
     private DigitalInput armLowerLimit;
 
-    // private RelativeEncoder encoder = intakeArmMotor.getEncoder();
+    private RelativeEncoder encoder;
     private SparkClosedLoopController armController;
 
-    private AbsoluteEncoder encoder;
+    //testing PID for encoder
+    private SparkMaxPIDController pidController;
 
     public IntakeArm() {
 
@@ -48,91 +46,88 @@ public class IntakeArm extends SubsystemBase {
         armUpperLimit = new DigitalInput(Constants.IntakeArm.kArmUpperLimit);
         armLowerLimit = new DigitalInput(Constants.IntakeArm.kArmLowerLimit);
 
-        encoder = intakeArmMotor.getAbsoluteEncoder(); // This is not complete
-
-        armController = intakeArmMotor.getClosedLoopController();
+        //initalizing encoder and stuff
+        encoder = intakeArmMotor.getEncoder();
+        pidController = intakeArmMotor.getPIDController();
 
     }
 
     // POSITIONS OF INTAKE ARM
     // encoders stuff
-    /*
-     * public static enum armStates{
-     * //change parameters to match positions of arm
-     * START(0),
-     * JIGGLE1(20),
-     * JIGGLE2(40),
-     * FLOOR(100);
-     * 
-     * public armStates() {
-     * 
-     * }
-     * }
-     */
+    public static enum armStates {
+        // change parameters to match positions of arm
+        START(0),
+        JIGGLE1(20),
+        JIGGLE2(40),
+        FLOOR(100);
 
-    public Command setReferenceToPoint(double position) {
-       return this.runOnce(() -> armController.setSetpoint(position, ControlType.kPosition)); 
+        private final double armPosition;
+
+        private armStates(double position) {
+            this.armPosition = position;
+        }
+
+        public double getArmPosition() {
+            return this.armPosition;
+        }
     }
 
-    /*
-     * //is limit switch pressed
-     * boolean isUpperPressed = !armUpperLimit.get(); //.get() returns false when
-     * button is pressed
-     * boolean isLowerPressed = !armLowerLimit.get();
-     * 
-     * //MANUAL INTAKE ARM UP AND DOWN limit switches
-     * public Command spinIntakeArmUp(double speed) {
-     * //account for limit switches
-     * if (isUpperPressed) {
-     * return this.runOnce( () -> intakeArmMotor.set(0));
-     * } else {
-     * return this.runOnce( () -> intakeArmMotor.set(speed));
-     * }
-     * }
-     * public Command spinIntakeArmDown(double speed) {
-     * //account for limit switches
-     * if (isLowerPressed) {
-     * return this.runOnce( () -> intakeArmMotor.set(0));
-     * } else {
-     * return this.runOnce( () -> intakeArmMotor.set(-speed));
-     * }
-     * }
-     * 
-     */
+    // is limit switch pressed
+    boolean isUpperPressed = !armUpperLimit.get(); // .get() returns false when button is pressed
+    boolean isLowerPressed = !armLowerLimit.get();
 
-    /*
-     * //JIGGLE FEATURES LOL
-     * boolean goUp = true; //goUp = true, motor is going positive direction
-     * 
-     * //public void setReferencePoint //what???? I forgot what we were going to put
-     * here??? -AZ
-     * 
-     * public Command intakeArmJiggle() {
-     * if (isUpperPressed) {
-     * goUp = false;
-     * return this.runOnce( () -> intakeArmMotor.set(-0.1));
-     * } else if (isLowerPressed) {
-     * goUp = true;
-     * return this.runOnce( () -> intakeArmMotor.set(0.1));
-     * } else if (goUp) {
-     * return this.runOnce( () -> intakeArmMotor.set(0.1));
-     * } else {
-     * return this.runOnce( () -> intakeArmMotor.set(-0.1));
-     * }
-     * }
-     * //to reset position of intake arm to floor, PLEASE CHANGE IDK IF WORK -JA
-     * public Command intakeArmToFloor() {
-     * if (isLowerPressed) {
-     * return this.runOnce( () -> intakeArmMotor.set(0));
-     * } else {
-     * while (!isLowerPressed) {
-     * return this.runOnce( () -> intakeArmMotor.set(-0.1));
-     * }
-     * return this.runOnce( () -> intakeArmMotor.set(0));
-     * }
-     * 
-     * }
-     */
+    // MANUAL INTAKE ARM UP AND DOWN limit switches
+    public Command spinIntakeArmUp(double speed) {
+        // account for limit switches
+        if (isUpperPressed) {
+            return this.runOnce(() -> intakeArmMotor.set(0));
+        } else {
+            return this.runOnce(() -> intakeArmMotor.set(speed));
+        }
+    }
+
+    public Command spinIntakeArmDown(double speed) {
+        // account for limit switches
+        if (isLowerPressed) {
+            return this.runOnce(() -> intakeArmMotor.set(0));
+        } else {
+            return this.runOnce(() -> intakeArmMotor.set(-speed));
+        }
+    }
+
+    // JIGGLE FEATURES LOL
+    boolean goUp = true; // goUp = true, motor is going positive direction
+
+    // public void setReferencePoint //what???? I forgot what we were going to put
+    // here??? -AZ
+
+    // this is for limit switches
+    public Command intakeArmJiggle() {
+        if (isUpperPressed) {
+            goUp = false;
+            return this.runOnce(() -> intakeArmMotor.set(-0.1));
+        } else if (isLowerPressed) {
+            goUp = true;
+            return this.runOnce(() -> intakeArmMotor.set(0.1));
+        } else if (goUp) {
+            return this.runOnce(() -> intakeArmMotor.set(0.1));
+        } else {
+            return this.runOnce(() -> intakeArmMotor.set(-0.1));
+        }
+    }
+
+    // to reset position of intake arm to floor, PLEASE CHANGE IDK IF WORK -JA
+    public Command intakeArmToFloor() {
+        if (isLowerPressed) {
+            return this.runOnce(() -> intakeArmMotor.set(0));
+        } else {
+            while (!isLowerPressed) {
+                return this.runOnce(() -> intakeArmMotor.set(-0.1));
+            }
+            return this.runOnce(() -> intakeArmMotor.set(0));
+        }
+
+    }
 
     /*
      * //SMARTDASHBOARD THINGS
