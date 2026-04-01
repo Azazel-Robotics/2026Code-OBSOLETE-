@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -93,9 +94,9 @@ public class IntakeArm extends SubsystemBase {
     public Command spinIntakeArmUp(double speed) {
         // account for limit switches
         if (isUpperPressed) {
-            return this.runOnce(() -> intakeArmMotor.set(0));
+            return this.runOnce(() ->intakeArmMotor.set(0));
         } else {
-            return this.runOnce(() -> intakeArmMotor.set(speed));
+            return this.runOnce(() ->intakeArmMotor.set(speed));
         }
     }
 
@@ -108,6 +109,7 @@ public class IntakeArm extends SubsystemBase {
         }
     }
 
+    /*
     // JIGGLE FEATURES LOL
     boolean goUp = true; // goUp = true, motor is going positive direction
 
@@ -126,19 +128,15 @@ public class IntakeArm extends SubsystemBase {
         } else {
             return this.runOnce(() -> intakeArmMotor.set(-0.1));
         }
-    }
+    } */
 
     // to reset position of intake arm to floor, PLEASE CHANGE IDK IF WORK -JA
     public Command intakeArmToFloor() {
         if (isLowerPressed) {
             return this.runOnce(() -> intakeArmMotor.set(0));
         } else {
-            while (!isLowerPressed) {
-                return this.runOnce(() -> intakeArmMotor.set(-0.1));
-            }
-            return this.runOnce(() -> intakeArmMotor.set(0));
+            return this.runOnce(() -> intakeArmMotor.set(-0.1));
         }
-
     }
 
     /*

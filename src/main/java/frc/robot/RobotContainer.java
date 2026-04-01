@@ -10,7 +10,7 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.pathplanner.lib.commands.PathPlannerAuto;
+//import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -31,7 +31,7 @@ import frc.robot.subsystems.IntakeArm;
 public class RobotContainer {
 
     // SWERVE STUFF
-    private double MaxSpeed = 0.75 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
+    private double MaxSpeed = .75 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
                                                                                          // speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second
                                                                                       // max angular velocity
@@ -48,7 +48,7 @@ public class RobotContainer {
     private final CommandXboxController Operator = new CommandXboxController(1);
 
     // public final IntakeSubsystem intake = new IntakeSubsystem();
-    // public final IntakeArm intakeArm = new IntakeArm();
+    public final IntakeArm intakeArm = new IntakeArm();
     public final Shooter shooter = new Shooter();
     public final Index index = new Index();
 
@@ -62,7 +62,7 @@ public class RobotContainer {
         m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
         m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
         m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
-        m_autoChooser.addOption("Path Planner Option", getAutonomousPathPlanner());
+        //m_autoChooser.addOption("Path Planner Option", getAutonomousPathPlanner());
 
         // the input thingy that SHOULD be found on Smart Dashboard
         SmartDashboard.putData("Choose Auto Position", m_autoChooser);
@@ -127,10 +127,10 @@ public class RobotContainer {
 
     }
 
-    public Command getAutonomousPathPlanner() {
-        // This is pulling a path that will make the command go Forward and then back.
-        return new PathPlannerAuto("BackAndForth");
-    }
+//     public Command getAutonomousPathPlanner() {
+//         // This is pulling a path that will make the command go Forward and then back.
+//         return new PathPlannerAuto("BackAndForth");
+//     }
 
     public Command getAutonomousCommandLeft() {
 
@@ -159,11 +159,11 @@ public class RobotContainer {
     public Command getAutonomousCommandRight() {
 
         return Commands.sequence(
-                m_robotDrive.applyRequest(() -> {
-                    return drive.withVelocityX(-2)
+                m_robotDrive.applyRequest(() -> 
+                    drive.withVelocityX(-2)
                             .withVelocityY(0)
-                            .withRotationalRate(0);
-                })
+                            .withRotationalRate(0)
+                )
                         .withTimeout(3.0),
 
                 m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
@@ -176,7 +176,8 @@ public class RobotContainer {
                 // Activate Shooter and Index
                 AutoCommands.Shoot(shooter, index, .75).withTimeout(10.0)
                         .andThen(shooter.spinShooterMotorsAuto(0)),
-                index.spinIndexAuto(0));
+                index.spinIndexAuto(0)
+                );
 
     }
 
@@ -184,7 +185,7 @@ public class RobotContainer {
 
         return Commands.sequence(
                 m_robotDrive.applyRequest(() -> {
-                    return drive.withVelocityX(-2)
+                     return drive.withVelocityX(-2)
                             .withVelocityY(0)
                             .withRotationalRate(0);
                 })

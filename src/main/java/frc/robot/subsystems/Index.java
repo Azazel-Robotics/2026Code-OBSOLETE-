@@ -66,7 +66,13 @@ public class Index extends SubsystemBase{
     //prints out on SmartDashboard if the Index Motor is called during Auto
     public Command spinIndexAuto(double autoSpeed, String caller)
     {
-        SmartDashboard.putString("Index Motor Call Auto", caller);
+        //SmartDashboard.putString("Index Motor Call Auto", caller);
+        
+        if(autoSpeed != 0)
+        {
+            SmartDashboard.putBoolean("Index Motor On", true);
+        }
+        else SmartDashboard.putBoolean("Index Motor On", false);
         return spinIndexAuto(autoSpeed);
     }
 
