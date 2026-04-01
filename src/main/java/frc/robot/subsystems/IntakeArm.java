@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -26,7 +28,7 @@ public class IntakeArm extends SubsystemBase {
     private DigitalInput armUpperLimit;
     private DigitalInput armLowerLimit;
 
-    private RelativeEncoder encoder;
+    private RelativeEncoder encoder; //was this the one that works..? -AZ
     private SparkClosedLoopController armController;
 
     public IntakeArm() {
@@ -43,9 +45,25 @@ public class IntakeArm extends SubsystemBase {
         armLowerLimit = new DigitalInput(Constants.IntakeArm.kArmLowerLimit);
 
         //initalizing encoder and stuff
-        encoder = intakeArmMotor.getEncoder();
+        encoder = intakeArmMotor.getEncoder(); //idk what this was for..? -AZ
+        armController = intakeArmMotor.getClosedLoopController();
+
+        
+        //we probably need to change the setpoint value..? I just put it on zero for now. -AZ
+        armController.setSetpoint(0, ControlType.kPosition);
+
+        //I put zeros as the values for now -> we should figure out the correct tuning for the constants class -AZ
+        intakeArmConfig.closedLoop
+        .p(0)
+        .i(0) //this is not recommended for FRC so maybe we should use the feedforward method instead..? -AZ
+        .d(0)
+        .outputRange(0, 0);
+        
 
     }
+
+
+
 
     // POSITIONS OF INTAKE ARM
     // encoders stuff
@@ -93,8 +111,7 @@ public class IntakeArm extends SubsystemBase {
     // JIGGLE FEATURES LOL
     boolean goUp = true; // goUp = true, motor is going positive direction
 
-    // public void setReferencePoint //what???? I forgot what we were going to put
-    // here??? -AZ
+    // public void setReferencePoint //what???? I forgot what we were going to put here??? -AZ
 
     // this is for limit switches
     public Command intakeArmJiggle() {
