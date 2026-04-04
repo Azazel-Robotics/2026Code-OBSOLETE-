@@ -50,7 +50,7 @@ public class RobotContainer {
         private final CommandXboxController Driver = new CommandXboxController(0);
         private final CommandXboxController Operator = new CommandXboxController(1);
 
-        // public final IntakeSubsystem intake = new IntakeSubsystem();
+        public final Intake intake = new Intake();
         // public final IntakeArm intakeArm = new IntakeArm();
         public final Shooter shooter = new Shooter();
         public final Index index = new Index();
@@ -107,12 +107,11 @@ public class RobotContainer {
                 Driver.start().and(Driver.y()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kForward));
                 Driver.start().and(Driver.x()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kReverse));
 
-                // INTAKE & INTAKE ARM
-                // Operator.x().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
-                // Operator.y().onTrue(intakeArm.spinIntakeArmUp(0.1)).onFalse(intakeArm.spinIntakeArmUp(0));
-                // Operator.a().onTrue(intakeArm.spinIntakeArmDown(0.1)).onFalse(intakeArm.spinIntakeArmDown(0));
-                // Driver.leftBumper().onTrue(intakeArm.intakeArmJiggle()).onFalse(intakeArm.intakeArmToFloor());
-                // //arm jiggle
+                // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
+                Operator.b().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
+
+                // INTAKE reverse..? CHECK IF POSITIVE OR NEGATIVE -AZ
+                Operator.x().onTrue(intake.spinIntake(-0.3)).onFalse(intake.spinIntake(0));
 
                 // index forward
                 Driver.rightBumper().onTrue(index.spinIndex(0.5)).onFalse(index.spinIndex(0));
