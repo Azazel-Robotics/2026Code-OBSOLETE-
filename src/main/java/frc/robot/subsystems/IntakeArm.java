@@ -45,20 +45,20 @@ public class IntakeArm extends SubsystemBase {
         armUpperLimit = new DigitalInput(Constants.IntakeArm.kArmUpperLimit);
         armLowerLimit = new DigitalInput(Constants.IntakeArm.kArmLowerLimit);
 
-        //initalizing encoder and stuff
-        encoder = intakeArmMotor.getEncoder(); //idk what this was for..? -AZ
-        armController = intakeArmMotor.getClosedLoopController();
+        // //initalizing encoder and stuff
+        // encoder = intakeArmMotor.getEncoder(); //idk what this was for..? -AZ
+        // armController = intakeArmMotor.getClosedLoopController();
 
         
-        //we probably need to change the setpoint value..? I just put it on zero for now. -AZ
-        armController.setSetpoint(0, ControlType.kPosition);
+        // //we probably need to change the setpoint value..? I just put it on zero for now. -AZ
+        // armController.setSetpoint(0, ControlType.kPosition);
 
-        //I put zeros as the values for now -> we should figure out the correct tuning for the constants class -AZ
-        intakeArmConfig.closedLoop
-        .p(0)
-        .i(0) //this is not recommended for FRC so maybe we should use the feedforward method instead..? -AZ
-        .d(0)
-        .outputRange(0, 0);
+        // //I put zeros as the values for now -> we should figure out the correct tuning for the constants class -AZ
+        // intakeArmConfig.closedLoop
+        // .p(0)
+        // .i(0) //this is not recommended for FRC so maybe we should use the feedforward method instead..? -AZ
+        // .d(0)
+        // .outputRange(0, 0);
         
 
     }
