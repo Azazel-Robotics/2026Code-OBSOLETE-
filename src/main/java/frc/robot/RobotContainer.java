@@ -135,11 +135,11 @@ public class RobotContainer {
     public Command getAutonomousCommandLeft() {
 
         return Commands.sequence(
-                m_robotDrive.applyRequest(() -> {
-                    return drive.withVelocityX(-2)
+                m_robotDrive.applyRequest(() ->
+                    drive.withVelocityX(-2)
                             .withVelocityY(0)
-                            .withRotationalRate(0);
-                })
+                            .withRotationalRate(0)
+                )
                         .withTimeout(3.0),
 
                 m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
@@ -184,11 +184,11 @@ public class RobotContainer {
     public Command getAutonomousCommandMiddle() {
 
         return Commands.sequence(
-                m_robotDrive.applyRequest(() -> {
-                     return drive.withVelocityX(-2)
+                m_robotDrive.applyRequest(() -> 
+                     drive.withVelocityX(-2)
                             .withVelocityY(0)
-                            .withRotationalRate(0);
-                })
+                            .withRotationalRate(0)
+                )
                         .withTimeout(3.0)
                         .andThen(m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
                                 .withVelocityY(0)
