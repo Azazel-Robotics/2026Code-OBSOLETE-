@@ -10,7 +10,7 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-//import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,7 +47,7 @@ public class RobotContainer {
     private final CommandXboxController Driver = new CommandXboxController(0);
     private final CommandXboxController Operator = new CommandXboxController(1);
 
-    // public final IntakeSubsystem intake = new IntakeSubsystem();
+    //public final IntakeSubsystem intake = new IntakeSubsystem();
     public final IntakeArm intakeArm = new IntakeArm();
     public final Shooter shooter = new Shooter();
     public final Index index = new Index();
@@ -62,7 +62,7 @@ public class RobotContainer {
         m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
         m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
         m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
-        //m_autoChooser.addOption("Path Planner Option", getAutonomousPathPlanner());
+        m_autoChooser.addOption("Path Planner Option", getAutonomousPathPlanner());
 
         // the input thingy that SHOULD be found on Smart Dashboard
         SmartDashboard.putData("Choose Auto Position", m_autoChooser);
@@ -127,10 +127,10 @@ public class RobotContainer {
 
     }
 
-//     public Command getAutonomousPathPlanner() {
-//         // This is pulling a path that will make the command go Forward and then back.
-//         return new PathPlannerAuto("BackAndForth");
-//     }
+    public Command getAutonomousPathPlanner() {
+        // This is pulling a path that will make the command go Forward and then back.
+        return new PathPlannerAuto("BackAndForth");
+    }
 
     public Command getAutonomousCommandLeft() {
 
