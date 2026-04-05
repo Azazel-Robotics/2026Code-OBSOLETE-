@@ -20,8 +20,8 @@ public class Constants {
         public static final int kIntakeArmMotor = 19;
        
         //CHANGE/CHECK THESE
-        public static final int kArmUpperLimit = 0;
-        public static final int kArmLowerLimit = 1;
+        public static final int kArmPassive = 0;
+        public static final int kArmActive = 1;
     }
 
     public static class Index{

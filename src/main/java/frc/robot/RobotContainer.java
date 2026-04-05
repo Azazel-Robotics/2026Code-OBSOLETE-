@@ -19,14 +19,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AutoCommands;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Index;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakeArm;
+import frc.robot.subsystems.Shooter;
 
 public class RobotContainer {
 
@@ -51,7 +52,7 @@ public class RobotContainer {
         private final CommandXboxController Operator = new CommandXboxController(1);
 
         public final Intake intake = new Intake();
-        // public final IntakeArm intakeArm = new IntakeArm();
+        public final IntakeArm intakeArm = new IntakeArm();
         public final Shooter shooter = new Shooter();
         public final Index index = new Index();
 
@@ -107,11 +108,25 @@ public class RobotContainer {
                 Driver.start().and(Driver.y()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kForward));
                 Driver.start().and(Driver.x()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kReverse));
 
+
+                //Operator's Controls
+
                 // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
                 Operator.b().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
 
                 // INTAKE reverse..? CHECK IF POSITIVE OR NEGATIVE -AZ
                 Operator.x().onTrue(intake.spinIntake(-0.3)).onFalse(intake.spinIntake(0));
+
+                //CHANGE THESE VALUES -> TRIAL AND ERROR TYPE STUFF I THINK..? -AZ
+                Trigger toArmPassive = Operator.leftTrigger();
+                toArmPassive.onTrue(intakeArm.spinIntakeUp(0.3)).onFalse(intakeArm.spinIntakeDown(0));
+
+                Trigger toArmActive = Operator.rightTrigger();
+                toArmActive.onTrue(intakeArm.spinIntakeUp(0.3)).onFalse(intakeArm.spinIntakeDown(0));
+
+
+
+                //Driver's Controls
 
                 // index forward
                 Driver.rightBumper().onTrue(index.spinIndex(0.5)).onFalse(index.spinIndex(0));
@@ -127,14 +142,16 @@ public class RobotContainer {
 
                 // shooter long range
                 Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
+                
+                Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75))
+                                .onFalse(AutoCommands.Shoot(shooter, index, 0));
 
                 // Reset the field-centric heading on X button press.
                 // Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
                 m_robotDrive.registerTelemetry(logger::telemeterize);
 
-                Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75))
-                                .onFalse(AutoCommands.Shoot(shooter, index, 0));
+                
 
         }
 
