@@ -111,6 +111,12 @@ public class RobotContainer {
 
                 //Operator's Controls
 
+                //THIS CONTROL SHOULD BE THE ONE BEING USED -AZ
+                //IDK IF THIS IS SAFE WITH THE LIMIT SWITCH BTW! DONT BREAK THE SWITCH /srs -AZ
+                //Intake forward while Arm moves down
+                Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm, 0.3, 0.3));
+
+
                 // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
                 Operator.b().onTrue(intake.spinIntake(0.3)).onFalse(intake.spinIntake(0));
 
@@ -119,10 +125,10 @@ public class RobotContainer {
 
                 //CHANGE THESE VALUES -> TRIAL AND ERROR TYPE STUFF I THINK..? -AZ
                 Trigger toArmPassive = Operator.leftTrigger();
-                toArmPassive.onTrue(intakeArm.spinIntakeUp(0.3)).onFalse(intakeArm.spinIntakeDown(0));
+                toArmPassive.onTrue(intakeArm.spinIntakeUp(0.3)).onFalse(intakeArm.spinIntakeUp(0));
 
                 Trigger toArmActive = Operator.rightTrigger();
-                toArmActive.onTrue(intakeArm.spinIntakeUp(0.3)).onFalse(intakeArm.spinIntakeDown(0));
+                toArmActive.onTrue(intakeArm.spinIntakeDown(0.3)).onFalse(intakeArm.spinIntakeDown(0));
 
 
 
