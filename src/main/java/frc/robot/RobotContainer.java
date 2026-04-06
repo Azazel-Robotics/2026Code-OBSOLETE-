@@ -10,6 +10,8 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -58,19 +60,27 @@ public class RobotContainer {
 
         // testing for multiple autos
         SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+        SendableChooser<Command> m_autoChooserPathPlanner;
 
         public RobotContainer() {
                 configureBindings();
+                
+                m_autoChooserPathPlanner = AutoBuilder.buildAutoChooser();
 
-                // testing for multiple autos
+                // Auto Option Displayer found on Smart Dashboard
+                SmartDashboard.putData("Auto Position", m_autoChooser);
+                SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
+
+                //Non Path Planner Auto Options
                 m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
                 m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
                 m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
-                m_autoChooser.addOption("Path Planner Option", getAutonomousPathPlanner());
 
-                // the input thingy that SHOULD be found on Smart Dashboard
-                SmartDashboard.putData("Choose Auto Position", m_autoChooser);
-
+                //Path Planner Auto Options
+                m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
+                m_autoChooserPathPlanner.addOption("Left Side Start", new PathPlannerAuto("Auto Left Start"));
+                
+                
         }
 
         private void configureBindings() {
@@ -157,9 +167,20 @@ public class RobotContainer {
 
                 m_robotDrive.registerTelemetry(logger::telemeterize);
 
+                //Commands for PathPlanner
+
+                //Adjust Values to fit -AZ
+                NamedCommands.registerCommand("Intake Start", AutoCommands.Intake(intake, intakeArm, 0.3, 0.3));
+                NamedCommands.registerCommand("Intake End", AutoCommands.Intake(intake, intakeArm, 0, 0));
+                NamedCommands.registerCommand("Spin Intake Arm Down", intakeArm.spinIntakeDown(0.3));
+                NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75));
+                NamedCommands.registerCommand("First Shoot End", AutoCommands.Shoot(shooter, index, 0));
+                NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 0.8));
+                NamedCommands.registerCommand("Ferrying End", AutoCommands.Shoot(shooter, index, 0));
+
                 
 
-        }
+        }        
 
         public Command getAutonomousPathPlanner() {
                 // This is pulling a path that will make the command go Forward and then back.
