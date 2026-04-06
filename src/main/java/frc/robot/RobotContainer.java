@@ -78,7 +78,7 @@ public class RobotContainer {
 
                 //Path Planner Auto Options
                 m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
-                m_autoChooserPathPlanner.addOption("Left Side Start", new PathPlannerAuto("Auto Left Start"));
+                m_autoChooserPathPlanner.addOption("Left Side Start", new PathPlannerAuto("Auto Left Start Ferrying"));
                 
                 
         }
