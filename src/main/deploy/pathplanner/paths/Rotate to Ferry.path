@@ -50,7 +50,7 @@
     "rotation": 179.0906195508009
   },
   "reversed": false,
-  "folder": "Steps for Auto Left Start",
+  "folder": "Paths for Auto Left Start",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -88.3153156821037

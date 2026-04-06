@@ -1,0 +1,99 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.791269614835947,
+        "y": 5.283580599144081
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.426837218570568,
+        "y": 5.177821651140521
+      },
+      "isLocked": false,
+      "linkedName": "left end3"
+    },
+    {
+      "anchor": {
+        "x": 5.824593437945791,
+        "y": 5.684679029957205
+      },
+      "prevControl": {
+        "x": 7.107791798042781,
+        "y": 5.3215672917653825
+      },
+      "nextControl": {
+        "x": 4.513295343266956,
+        "y": 6.055742261685826
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.5473894436519258,
+        "y": 5.865820256776035
+      },
+      "prevControl": {
+        "x": 4.0188615214327355,
+        "y": 5.855911897678147
+      },
+      "nextControl": {
+        "x": 3.2630977630458484,
+        "y": 5.87179487158938
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.331155492154065,
+        "y": 5.387089871611984
+      },
+      "prevControl": {
+        "x": 3.95621693722575,
+        "y": 5.797907750536362
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "left end4"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 178.9488192504563
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 3.0,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -31.94175660512876
+  },
+  "reversed": false,
+  "folder": "Paths for Auto Left Start",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -88.3153156821037
+  },
+  "useDefaultConstraints": true
+}
