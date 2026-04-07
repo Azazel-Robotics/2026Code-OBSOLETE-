@@ -17,7 +17,7 @@ public class Constants {
 
     public static class IntakeArm{
         //CHECK THIS
-        public static final int kIntakeArmMotor = 19;
+        public static final int kIntakeArmMotor = 22;
        
         //CHANGE/CHECK THESE
         public static final int kArmPassive = 0;
