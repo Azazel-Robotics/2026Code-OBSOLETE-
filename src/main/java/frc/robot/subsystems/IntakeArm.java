@@ -57,7 +57,7 @@ public class IntakeArm extends SubsystemBase {
     //April 5, 2026 limit switch attempt -AZ
 
     //check if values are correct as positive/negative and if conditions even work lol -AZ
-    public Command spinIntakeUp(double speed) {
+    public Command spinArmUp(double speed) {
         if(armPassive.get() && speed > 0){
             return this.runOnce(() -> intakeArmMotor.set(0));
         } else if(armPassive.get() && speed < 0) { 
@@ -68,7 +68,7 @@ public class IntakeArm extends SubsystemBase {
         }
     }
 
-    public Command spinIntakeDown(double speed){
+    public Command spinArmDown(double speed){
        if(armActive.get() && speed > 0){
             return this.runOnce(() -> intakeArmMotor.set(0));
         } else if(armActive.get() && speed < 0) {

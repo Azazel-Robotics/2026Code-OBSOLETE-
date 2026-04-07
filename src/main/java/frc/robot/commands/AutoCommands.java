@@ -32,7 +32,7 @@ public class AutoCommands {
         //spins the intake motor to intake while moving the arm down to counter balance the movement..?
         public static Command Intake(Intake intake, IntakeArm intakeArm, double intakeSpeed, double armSpeed) {
                 return Commands.parallel(
-                        intakeArm.spinIntakeDown(-armSpeed),
+                        intakeArm.spinArmDown(-armSpeed),
                         intake.spinIntake(intakeSpeed)
                         
                 );
