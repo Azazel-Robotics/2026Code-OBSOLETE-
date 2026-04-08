@@ -7,21 +7,23 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
+import com.revrobotics.spark.SparkLimitSwitch;
 
 public class IntakeArm extends SubsystemBase {
 
     private SparkMax intakeArmMotor;
 
-    // declaring limit switches if we use them..?
-    private DigitalInput armPassive;
-    private DigitalInput armActive;
-
     // private RelativeEncoder encoder; //was this the one that works..? -AZ
     // private SparkClosedLoopController armController;
+
+    //limit switchs
+    private SparkLimitSwitch limitUp;
+    private SparkLimitSwitch limitDown;
 
     public IntakeArm() {
 
@@ -31,15 +33,15 @@ public class IntakeArm extends SubsystemBase {
         intakeArmConfig.smartCurrentLimit(Constants.kMaxCurrent);
         intakeArmConfig.idleMode(IdleMode.kBrake);
         intakeArmMotor.configure(intakeArmConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        
+        //initializing limit switches
+        limitUp = intakeArmMotor.getForwardLimitSwitch();
+        limitDown = intakeArmMotor.getReverseLimitSwitch();
 
-        // initilaizing limit switches
-        armPassive = new DigitalInput(Constants.IntakeArm.kArmPassive);
-        armActive = new DigitalInput(Constants.IntakeArm.kArmActive);
 
         // //initalizing encoder and stuff
         // encoder = intakeArmMotor.getEncoder(); //idk what this was for..? -AZ
         // armController = intakeArmMotor.getClosedLoopController();
-
         
         // //we probably need to change the setpoint value..? I just put it on zero for now. -AZ
         // armController.setSetpoint(0, ControlType.kPosition);
@@ -54,31 +56,21 @@ public class IntakeArm extends SubsystemBase {
 
     }
 
-    //April 5, 2026 limit switch attempt -AZ
-
-    //check if values are correct as positive/negative and if conditions even work lol -AZ
+    //manual up and down, limit switches work HOORAY -JA
     public Command spinArmUp(double speed) {
-        if(armPassive.get() && speed > 0){
-            return this.runOnce(() -> intakeArmMotor.set(0));
-        } else if(armPassive.get() && speed < 0) { 
-        //this should prevent the arm from trying to go past the limit switch..? -AZ
-            return this.runOnce(() -> intakeArmMotor.set(0));
-        } else {
-            return this.runOnce(() -> intakeArmMotor.set(speed));
-        }
-    }
-
-    public Command spinArmDown(double speed){
-       if(armActive.get() && speed > 0){
-            return this.runOnce(() -> intakeArmMotor.set(0));
-        } else if(armActive.get() && speed < 0) {
-        //this should prevent the arm from trying to go past the limit switch..? -AZ
+        if(limitDown.isPressed()){
             return this.runOnce(() -> intakeArmMotor.set(0));
         } else {
             return this.runOnce(() -> intakeArmMotor.set(-speed));
         }
     }
-
+    public Command spinArmDown(double speed) {
+        if(limitUp.isPressed()){
+            return this.runOnce(() -> intakeArmMotor.set(0));
+        } else {
+            return this.runOnce(() -> intakeArmMotor.set(speed));
+        }
+    }
 
 
     // // POSITIONS OF INTAKE ARM

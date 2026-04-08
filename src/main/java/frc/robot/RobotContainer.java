@@ -135,12 +135,15 @@ public class RobotContainer {
                 Operator.x().onTrue(intake.spinIntake(-0.4)).onFalse(intake.spinIntake(0));
 
                 //CHANGE THESE VALUES -> TRIAL AND ERROR TYPE STUFF I THINK..? -AZ
-                Trigger toArmPassive = Operator.leftTrigger();
-                toArmPassive.onTrue(intakeArm.spinArmUp(0.15)).onFalse(intakeArm.spinArmUp(0));
+                //Trigger toArmPassive = Operator.leftTrigger();
+                //toArmPassive.onTrue(intakeArm.spinArmUp(0.15)).onFalse(intakeArm.spinArmUp(0));
 
-                Trigger toArmActive = Operator.rightTrigger();
-                toArmActive.onTrue(intakeArm.spinArmDown(0.15)).onFalse(intakeArm.spinArmDown(0));
+                //Trigger toArmActive = Operator.rightTrigger();
+                //toArmActive.onTrue(intakeArm.spinArmDown(0.15)).onFalse(intakeArm.spinArmDown(0));
 
+                //intake arm with limits
+                Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.1)).onFalse(intakeArm.spinArmUp(0));
+                Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.1)).onFalse(intakeArm.spinArmDown(0));
 
 
                 //Driver's Controls
