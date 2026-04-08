@@ -31,6 +31,37 @@
                 "data": {
                   "waitTime": 3.5
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot End"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R Enter Mid"
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Spin Intake Arm Down"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Start"
+                }
               }
             ]
           }
