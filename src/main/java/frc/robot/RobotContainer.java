@@ -129,10 +129,10 @@ public class RobotContainer {
 
 
                 // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
-                Operator.b().onTrue(intake.spinIntake(0.4)).onFalse(intake.spinIntake(0));
+                Operator.b().onTrue(intake.spinIntake(-1)).onFalse(intake.spinIntake(0));
 
                 // INTAKE reverse..? CHECK IF POSITIVE OR NEGATIVE -AZ
-                Operator.x().onTrue(intake.spinIntake(-0.4)).onFalse(intake.spinIntake(0));
+                Operator.x().onTrue(intake.spinIntake(1)).onFalse(intake.spinIntake(0));
 
                 //CHANGE THESE VALUES -> TRIAL AND ERROR TYPE STUFF I THINK..? -AZ
                 //Trigger toArmPassive = Operator.leftTrigger();

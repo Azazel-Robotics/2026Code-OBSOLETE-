@@ -25,14 +25,14 @@ public class AutoCommands {
 
         }
 
-        //Testing for Intake -> MAKE SURE TO CHECK THESE DAMNED VALUES FOR POSITIVE/NEGATIVE -AZ
         //For no one that asked, I am NOT coding this with the Active limit switch in mind lol. 
         //If it breaks the switch it's not my problem (IT MOST DEFINITELY IS MY PROBLEM T^T ). -AZ
+        //limit switch won't be put into account, idk how to fix :( -JA
 
         //spins the intake motor to intake while moving the arm down to counter balance the movement..?
         public static Command Intake(Intake intake, IntakeArm intakeArm, double intakeSpeed, double armSpeed) {
                 return Commands.parallel(
-                        intakeArm.spinArmDown(-armSpeed),
+                        intakeArm.spinArmDown(armSpeed),
                         intake.spinIntake(intakeSpeed)
                         
                 );

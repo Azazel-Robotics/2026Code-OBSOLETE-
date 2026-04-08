@@ -56,6 +56,11 @@ public class IntakeArm extends SubsystemBase {
 
     }
 
+    //used in AutoCommands to get limit switch
+    public SparkLimitSwitch getLimitDown() {
+        return limitDown;
+    }
+
     //manual up and down, limit switches work HOORAY -JA
     public Command spinArmUp(double speed) {
         if(limitDown.isPressed()){
