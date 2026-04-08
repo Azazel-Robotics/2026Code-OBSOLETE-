@@ -176,7 +176,7 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Spin Intake Arm Down", intakeArm.spinArmDown(0.15));
                 NamedCommands.registerCommand("Spin Intake Arm Up", intakeArm.spinArmUp(0.15));
                 NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75));
-                NamedCommands.registerCommand("First Shoot End", AutoCommands.Shoot(shooter, index, 0));
+                NamedCommands.registerCommand("Shoot End", AutoCommands.Shoot(shooter, index, 0));
                 NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65));
                 NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 0.8));
                 NamedCommands.registerCommand("Ferrying End", AutoCommands.Shoot(shooter, index, 0));

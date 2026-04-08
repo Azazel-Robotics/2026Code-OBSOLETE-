@@ -1,0 +1,63 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5731777777777776,
+        "y": 0.7218888888888886
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.1433818826899085,
+        "y": 0.7768365475644545
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.023811111111111,
+        "y": 0.7218888888888886
+      },
+      "prevControl": {
+        "x": 1.4910742117090363,
+        "y": 0.7103072720303247
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "right end1"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 51.18861596324149
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 46.66663515524273
+  },
+  "reversed": false,
+  "folder": "Paths for Auto Right Start",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

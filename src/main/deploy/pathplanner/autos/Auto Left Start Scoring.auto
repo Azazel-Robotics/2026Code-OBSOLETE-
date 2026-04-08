@@ -35,7 +35,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "First Shoot End"
+                  "name": "Shoot End"
                 }
               },
               {
@@ -134,7 +134,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "First Shoot End"
+                  "name": "Shoot End"
                 }
               }
             ]

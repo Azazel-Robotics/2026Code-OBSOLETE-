@@ -1,0 +1,44 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R Move Back, Rotate"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "First Shoot Run"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.5
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "AutoPaths",
+  "choreoAuto": false
+}

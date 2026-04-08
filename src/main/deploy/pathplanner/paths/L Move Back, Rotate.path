@@ -1,0 +1,67 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.567,
+        "y": 7.25189049902376
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.137204104912131,
+        "y": 7.3068381576993255
+      },
+      "isLocked": true,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.891348456498724,
+        "y": 7.25189049902376
+      },
+      "prevControl": {
+        "x": 1.3586115570966495,
+        "y": 7.240308882165196
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "left end1"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": -49.384823748966845
+    },
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Paths for Auto Left Start",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}
