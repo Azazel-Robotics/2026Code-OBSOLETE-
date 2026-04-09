@@ -60,7 +60,7 @@ public class Index extends SubsystemBase{
     //method used to set the speed of the Index during Auto continuously
     public Command spinIndexAuto(double autoSpeed)
     {
-        return this.run( () -> indexMotor.set(-autoSpeed));
+        return this.runOnce( () -> indexMotor.set(-autoSpeed));
     }
 
     //prints out on SmartDashboard if the Index Motor is called during Auto

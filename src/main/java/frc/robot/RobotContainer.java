@@ -69,7 +69,7 @@ public class RobotContainer {
 
                 // Auto Option Displayer found on Smart Dashboard
                 SmartDashboard.putData("Auto Position", m_autoChooser);
-                SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
+                //SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
 
                 //Non Path Planner Auto Options
                 m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
@@ -222,11 +222,11 @@ public class RobotContainer {
         public Command getAutonomousCommandRight() {
 
                 return Commands.sequence(
-                                m_robotDrive.applyRequest(() -> {
-                                        return drive.withVelocityX(-2)
+                                m_robotDrive.applyRequest(() -> 
+                                        drive.withVelocityX(-2)
                                                         .withVelocityY(0)
-                                                        .withRotationalRate(0);
-                                })
+                                                        .withRotationalRate(0)
+                                )
                                                 .withTimeout(3.0),
 
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(0)

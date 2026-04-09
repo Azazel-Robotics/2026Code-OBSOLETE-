@@ -35,8 +35,8 @@ public class IntakeArm extends SubsystemBase {
         intakeArmMotor.configure(intakeArmConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
         //initializing limit switches
-        limitUp = intakeArmMotor.getForwardLimitSwitch();
-        limitDown = intakeArmMotor.getReverseLimitSwitch();
+        limitDown = intakeArmMotor.getForwardLimitSwitch();
+        limitUp = intakeArmMotor.getReverseLimitSwitch();
 
 
         // //initalizing encoder and stuff
@@ -61,6 +61,8 @@ public class IntakeArm extends SubsystemBase {
     public Command spinArmUp(double speed) {
         if(limitUp.isPressed()){
             return this.runOnce(() -> intakeArmMotor.set(0));
+        } else if (!(limitUp.isPressed() && limitDown.isPressed())){
+            return this.runOnce(() -> intakeArmMotor.set(-speed)); 
         } else {
             return this.runOnce(() -> intakeArmMotor.set(-speed));
         }
@@ -68,7 +70,9 @@ public class IntakeArm extends SubsystemBase {
     public Command spinArmDown(double speed) {
         if(limitDown.isPressed()){
             return this.runOnce(() -> intakeArmMotor.set(0));
-        } else {
+        } else if (!(limitUp.isPressed() && limitDown.isPressed())){
+            return this.runOnce(() -> intakeArmMotor.set(speed)); 
+        }else {
             return this.runOnce(() -> intakeArmMotor.set(speed));
         }
     }
