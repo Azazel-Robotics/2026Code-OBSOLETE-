@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Intake;
@@ -27,12 +28,11 @@ public class AutoCommands {
 
         //For no one that asked, I am NOT coding this with the Active limit switch in mind lol. 
         //If it breaks the switch it's not my problem (IT MOST DEFINITELY IS MY PROBLEM T^T ). -AZ
-        //limit switch won't be put into account, idk how to fix :( -JA
 
         //spins the intake motor to intake while moving the arm down to counter balance the movement..?
         public static Command Intake(Intake intake, IntakeArm intakeArm, double intakeSpeed, double armSpeed) {
                 return Commands.parallel(
-                        intakeArm.spinArmDown(armSpeed),
+                        intakeArm.spinArmDown(armSpeed).repeatedly(), //might take into account limit? IDK -JA
                         intake.spinIntake(intakeSpeed)
                         
                 );

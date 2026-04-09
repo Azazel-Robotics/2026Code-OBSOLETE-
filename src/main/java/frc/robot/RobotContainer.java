@@ -127,21 +127,14 @@ public class RobotContainer {
                 //Intake forward while Arm moves down
                 Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm, 0.4, 0.2));
 
-
                 // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
+                //forward = negative :D  -JA
                 Operator.b().onTrue(intake.spinIntake(-1)).onFalse(intake.spinIntake(0));
 
                 // INTAKE reverse..? CHECK IF POSITIVE OR NEGATIVE -AZ
                 Operator.x().onTrue(intake.spinIntake(1)).onFalse(intake.spinIntake(0));
 
-                //CHANGE THESE VALUES -> TRIAL AND ERROR TYPE STUFF I THINK..? -AZ
-                //Trigger toArmPassive = Operator.leftTrigger();
-                //toArmPassive.onTrue(intakeArm.spinArmUp(0.15)).onFalse(intakeArm.spinArmUp(0));
-
-                //Trigger toArmActive = Operator.rightTrigger();
-                //toArmActive.onTrue(intakeArm.spinArmDown(0.15)).onFalse(intakeArm.spinArmDown(0));
-
-                //intake arm with limits
+                //manual intake arm with limits
                 Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.1)).onFalse(intakeArm.spinArmUp(0));
                 Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.1)).onFalse(intakeArm.spinArmDown(0));
 
