@@ -17,12 +17,12 @@ import frc.robot.subsystems.IntakeArm;
 
 public class AutoCommands {
         //spins the shooter motors and waits until full speed before activating the index
-        public static Command Shoot(Shooter shooter, Index index, double shooterSpeed) {
+        public static Command Shoot(Shooter shooter, Index index, double shooterSpeed, double indexSpeed) {
 
                 return Commands.parallel(
                         shooter.spinShooterMotorsAuto(shooterSpeed),
                         Commands.waitSeconds(1).andThen(
-                                index.spinIndexAuto(0.25, "AutoCommands::Shoot")));
+                                index.spinIndexAuto(indexSpeed, "AutoCommands::Shoot")));
 
         }
 

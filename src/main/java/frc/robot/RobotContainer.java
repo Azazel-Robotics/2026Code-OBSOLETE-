@@ -69,7 +69,7 @@ public class RobotContainer {
 
                 // Auto Option Displayer found on Smart Dashboard
                 SmartDashboard.putData("Auto Position", m_autoChooser);
-                //SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
+                SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
 
                 //Non Path Planner Auto Options
                 m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
@@ -125,8 +125,7 @@ public class RobotContainer {
                 //THIS CONTROL SHOULD BE THE ONE BEING USED -AZ
                 //IDK IF THIS IS SAFE WITH THE LIMIT SWITCH BTW! DONT BREAK THE SWITCH /srs -AZ
                 //Intake forward while Arm moves down
-                Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm, 0.4, 0.2));
-
+                Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm,1.0 , 0.5));
                 // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
                 //forward = negative :D  -JA
                 Operator.b().onTrue(intake.spinIntake(-1)).onFalse(intake.spinIntake(0));
@@ -156,8 +155,8 @@ public class RobotContainer {
                 // shooter long range
                 Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
                 
-                Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75))
-                                .onFalse(AutoCommands.Shoot(shooter, index, 0));
+                Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .25))
+                                .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
 
                 // Reset the field-centric heading on X button press.
                 // Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
@@ -173,13 +172,13 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Spin Intake Arm Down", intakeArm.spinArmDown(0.15));
                 NamedCommands.registerCommand("Spin Intake Arm Up", intakeArm.spinArmUp(0.15));
 
-                NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75));
-                NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65));
+                NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75, .25));
+                NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65, .25));
                 
-                NamedCommands.registerCommand("Shoot End", AutoCommands.Shoot(shooter, index, 0));
+                NamedCommands.registerCommand("Shoot End", AutoCommands.Shoot(shooter, index, 0, 0));
 
-                NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 0.8));
-                NamedCommands.registerCommand("Ferrying End", AutoCommands.Shoot(shooter, index, 0));
+                NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 0.8, 0.25));
+                NamedCommands.registerCommand("Ferrying End", AutoCommands.Shoot(shooter, index, 0., 0));
 
                 
 
@@ -213,7 +212,7 @@ public class RobotContainer {
                                 }),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75).withTimeout(10.0)
+                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
                                                 .andThen(shooter.spinShooterMotorsAuto(0)),
                                 index.spinIndexAuto(0));
 
@@ -231,14 +230,15 @@ public class RobotContainer {
 
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
                                                 .withVelocityY(0)
-                                                .withRotationalRate(0.48))
-                                                .withTimeout(2.0)
-                                                .andThen(m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
-                                                                .withVelocityY(0)
-                                                                .withRotationalRate(0))),
+                                                .withRotationalRate(1.48))
+                                                .withTimeout(2.0),
+                                m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
+                                                        .withVelocityY(0)
+                                                        .withRotationalRate(0))
+                                                        .withTimeout(1.0),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75).withTimeout(10.0)
+                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
                                                 .andThen(shooter.spinShooterMotorsAuto(0)),
                                 index.spinIndexAuto(0));
 
@@ -256,7 +256,7 @@ public class RobotContainer {
                                                                 .withRotationalRate(0))),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75).withTimeout(10.0)
+                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
                                                 .andThen(shooter.spinShooterMotorsAuto(0)),
                                 index.spinIndexAuto(0));
 

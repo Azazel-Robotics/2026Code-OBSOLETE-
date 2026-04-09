@@ -37,7 +37,7 @@
       },
       "prevControl": {
         "x": 6.773033333333334,
-        "y": 1.101922222222222
+        "y": 1.1019222222222222
       },
       "nextControl": null,
       "isLocked": false,
@@ -69,7 +69,7 @@
   "folder": "Paths for Auto Right Start",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 46.66663515524273
+    "rotation": 46.66663515524274
   },
   "useDefaultConstraints": true
 }
