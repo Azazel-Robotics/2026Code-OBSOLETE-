@@ -30,6 +30,11 @@ public class Robot extends TimedRobot {
     }
 
     @Override
+    public void robotInit() {
+        SmartDashboard.putData(CommandScheduler.getInstance());
+    }
+
+    @Override
     public void robotPeriodic() {
         m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run(); 

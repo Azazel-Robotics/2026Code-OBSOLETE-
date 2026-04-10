@@ -211,8 +211,9 @@ public class RobotContainer {
                                 }),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25)
-                                                );
+                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
+                                                .andThen(shooter.spinShooterMotorsAuto(0)),
+                                index.spinIndexAuto(0));
 
         }
 
@@ -236,7 +237,9 @@ public class RobotContainer {
                                                         .withTimeout(1.0),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25));
+                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
+                                                .andThen(shooter.spinShooterMotorsAuto(0)),
+                                index.spinIndexAuto(0));
 
         }
 
@@ -252,8 +255,8 @@ public class RobotContainer {
                                                                 .withRotationalRate(0)).withTimeout(0.1),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25))
-                                ;
+                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0),
+                                AutoCommands.Shoot(shooter, index, 0, 0));
 
         }
 }
