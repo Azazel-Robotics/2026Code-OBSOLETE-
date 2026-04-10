@@ -247,7 +247,7 @@ public class RobotContainer {
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(-2)
                                                 .withVelocityY(0)
                                                 .withRotationalRate(0))
-                                                .withTimeout(3.0),
+                                                .withTimeout(2.0),
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
                                                                 .withVelocityY(0)
                                                                 .withRotationalRate(0)).withTimeout(0.1),
