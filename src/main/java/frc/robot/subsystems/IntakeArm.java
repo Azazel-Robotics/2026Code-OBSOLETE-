@@ -16,6 +16,15 @@ import frc.robot.Constants;
 import com.revrobotics.spark.SparkLimitSwitch;
 
 public class IntakeArm extends SubsystemBase {
+    private static final IntakeArm instance;
+
+    static {
+        instance = new IntakeArm();
+    }
+
+    public static IntakeArm getInstance() {
+        return instance;
+    }
 
     private SparkMax intakeArmMotor;
 
@@ -83,6 +92,10 @@ public class IntakeArm extends SubsystemBase {
 
     public boolean getLimitUp() {
         return limitUp.isPressed();
+    }
+
+    public boolean getLimitDown() {
+        return limitDown.isPressed();
     }
 
 

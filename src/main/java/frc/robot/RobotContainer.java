@@ -52,9 +52,8 @@ public class RobotContainer {
 
         private final CommandXboxController Driver = new CommandXboxController(0);
         private final CommandXboxController Operator = new CommandXboxController(1);
-
-        public final Intake intake = new Intake();
-        public final IntakeArm intakeArm = new IntakeArm();
+        public final IntakeArm intakeArm = IntakeArm.getInstance();
+        public final Intake intake = Intake.getInstance();
         public final Shooter shooter = new Shooter();
         public final Index index = new Index();
 
@@ -134,8 +133,8 @@ public class RobotContainer {
                 Operator.x().onTrue(intake.spinIntake(1)).onFalse(intake.spinIntake(0));
 
                 //manual intake arm with limits
-                Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.1)).onFalse(intakeArm.spinArmUp(0));
-                Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.1)).onFalse(intakeArm.spinArmDown(0));
+                Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
+                Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.4)).onFalse(intakeArm.spinArmDown(0));
 
 
                 //Driver's Controls
