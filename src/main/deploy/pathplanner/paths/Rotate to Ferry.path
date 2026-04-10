@@ -8,32 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.107724479970699,
-        "y": 5.266871903462973
+        "x": 8.06543775844412,
+        "y": 5.230666929911247
       },
       "isLocked": false,
       "linkedName": "left end3"
     },
     {
       "anchor": {
-        "x": 7.118459343794578,
+        "x": 7.791269614835947,
         "y": 5.283580599144081
       },
       "prevControl": {
-        "x": 6.713029009639678,
-        "y": 5.3016247703763115
+        "x": 7.422219266575609,
+        "y": 5.354824025780154
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.0906195508009
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Paths for Auto Left Start",
