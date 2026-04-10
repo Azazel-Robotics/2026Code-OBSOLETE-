@@ -253,7 +253,7 @@ public class RobotContainer {
                                                 .withTimeout(3.0),
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
                                                                 .withVelocityY(0)
-                                                                .withRotationalRate(0)),
+                                                                .withRotationalRate(0)).withTimeout(0.1),
 
                                 // Activate Shooter and Index
                                 AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0),
