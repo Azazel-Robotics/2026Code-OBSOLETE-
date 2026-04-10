@@ -64,21 +64,21 @@ public class RobotContainer {
         public RobotContainer() {
                 configureBindings();
                 
-                // m_autoChooserPathPlanner = AutoBuilder.buildAutoChooser();
+                m_autoChooserPathPlanner = AutoBuilder.buildAutoChooser();
 
                 // Auto Option Displayer found on Smart Dashboard
-                SmartDashboard.putData("Auto Position", m_autoChooser);
-                // SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
+                //SmartDashboard.putData("Auto Position", m_autoChooser);
+                SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
 
                 //Non Path Planner Auto Options
-                m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
-                m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
-                m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
+                // m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
+                // m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
+                // m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
 
                 //Path Planner Auto Options
-                // m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
-                // m_autoChooserPathPlanner.addOption("Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
-                // m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
+                m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
+                m_autoChooserPathPlanner.addOption("Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
+                m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
                 
                 
         }
@@ -182,6 +182,10 @@ public class RobotContainer {
                 
 
         }        
+
+        public Command getPathPlannerAuto(){
+                return m_autoChooserPathPlanner.getSelected();
+        }
 
         public Command getAutonomousPathPlanner() {
                 // This is pulling a path that will make the command go Forward and then back.
