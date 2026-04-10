@@ -54,8 +54,8 @@ public class RobotContainer {
         private final CommandXboxController Operator = new CommandXboxController(1);
         public final IntakeArm intakeArm = IntakeArm.getInstance();
         public final Intake intake = Intake.getInstance();
-        public final Shooter shooter = new Shooter();
-        public final Index index = new Index();
+        public final Shooter shooter = Shooter.getInstance();
+        public final Index index = Index.getInstance();
 
         // testing for multiple autos
         SendableChooser<Command> m_autoChooser = new SendableChooser<>();
@@ -64,11 +64,11 @@ public class RobotContainer {
         public RobotContainer() {
                 configureBindings();
                 
-                m_autoChooserPathPlanner = AutoBuilder.buildAutoChooser();
+                // m_autoChooserPathPlanner = AutoBuilder.buildAutoChooser();
 
                 // Auto Option Displayer found on Smart Dashboard
                 SmartDashboard.putData("Auto Position", m_autoChooser);
-                SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
+                // SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
 
                 //Non Path Planner Auto Options
                 m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
@@ -76,9 +76,9 @@ public class RobotContainer {
                 m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
 
                 //Path Planner Auto Options
-                m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
-                m_autoChooserPathPlanner.addOption("Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
-                m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
+                // m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
+                // m_autoChooserPathPlanner.addOption("Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
+                // m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
                 
                 
         }
@@ -211,9 +211,8 @@ public class RobotContainer {
                                 }),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
-                                                .andThen(shooter.spinShooterMotorsAuto(0)),
-                                index.spinIndexAuto(0));
+                                AutoCommands.Shoot(shooter, index, .75, .25)
+                                                );
 
         }
 
@@ -237,9 +236,7 @@ public class RobotContainer {
                                                         .withTimeout(1.0),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
-                                                .andThen(shooter.spinShooterMotorsAuto(0)),
-                                index.spinIndexAuto(0));
+                                AutoCommands.Shoot(shooter, index, .75, .25));
 
         }
 
@@ -255,8 +252,8 @@ public class RobotContainer {
                                                                 .withRotationalRate(0)).withTimeout(0.1),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0),
-                                AutoCommands.Shoot(shooter, index, 0, 0));
+                                AutoCommands.Shoot(shooter, index, .75, .25))
+                                ;
 
         }
 }

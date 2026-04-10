@@ -16,6 +16,20 @@ public class Index extends SubsystemBase{
     private SparkMax indexMotor = new SparkMax(Constants.Index.kIntakeIndexMotor, MotorType.kBrushless);
     private boolean motorOn; //used for toggle method
 
+    public static final Index instance;
+
+    static {
+        instance = new Index();
+    }
+
+    public static Index getInstance() {
+        return instance;
+    }
+
+    public Command spinIndexZero(){
+        return this.runOnce(() -> indexMotor.set(0));
+    }
+
     public Index() {
         //configs and sets limits for index motor
         SparkMaxConfig indexConfig = new SparkMaxConfig();

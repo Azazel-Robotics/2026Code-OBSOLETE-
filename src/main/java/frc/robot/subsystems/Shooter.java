@@ -15,6 +15,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class Shooter extends SubsystemBase {
 
+    public static final Shooter instance;
+
+    static {
+        instance = new Shooter();
+    }
+
+    public static Shooter getInstance() {
+        return instance;
+    }
+
     //declaring and intiallizing Shooter Motors
     private TalonFX shooterMotor = new TalonFX(Constants.Shooter.kShooterMotor);
     private TalonFX shooterNeckMotor = new TalonFX(Constants.Shooter.kShooterNeckMotor);
@@ -61,6 +71,12 @@ public class Shooter extends SubsystemBase {
         });
     }
 
+    public Command spinShooterZero() {
+        return this.runOnce(() -> {
+            shooterNeckMotor.set(0);
+            shooterMotor.set(0); 
+        });
+    }
 
     //sets speed of the shooter and shooter neck motor during auto
     public Command spinShooterMotorsAuto(double autoSpeed) {
