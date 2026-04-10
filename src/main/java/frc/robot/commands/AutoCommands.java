@@ -32,7 +32,7 @@ public class AutoCommands {
         //spins the intake motor to intake while moving the arm down to counter balance the movement..?
         public static Command Intake(Intake intake, IntakeArm intakeArm, double intakeSpeed, double armSpeed) {
                 return Commands.parallel(
-                        intakeArm.spinArmDown(armSpeed).repeatedly(), //might take into account limit? IDK -JA
+                        intakeArm.spinArmDown(armSpeed), //might take into account limit? IDK -JA
                         intake.spinIntake(intakeSpeed)
                         
                 );

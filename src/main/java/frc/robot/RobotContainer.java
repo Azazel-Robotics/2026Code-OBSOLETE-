@@ -250,15 +250,14 @@ public class RobotContainer {
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(-2)
                                                 .withVelocityY(0)
                                                 .withRotationalRate(0))
-                                                .withTimeout(3.0)
-                                                .andThen(m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
+                                                .withTimeout(3.0),
+                                m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
                                                                 .withVelocityY(0)
-                                                                .withRotationalRate(0))),
+                                                                .withRotationalRate(0)),
 
                                 // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0)
-                                                .andThen(shooter.spinShooterMotorsAuto(0)),
-                                index.spinIndexAuto(0));
+                                AutoCommands.Shoot(shooter, index, .75, .25).withTimeout(10.0),
+                                AutoCommands.Shoot(shooter, index, 0, 0));
 
         }
 }
