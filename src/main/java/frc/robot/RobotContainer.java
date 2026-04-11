@@ -58,7 +58,7 @@ public class RobotContainer {
         public final Index index = Index.getInstance();
 
         // testing for multiple autos
-        SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+        //SendableChooser<Command> m_autoChooser = new SendableChooser<>();
         SendableChooser<Command> m_autoChooserPathPlanner;
 
         public RobotContainer() {
