@@ -13,15 +13,17 @@ public class AutoLeftStartScoring extends SequentialCommandGroup {
       new PathPlannerAuto("Move Back, Rotate"),
         
         //RD: Shoot all 8 balls in Hopper! I Hope
-      new WaitCommand(4.5).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .75, .5))
-        .andThen(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), 0, .0)),
+      new WaitCommand(4.5).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .75, .5)),
+      
+      new WaitCommand(1).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), 0, .0)),
         
       new PathPlannerAuto("Enter Mid"),
 
       new WaitCommand(1.5).deadlineFor(IntakeArm.getInstance().autoSpinArmDown(.65)),
 
-      new PathPlannerAuto("Move to Intake").deadlineFor(Intake.getInstance().spinIntake(1))
-      .andThen(Intake.getInstance().spinIntake(0)),
+      new PathPlannerAuto("Move to Intake").deadlineFor(Intake.getInstance().spinIntake(1)),
+      
+      new WaitCommand(1).deadlineFor(Intake.getInstance().spinIntake(0)),
 
       new WaitCommand(1.5).deadlineFor(IntakeArm.getInstance().autoSpinArmUp(.65)),
 
