@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AutoCommands;
+import frc.robot.commands.AutoLeftStartScoring;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Index;
@@ -83,7 +84,7 @@ public class RobotContainer {
 
                 m_autoChooserPathPlanner.addOption("p-Right Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying", true));
                 m_autoChooserPathPlanner.addOption("p-Right Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
-                
+                m_autoChooserPathPlanner.addOption("use this one left", new AutoLeftStartScoring()); 
                 
         }
 
