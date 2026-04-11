@@ -57,6 +57,7 @@ public class Robot extends TimedRobot {
         // //had to change this -> figure out if this is fine -AZ
         // m_autonomousCommand = m_robotContainer.getAutonomousCommandMiddle();
         
+        //Calls the Selected Path Planner Auto
         m_autonomousCommand = m_robotContainer.getPathPlannerAuto();
 
         if (m_autonomousCommand != null) {

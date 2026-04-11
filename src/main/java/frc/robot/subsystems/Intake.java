@@ -27,7 +27,7 @@ public class Intake extends SubsystemBase {
     
     private SparkMax intakeMotor = new SparkMax(Constants.Intake.kIntakeMotor, MotorType.kBrushless);
 
-    IntakeArm passiveLimit;// = new IntakeArm();
+    IntakeArm passiveLimit;
 
     public Intake() {
         passiveLimit = IntakeArm.getInstance();

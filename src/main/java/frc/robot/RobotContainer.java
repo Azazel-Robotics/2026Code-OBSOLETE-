@@ -168,8 +168,8 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Intake Start", AutoCommands.Intake(intake, intakeArm, 1, 0.2));
                 NamedCommands.registerCommand("Intake End", AutoCommands.Intake(intake, intakeArm, 0, 0));
 
-                NamedCommands.registerCommand("Spin Intake Arm Down", intakeArm.spinArmDown(0.15));
-                NamedCommands.registerCommand("Spin Intake Arm Up", intakeArm.spinArmUp(0.15));
+                NamedCommands.registerCommand("Spin Intake Arm Down", intakeArm.spinArmDown(0.5));
+                NamedCommands.registerCommand("Spin Intake Arm Up", intakeArm.spinArmUp(0.5));
 
                 NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75, .25));
                 NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65, .25));
@@ -183,6 +183,8 @@ public class RobotContainer {
 
         }        
 
+        //returns the selected path planner auto command
+        //this method HAS to be used inside the Robot class (autonomousInIt) for it to work -AZ
         public Command getPathPlannerAuto(){
                 return m_autoChooserPathPlanner.getSelected();
         }
@@ -251,7 +253,7 @@ public class RobotContainer {
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(-2)
                                                 .withVelocityY(0)
                                                 .withRotationalRate(0))
-                                                .withTimeout(2.0),
+                                                .withTimeout(1.3),
                                 m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
                                                                 .withVelocityY(0)
                                                                 .withRotationalRate(0)).withTimeout(0.1),
