@@ -79,6 +79,9 @@ public class RobotContainer {
                 m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
                 m_autoChooserPathPlanner.addOption("Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
                 m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
+
+                m_autoChooserPathPlanner.addOption("Right Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying", true));
+                m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
                 
                 
         }
@@ -182,12 +185,12 @@ public class RobotContainer {
 
                 NamedCommands.registerCommand("Spin Intake Arm Up/Down", intakeArm.autoSpinArm(0.5));
 
-                NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75, .25));
-                NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65, .25));
+                NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75, .5));
+                NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65, .5));
                 
                 NamedCommands.registerCommand("Shoot End", AutoCommands.Shoot(shooter, index, 0, 0));
 
-                NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 0.8, 0.25));
+                NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 0.8, 0.5));
                 NamedCommands.registerCommand("Ferrying End", AutoCommands.Shoot(shooter, index, 0., 0));
 
                 

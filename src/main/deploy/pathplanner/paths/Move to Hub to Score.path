@@ -12,7 +12,7 @@
         "y": 5.113248926249396
       },
       "isLocked": false,
-      "linkedName": "left end3"
+      "linkedName": "left end move to intake"
     },
     {
       "anchor": {
@@ -57,7 +57,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "left end4"
+      "linkedName": "left end move to hub"
     }
   ],
   "rotationTargets": [

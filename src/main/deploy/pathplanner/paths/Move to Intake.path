@@ -12,7 +12,7 @@
         "y": 6.462258304462465
       },
       "isLocked": false,
-      "linkedName": "left end2"
+      "linkedName": "left end enter mid"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "left end3"
+      "linkedName": "left end move to intake"
     }
   ],
   "rotationTargets": [],
