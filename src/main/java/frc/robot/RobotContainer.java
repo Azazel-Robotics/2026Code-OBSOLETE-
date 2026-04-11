@@ -139,8 +139,8 @@ public class RobotContainer {
                 Operator.x().onTrue(intake.spinIntake(1)).onFalse(intake.spinIntake(0));
 
                 //manual intake arm with limits
-                Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
-                Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.4)).onFalse(intakeArm.spinArmDown(0));
+                Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.65)).onFalse(intakeArm.spinArmUp(0));
+                Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.65)).onFalse(intakeArm.spinArmDown(0));
 
                 //testing methods for Path Planner autos
                 Operator.povUp().onTrue(intakeArm.autoSpinArm(0.4)).onFalse(intakeArm.autoSpinArm(0));
