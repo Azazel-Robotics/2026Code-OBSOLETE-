@@ -69,7 +69,7 @@ public class IntakeArm extends SubsystemBase {
     public SparkMax getIntakeArmMotor(){
         return intakeArmMotor;
     }
-
+/* 
     //manual up and down, limit switches work HOORAY -JA
     //DOUBLE CHECK which limit switch is up and down -JA
     public Command spinArmUp(double speed) {
@@ -90,7 +90,28 @@ public class IntakeArm extends SubsystemBase {
             return this.runOnce(() -> intakeArmMotor.set(speed));
         }
     }
+*/
 
+public Command spinArmUp(double speed) {
+    return  this.runOnce(() -> intakeArmMotor.set(-speed));    
+    /* 
+    if(limitUp.isPressed()){
+            return this.runOnce(() -> intakeArmMotor.set(0));
+        } else {
+            return this.runOnce(() -> intakeArmMotor.set(-speed));
+        }
+            */
+    }
+    public Command spinArmDown(double speed) {
+        return this.runOnce(() -> intakeArmMotor.set(speed));
+        /* 
+        if(limitDown.isPressed()){
+            return this.runOnce(() -> intakeArmMotor.set(0));
+        } else {
+            return this.runOnce(() -> intakeArmMotor.set(speed));
+        }
+            */
+    }
     public boolean getLimitUp() {
         return limitUp.isPressed();
     }

@@ -15,6 +15,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -207,6 +208,7 @@ public class RobotContainer {
         //returns the selected path planner auto command
         //this method HAS to be used inside the Robot class (autonomousInIt) for it to work -AZ
         public Command getPathPlannerAuto(){
+                DriverStation.reportWarning(m_autoChooserPathPlanner.getSelected().getName(), false);
                 return m_autoChooserPathPlanner.getSelected();
         }
 
