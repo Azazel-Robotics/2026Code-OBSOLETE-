@@ -147,17 +147,23 @@ public class RobotContainer {
                 // index reverse
                 Driver.y().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
 
-                // shooter short range
-                Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
-
-                // shooter mid range
-                Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
-
-                // shooter long range
-                Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
-                
-                Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .25))
+                // shooter short range -> Best used 5-6ft..? from Hub
+                //Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
+                Driver.leftTrigger().onTrue(AutoCommands.Shoot(shooter, index, .65, .5))
                                 .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+
+                // shooter mid range -> Best used 8ft from Hub
+                //Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
+                Driver.leftBumper().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))
+                                .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+
+                // shooter long range -> use for Ferrying
+                //Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
+                Driver.rightTrigger().onTrue(AutoCommands.Shoot(shooter, index, .8, .5))
+                                .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+                
+                // Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))
+                //                 .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
 
                 // Reset the field-centric heading on X button press.
                 // Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
