@@ -10,6 +10,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -96,6 +97,31 @@ public class IntakeArm extends SubsystemBase {
 
     public boolean getLimitDown() {
         return limitDown.isPressed();
+    }
+
+    //added by AZ -> ASK before touching; there is a reason I wrote parameters this way! -AZ
+    public Command autoSpinArm(double speed) {
+        if(!limitDown.isPressed() && limitUp.isPressed()){
+            //arm moves down to Active Limit
+            while (!limitDown.isPressed()){
+                return this.runOnce( () -> intakeArmMotor.set(speed));
+            }
+            return this.runOnce( () -> intakeArmMotor.set(0));
+
+        } else if (limitDown.isPressed() && !limitUp.isPressed()){
+            //arm move up to Passive Limit
+            while(!limitUp.isPressed()) {
+                return this.runOnce( () -> intakeArmMotor.set(-speed));
+            }
+            return this.runOnce( () -> intakeArmMotor.set(0));
+
+        } else {
+            //if neither limit is pressed the arm goes back to Passive limit
+            while (!limitUp.isPressed()) {
+                return this.runOnce( () -> intakeArmMotor.set(-speed));
+            }
+            return this.runOnce( () -> intakeArmMotor.set(0));
+        }
     }
 
 

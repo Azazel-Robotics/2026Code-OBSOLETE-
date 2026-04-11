@@ -60,7 +60,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Spin Intake Arm Down"
+                  "name": "Spin Intake Arm Up/Down"
                 }
               }
             ]

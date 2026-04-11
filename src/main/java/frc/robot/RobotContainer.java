@@ -124,7 +124,9 @@ public class RobotContainer {
                 //THIS CONTROL SHOULD BE THE ONE BEING USED -AZ
                 //IDK IF THIS IS SAFE WITH THE LIMIT SWITCH BTW! DONT BREAK THE SWITCH /srs -AZ
                 //Intake forward while Arm moves down
-                Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm,1.0 , 0.5));
+                //April 10 -> control not really needed as arm going up wasn't really an issue -AZ
+                //Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm,1.0 , 0.5));
+
                 // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
                 //forward = negative :D  -JA
                 Operator.b().onTrue(intake.spinIntake(-1)).onFalse(intake.spinIntake(0));
@@ -168,8 +170,7 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Intake Start", AutoCommands.Intake(intake, intakeArm, 1, 0.2));
                 NamedCommands.registerCommand("Intake End", AutoCommands.Intake(intake, intakeArm, 0, 0));
 
-                NamedCommands.registerCommand("Spin Intake Arm Down", intakeArm.spinArmDown(0.5));
-                NamedCommands.registerCommand("Spin Intake Arm Up", intakeArm.spinArmUp(0.5));
+                NamedCommands.registerCommand("Spin Intake Arm Up/Down", intakeArm.autoSpinArm(0.5));
 
                 NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75, .25));
                 NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65, .25));

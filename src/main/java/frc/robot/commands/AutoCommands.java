@@ -30,7 +30,6 @@ public class AutoCommands {
         //If it breaks the switch it's not my problem (IT MOST DEFINITELY IS MY PROBLEM T^T ). -AZ
 
         //spins the intake motor to intake while moving the arm down to counter balance the movement..?
-        
         public static Command Intake(Intake intake, IntakeArm intakeArm, double intakeSpeed, double armSpeed) {
                 return Commands.parallel(
                         intakeArm.spinArmDown(armSpeed), 
