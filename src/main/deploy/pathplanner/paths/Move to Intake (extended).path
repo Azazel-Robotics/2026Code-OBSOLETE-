@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.236174504459053,
+        "y": 5.1666299046444735
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.338710517775085,
+        "y": 5.43979827689896
+      },
+      "isLocked": false,
+      "linkedName": "left end hub back to mid (extended)"
+    },
+    {
+      "anchor": {
+        "x": 6.236174504459053,
+        "y": 3.5608863636363637
+      },
+      "prevControl": {
+        "x": 6.203112975909482,
+        "y": 3.8086905914654423
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "left end move to intake (extended)"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -90.62083762625906
+  },
+  "reversed": false,
+  "folder": "Paths for Auto Left Start Extended",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": true
+}

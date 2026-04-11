@@ -3,8 +3,9 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Paths for Auto Right Start",
-    "Paths for Auto Left Start"
+    "Paths for Auto Left Start Extended",
+    "Paths for Auto Left Start",
+    "Paths for Auto Right Start"
   ],
   "autoFolders": [
     "AutoPaths"

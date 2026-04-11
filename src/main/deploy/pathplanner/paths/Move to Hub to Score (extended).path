@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.236174504459053,
+        "y": 3.5608863636363637
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.185153799207114,
+        "y": 3.8816312413025864
+      },
+      "isLocked": false,
+      "linkedName": "left end move to intake (extended)"
+    },
+    {
+      "anchor": {
+        "x": 6.236174504459053,
+        "y": 5.292431818181818
+      },
+      "prevControl": {
+        "x": 6.745817245960098,
+        "y": 4.749531899323978
+      },
+      "nextControl": {
+        "x": 5.5005297675397795,
+        "y": 6.07608168790306
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.487875,
+        "y": 5.570715909090909
+      },
+      "prevControl": {
+        "x": 2.1197437273380686,
+        "y": 5.449286608709473
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": -90.64153051210077
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -36.49812058851856
+  },
+  "reversed": false,
+  "folder": "Paths for Auto Left Start Extended",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.62083762625906
+  },
+  "useDefaultConstraints": true
+}

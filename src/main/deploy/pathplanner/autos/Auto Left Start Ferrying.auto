@@ -48,7 +48,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
@@ -58,9 +58,15 @@
                 }
               },
               {
+                "type": "wait",
+                "data": {
+                  "waitTime": 3.5
+                }
+              },
+              {
                 "type": "named",
                 "data": {
-                  "name": "Spin Intake Arm Up/Down"
+                  "name": "Spin Intake Arm Down"
                 }
               }
             ]

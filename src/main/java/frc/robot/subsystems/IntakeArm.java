@@ -104,26 +104,43 @@ public class IntakeArm extends SubsystemBase {
         if(!limitDown.isPressed() && limitUp.isPressed()){
             //arm moves down to Active Limit
             while (!limitDown.isPressed()){
-                return this.runOnce( () -> intakeArmMotor.set(speed));
+                return this.run( () -> intakeArmMotor.set(speed));
             }
             return this.runOnce( () -> intakeArmMotor.set(0));
 
         } else if (limitDown.isPressed() && !limitUp.isPressed()){
             //arm move up to Passive Limit
             while(!limitUp.isPressed()) {
-                return this.runOnce( () -> intakeArmMotor.set(-speed));
+                return this.run( () -> intakeArmMotor.set(-speed));
             }
             return this.runOnce( () -> intakeArmMotor.set(0));
 
         } else {
             //if neither limit is pressed the arm goes back to Passive limit
             while (!limitUp.isPressed()) {
-                return this.runOnce( () -> intakeArmMotor.set(-speed));
+                return this.run( () -> intakeArmMotor.set(-speed));
             }
             return this.runOnce( () -> intakeArmMotor.set(0));
         }
-    }
 
+        
+
+    }
+    
+    //safer versions of autoSpinArm that is more guaranteed with the results -AZ
+    public Command autoSpinArmUp(double speed) {
+            while(!limitUp.isPressed()) {
+                return this.run( () -> intakeArmMotor.set(-speed));
+            }
+            return this.runOnce( () -> intakeArmMotor.set(0));
+        }
+
+        public Command autoSpinArmDown(double speed) {
+            while(!limitDown.isPressed()) {
+                return this.run( () -> intakeArmMotor.set(speed));
+            }
+            return this.runOnce( () -> intakeArmMotor.set(0));
+        }
 
     // // POSITIONS OF INTAKE ARM
     // // encoders stuff

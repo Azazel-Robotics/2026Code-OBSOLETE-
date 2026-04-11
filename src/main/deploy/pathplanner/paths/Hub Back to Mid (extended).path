@@ -3,67 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.891348456498724,
-        "y": 7.25189049902376
+        "x": 2.331155492154065,
+        "y": 5.387089871611984
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.053106230082503,
-        "y": 7.358324029985505
+        "x": 3.3243862372681416,
+        "y": 5.352384335275754
       },
       "isLocked": false,
-      "linkedName": "left end move back, rotate"
+      "linkedName": "left end move to hub"
     },
     {
       "anchor": {
-        "x": 3.775948023826218,
-        "y": 7.425
+        "x": 3.497943181818181,
+        "y": 5.653170454545455
       },
       "prevControl": {
-        "x": 3.4831869981178003,
-        "y": 7.414145024612504
+        "x": 3.2489513651704574,
+        "y": 5.630741115668301
       },
       "nextControl": {
-        "x": 4.248778012391384,
-        "y": 7.442531561367928
+        "x": 3.775594130872414,
+        "y": 5.678181426029355
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.8565370602298,
-        "y": 7.3099048940952835
+        "x": 5.410989541920015,
+        "y": 5.653170454545455
       },
       "prevControl": {
-        "x": 5.614869085336771,
-        "y": 7.245900285580721
+        "x": 5.04893571421056,
+        "y": 5.6878262695062825
       },
       "nextControl": {
-        "x": 7.005113971049643,
-        "y": 7.614100001280795
+        "x": 5.821813859827711,
+        "y": 5.613846325222225
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.7812978891314675,
-        "y": 6.923883944973128
+        "x": 6.236174504459053,
+        "y": 5.1666299046444735
       },
       "prevControl": {
-        "x": 6.669258855703185,
-        "y": 6.97769049492675
+        "x": 5.470221700678884,
+        "y": 5.596568165156229
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "left end enter mid"
+      "linkedName": "left end hub back to mid (extended)"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 2.0,
+      "waypointRelativePos": 1,
       "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": -55.44307553868809
     }
   ],
   "constraintZones": [],
@@ -79,13 +83,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -91.08092418666058
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Paths for Auto Left Start",
+  "folder": "Paths for Auto Left Start Extended",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -49.38
+    "rotation": -31.94175660512876
   },
   "useDefaultConstraints": true
 }

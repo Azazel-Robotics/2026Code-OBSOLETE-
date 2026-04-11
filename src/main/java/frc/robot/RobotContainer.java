@@ -77,11 +77,11 @@ public class RobotContainer {
 
                 //Path Planner Auto Options
                 m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
-                m_autoChooserPathPlanner.addOption("Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
-                m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
+                m_autoChooserPathPlanner.addOption("p-Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
+                m_autoChooserPathPlanner.addOption("p-Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
 
-                m_autoChooserPathPlanner.addOption("Right Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying", true));
-                m_autoChooserPathPlanner.addOption("Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
+                m_autoChooserPathPlanner.addOption("p-Right Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying", true));
+                m_autoChooserPathPlanner.addOption("p-Right Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
                 
                 
         }
@@ -141,6 +141,11 @@ public class RobotContainer {
                 Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
                 Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.4)).onFalse(intakeArm.spinArmDown(0));
 
+                //testing methods for Path Planner autos
+                Operator.povUp().onTrue(intakeArm.autoSpinArm(0.4)).onFalse(intakeArm.autoSpinArm(0));
+                Operator.povLeft().onTrue(intakeArm.autoSpinArmUp(0.4)).onFalse(intakeArm.autoSpinArmUp(0));
+                Operator.povRight().onTrue(intakeArm.autoSpinArmDown(0.4)).onFalse(intakeArm.autoSpinArmDown(0));
+
 
                 //Driver's Controls
 
@@ -184,6 +189,8 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Intake End", AutoCommands.Intake(intake, intakeArm, 0, 0));
 
                 NamedCommands.registerCommand("Spin Intake Arm Up/Down", intakeArm.autoSpinArm(0.5));
+                NamedCommands.registerCommand("Spin Intake Arm Up", intakeArm.autoSpinArmUp(0.5));
+                NamedCommands.registerCommand("Spin Intake Arm Down", intakeArm.autoSpinArmDown(0.5));
 
                 NamedCommands.registerCommand("First Shoot Run", AutoCommands.Shoot(shooter, index, 0.75, .5));
                 NamedCommands.registerCommand("Shoot Close Run", AutoCommands.Shoot(shooter, index, 0.65, .5));

@@ -60,13 +60,13 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.5
+                  "waitTime": 3.25
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Spin Intake Arm Up/Down"
+                  "name": "Spin Intake Arm Down"
                 }
               }
             ]
@@ -97,7 +97,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Spin Intake Arm Up/Down"
+                  "name": "Spin Intake Arm Up"
                 }
               }
             ]
@@ -116,7 +116,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 1.5
+                  "waitTime": 3.5
                 }
               },
               {
