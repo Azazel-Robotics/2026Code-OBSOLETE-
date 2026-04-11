@@ -125,7 +125,7 @@ public class RobotContainer {
                 //IDK IF THIS IS SAFE WITH THE LIMIT SWITCH BTW! DONT BREAK THE SWITCH /srs -AZ
                 //Intake forward while Arm moves down
                 //April 10 -> control not really needed as arm going up wasn't really an issue -AZ
-                //Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm,1.0 , 0.5));
+                Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm,1.0 , 0.5));
 
                 // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
                 //forward = negative :D  -JA
