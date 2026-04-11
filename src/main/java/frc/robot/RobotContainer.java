@@ -162,6 +162,10 @@ public class RobotContainer {
                 Driver.rightTrigger().onTrue(AutoCommands.Shoot(shooter, index, .8, .5))
                                 .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
                 
+                //intake arm up -> added control for Driver autonomy
+                 Driver.x().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
+
+                
                 // Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))
                 //                 .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
 
