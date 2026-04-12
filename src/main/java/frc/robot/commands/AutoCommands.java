@@ -28,9 +28,12 @@ public class AutoCommands {
 
         public static Command StopShoot(Shooter shooter, Index index){
                 return Commands.parallel(
-                
+                shooter.spinShooterZero(),
+                index.spinIndex(0)
                 );
         }
+
+        
 
         //For no one that asked, I am NOT coding this with the Active limit switch in mind lol. 
         //If it breaks the switch it's not my problem (IT MOST DEFINITELY IS MY PROBLEM T^T ). -AZ

@@ -12,7 +12,7 @@
         "y": 7.358324029985505
       },
       "isLocked": false,
-      "linkedName": "left end move back, rotate"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -85,7 +85,7 @@
   "folder": "Paths for Auto Left Start",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -49.38
+    "rotation": -91.08092418666058
   },
   "useDefaultConstraints": true
 }
