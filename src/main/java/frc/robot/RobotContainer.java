@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AutoCommands;
 import frc.robot.commands.AutoLeftStartScoring;
 import frc.robot.commands.blueRightShoot;
+import frc.robot.commands.middleAuto;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Index;
@@ -103,6 +104,7 @@ public class RobotContainer {
                 //Working Autos -> made inside the "commands" folder
                 m_autoChooserPathPlanner.addOption("use this one blue left/red right", new AutoLeftStartScoring());
                 m_autoChooserPathPlanner.addOption("use for blue right/red left (shooting)", new blueRightShoot());
+                m_autoChooserPathPlanner.addOption("USE FOR MIDDLE START", new middleAuto());
                 
         }
 
