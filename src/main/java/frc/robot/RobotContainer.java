@@ -183,7 +183,7 @@ public class RobotContainer {
                 //intake arm up -> added control for Driver autonomy
                  Driver.x().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
 
-                 Driver.povDown().onTrue(shooter.spinShooterMotors(-0.65));
+                 Driver.povDown().onTrue(shooter.spinShooterMotors(-0.65)).onFalse(AutoCommands.StopShoot(shooter, index));
 
                 
                 // Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))
