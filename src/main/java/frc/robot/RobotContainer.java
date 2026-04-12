@@ -58,12 +58,17 @@ public class RobotContainer {
 
         private final CommandXboxController Driver = new CommandXboxController(0);
         private final CommandXboxController Operator = new CommandXboxController(1);
+
+        //---------- Subsystem Constructions ----------//
+
         public final IntakeArm intakeArm = IntakeArm.getInstance();
         public final Intake intake = Intake.getInstance();
         public final Shooter shooter = Shooter.getInstance();
         public final Index index = Index.getInstance();
 
-        // testing for multiple autos
+        //---------- Selectable Auto Chooser Construction ----------//
+        //Only one chooser should be used/uncommented since it will mess up on the Smart Dashboard
+
         //SendableChooser<Command> m_autoChooser = new SendableChooser<>();
         SendableChooser<Command> m_autoChooserPathPlanner;
 
@@ -72,23 +77,30 @@ public class RobotContainer {
                 
                 m_autoChooserPathPlanner = AutoBuilder.buildAutoChooser();
 
-                // Auto Option Displayer found on Smart Dashboard
+                //---------- Auto Options: shown on Smart Dashboard ----------//
+
                 //SmartDashboard.putData("Auto Position", m_autoChooser);
                 SmartDashboard.putData("PathPlanner Auto Position", m_autoChooserPathPlanner);
 
-                //Non Path Planner Auto Options
+                //---------- Non Path Planner Options ----------//
+                //Options are commented to ensure less data displayed on Smart Dashboard
+
                 // m_autoChooser.setDefaultOption("Starting in the Middle", getAutonomousCommandMiddle());
                 // m_autoChooser.addOption("Starting on Right Side", getAutonomousCommandRight());
                 // m_autoChooser.addOption("Starting on Left Side", getAutonomousCommandLeft());
 
-                //Path Planner Auto Options
+                //---------- Path Planner Auto Options ----------//
+
+                //Non working Left Side Autos -> made on Path Planner GUI
                 m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
                 m_autoChooserPathPlanner.addOption("p-Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
                 m_autoChooserPathPlanner.addOption("p-Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
 
+                //Non working Right Side Autos -> taken from Left Side Auto and mirrored
                 m_autoChooserPathPlanner.addOption("p-Right Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying", true));
                 m_autoChooserPathPlanner.addOption("p-Right Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
 
+                //Working Autos -> made inside the "commands" folder
                 m_autoChooserPathPlanner.addOption("use this one blue left/red right", new AutoLeftStartScoring());
                 m_autoChooserPathPlanner.addOption("use for blue right/red left (shooting)", new blueRightShoot());
                 
@@ -130,71 +142,83 @@ public class RobotContainer {
                 Driver.start().and(Driver.x()).whileTrue(m_robotDrive.sysIdQuasistatic(Direction.kReverse));
 
 
-                //Operator's Controls
+                //---------- Operator Controls ----------//
 
                 //THIS CONTROL SHOULD BE THE ONE BEING USED -AZ
                 //IDK IF THIS IS SAFE WITH THE LIMIT SWITCH BTW! DONT BREAK THE SWITCH /srs -AZ
-                //Intake forward while Arm moves down
                 //April 10 -> control not really needed as arm going up wasn't really an issue -AZ
+
+                //Intake forward while Arm moves down
                 Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm,1.0 , 0.5));
 
-                // INTAKE forward..? CHECK IF POSITIVE OR NEGATIVE -AZ
-                //forward = negative :D  -JA
+                //INTAKE forward -> negative value
+                // INTAKE forward
                 Operator.b().onTrue(intake.spinIntake(-1)).onFalse(intake.spinIntake(0));
 
-                // INTAKE reverse..? CHECK IF POSITIVE OR NEGATIVE -AZ
+                // INTAKE reverse
                 Operator.x().onTrue(intake.spinIntake(1)).onFalse(intake.spinIntake(0));
 
                 //manual intake arm with limits
                 Operator.leftTrigger().onTrue(intakeArm.spinArmUp(0.65)).onFalse(intakeArm.spinArmUp(0));
                 Operator.rightTrigger().onTrue(intakeArm.spinArmDown(0.65)).onFalse(intakeArm.spinArmDown(0));
 
-                //testing methods for Path Planner autos
+                //testing Intake Arm methods for Path Planner autos
                 Operator.povUp().onTrue(intakeArm.autoSpinArm(0.4)).onFalse(intakeArm.autoSpinArm(0));
                 Operator.povLeft().onTrue(intakeArm.autoSpinArmUp(0.4)).onFalse(intakeArm.autoSpinArmUp(0));
                 Operator.povRight().onTrue(intakeArm.autoSpinArmDown(0.4)).onFalse(intakeArm.autoSpinArmDown(0));
 
+                //resets the Field Centric
+                //Only use this control at the beginning of Teleop if the Driver Controls are inversed.
+                //If on the Red Alliance, the front of the robot should be facing the Blue Alliance
                 Operator.y().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
 
-                //Driver's Controls
+                //---------- Driver Controls ----------//
 
-                // index forward
+                //index forward
                 Driver.rightBumper().onTrue(index.spinIndex(0.5)).onFalse(index.spinIndex(0));
 
-                // index reverse
+                //index reverse
                 Driver.y().onTrue(index.spinIndexReverse(0.5)).onFalse(index.spinIndexReverse(0));
 
-                // shooter short range -> Best used 5-6ft..? from Hub
-                //Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
+                //shooter short range -> Best used 5-6ft..? from Hub
                 Driver.leftTrigger().onTrue(AutoCommands.Shoot(shooter, index, .65, .5))
-                                .onFalse(AutoCommands.StopShoot(shooter, index));
+                        .onFalse(AutoCommands.StopShoot(shooter, index));
 
                 // shooter mid range -> Best used 8ft from Hub
-                //Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
                 Driver.leftBumper().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))
-                                .onFalse(AutoCommands.StopShoot(shooter, index));
+                        .onFalse(AutoCommands.StopShoot(shooter, index));
 
                 // shooter long range -> use for Ferrying
-                //Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
                 Driver.rightTrigger().onTrue(AutoCommands.Shoot(shooter, index, .8, .5))
-                                .onFalse(AutoCommands.StopShoot(shooter, index));
-                
-                //intake arm up -> added control for Driver autonomy
-                 Driver.x().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
+                        .onFalse(AutoCommands.StopShoot(shooter, index));
 
+                //Spin Shooter Motors Reverse
+                //Used when Fuel is stuck within the Shooter
                  Driver.povDown().onTrue(shooter.spinShooterMotors(-0.65)).onFalse(AutoCommands.StopShoot(shooter, index));
 
-                
-                // Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))
-                //                 .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+                //intake arm up -> added control for Driver autonomy when going over Bump
+                 Driver.x().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
 
+                
+                //---------- Hudson Valley Regional Driver Controls ----------//
+                //Controls were changed for the NYC Regional to activate the shooter motors and index motor together
+
+                //Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
+                //Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
+                //Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
+                //Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .5)).onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+
+                //Field Centric command was commented out and placed under Operator Controls
                 // Reset the field-centric heading on X button press.
                 // Driver.x().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
 
                 m_robotDrive.registerTelemetry(logger::telemeterize);
 
-                //Commands for PathPlanner
+                //---------- Named Commands for Path Planner Autos ----------//
+                /*While these worked, this is not really needed for making the Auto Routines as they should be made in the "commands" folder.
+                These were made as our first attempt at making the Routines were on the Path Planner GUI.
+                */
 
                 //Adjust Values to fit -AZ
                 NamedCommands.registerCommand("Intake Start", AutoCommands.Intake(intake, intakeArm, 1, 0.2));
@@ -209,7 +233,7 @@ public class RobotContainer {
                 
                 NamedCommands.registerCommand("Shoot End", AutoCommands.Shoot(shooter, index, 0, 0));
 
-                NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 0.8, 0.5));
+                NamedCommands.registerCommand("Ferrying Run", AutoCommands.Shoot(shooter, index, 1.0, 0.5));
                 NamedCommands.registerCommand("Ferrying End", AutoCommands.Shoot(shooter, index, 0., 0));
 
                 
@@ -228,8 +252,9 @@ public class RobotContainer {
                 return new PathPlannerAuto("BackAndForth");
         }
 
-        public Command getAutonomousCommandLeft() {
+        //----------Manual Auto Routines ----------//
 
+        public Command getAutonomousCommandLeft() {
                 return Commands.sequence(
                                 m_robotDrive.applyRequest(() -> {
                                         return drive.withVelocityX(-2)
@@ -257,44 +282,43 @@ public class RobotContainer {
         }
 
         public Command getAutonomousCommandRight() {
-
                 return Commands.sequence(
-                                m_robotDrive.applyRequest(() -> 
-                                        drive.withVelocityX(-2)
-                                                        .withVelocityY(0)
-                                                        .withRotationalRate(0)
-                                )
-                                                .withTimeout(3.0),
+                        m_robotDrive.applyRequest(() -> 
+                                drive.withVelocityX(-2)
+                                        .withVelocityY(0)
+                                        .withRotationalRate(0)
+                         )
+                                .withTimeout(3.0),
 
-                                m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
-                                                .withVelocityY(0)
-                                                .withRotationalRate(1.48))
-                                                .withTimeout(2.0),
-                                m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
-                                                        .withVelocityY(0)
-                                                        .withRotationalRate(0))
-                                                        .withTimeout(1.0),
+                        m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
+                                .withVelocityY(0)
+                                .withRotationalRate(1.48))
+                                .withTimeout(2.0),
 
-                                // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25)
-                                );
+                        m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
+                                .withVelocityY(0)
+                                .withRotationalRate(0))
+                                .withTimeout(1.0),
+
+                        //Activate Shooter and Index
+                        AutoCommands.Shoot(shooter, index, .75, .25)
+                );
 
         }
 
         public Command getAutonomousCommandMiddle() {
-
                 return Commands.sequence(
-                                m_robotDrive.applyRequest(() -> drive.withVelocityX(-2)
-                                                .withVelocityY(0)
-                                                .withRotationalRate(0))
-                                                .withTimeout(1.3),
-                                m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
-                                                                .withVelocityY(0)
-                                                                .withRotationalRate(0)).withTimeout(0.1),
+                        m_robotDrive.applyRequest(() -> drive.withVelocityX(-2)
+                                .withVelocityY(0)
+                                .withRotationalRate(0))
+                                .withTimeout(1.3),
+                        m_robotDrive.applyRequest(() -> drive.withVelocityX(0)
+                                .withVelocityY(0)
+                                .withRotationalRate(0)).withTimeout(0.1),
 
-                                // Activate Shooter and Index
-                                AutoCommands.Shoot(shooter, index, .75, .25)
-                                );
+                        // Activate Shooter and Index
+                        AutoCommands.Shoot(shooter, index, .75, .25)
+                );
 
         }
 }
