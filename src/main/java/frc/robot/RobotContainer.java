@@ -112,30 +112,24 @@ public class RobotContainer {
                 // Note that X is defined as forward according to WPILib convention,
                 // and Y is defined as to the left according to WPILib convention.
                 m_robotDrive.setDefaultCommand(
-                                // Drivetrain will execute this command periodically
-                                m_robotDrive.applyRequest(() -> drive.withVelocityX(-Driver.getLeftY() * MaxSpeed) // Drive
-                                                                                                                   // forward
-                                                                                                                   // with
-                                                                                                                   // negative
-                                                                                                                   // Y
-                                                                                                                   // (forward)
-                                                .withVelocityY(-Driver.getLeftX() * MaxSpeed) // Drive left with
-                                                                                              // negative X (left)
-                                                .withRotationalRate(-Driver.getRightX() * MaxAngularRate) // Drive
-                                                                                                          // counterclockwise
-                                                                                                          // with
-                                                                                                          // negative X
-                                                                                                          // (left)
-                                ));
+                        // Drivetrain will execute this command periodically
+                        m_robotDrive.applyRequest(() -> drive.withVelocityX(-Driver.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)                  
+                                .withVelocityY(-Driver.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                                .withRotationalRate(-Driver.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                        )
+                );
+
                 // Idle while the robot is disabled. This ensures the configured
                 // neutral mode is applied to the drive motors while disabled.
                 final var idle = new SwerveRequest.Idle();
                 RobotModeTriggers.disabled().whileTrue(
                                 m_robotDrive.applyRequest(() -> idle).ignoringDisable(true));
+
                 Driver.a().whileTrue(m_robotDrive.applyRequest(() -> brake));
                 Driver.b().whileTrue(m_robotDrive
-                                .applyRequest(() -> point.withModuleDirection(
-                                                new Rotation2d(-Driver.getLeftY(), -Driver.getLeftX()))));
+                        .applyRequest(() -> point.withModuleDirection(
+                                new Rotation2d(-Driver.getLeftY(), -Driver.getLeftX()))));
+
                 // Run SysId routines when holding back/start and X/Y.
                 // Note that each routine should be run exactly once in a single log.
                 Driver.back().and(Driver.y()).whileTrue(m_robotDrive.sysIdDynamic(Direction.kForward));
@@ -148,7 +142,7 @@ public class RobotContainer {
 
                 //THIS CONTROL SHOULD BE THE ONE BEING USED -AZ
                 //IDK IF THIS IS SAFE WITH THE LIMIT SWITCH BTW! DONT BREAK THE SWITCH /srs -AZ
-                //April 10 -> control not really needed as arm going up wasn't really an issue -AZ
+                //April 10, 2026 -> control not really needed as the arm going up wasn't really an issue -AZ
 
                 //Intake forward while Arm moves down
                 Operator.a().onTrue(AutoCommands.Intake(intake, intakeArm,1.0 , 0.5));
@@ -204,6 +198,7 @@ public class RobotContainer {
 
                 
                 //---------- Hudson Valley Regional Driver Controls ----------//
+
                 //Controls were changed for the NYC Regional to activate the shooter motors and index motor together
 
                 //Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
@@ -218,8 +213,9 @@ public class RobotContainer {
                 m_robotDrive.registerTelemetry(logger::telemeterize);
 
                 //---------- Named Commands for Path Planner Autos ----------//
+
                 /*While these worked, this is not really needed for making the Auto Routines as they should be made in the "commands" folder.
-                These were made as our first attempt at making the Routines were on the Path Planner GUI.
+                These were made as our first attempts at making the Routines were on the Path Planner GUI.
                 */
 
                 //Adjust Values to fit -AZ
@@ -248,6 +244,11 @@ public class RobotContainer {
                 DriverStation.reportWarning(m_autoChooserPathPlanner.getSelected().getName(), false);
                 return m_autoChooserPathPlanner.getSelected();
         }
+
+        // public Command getSelectedAuto() {
+        //         DriverStation.reportWarning(m_autoChooser.getSelected().getName(), false);
+        //         return m_autoChooser.getSelected();
+        // }
 
         public Command getAutonomousPathPlanner() {
                 // This is pulling a path that will make the command go Forward and then back.

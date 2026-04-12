@@ -54,8 +54,9 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         DriverStation.reportError("Report::autonomousInit: Started!", isAutonomous());
-        // //had to change this -> figure out if this is fine -AZ
-        // m_autonomousCommand = m_robotContainer.getAutonomousCommandMiddle();
+
+        //Calls the Selected Manual Auto
+        // m_autonomousCommand = m_robotContainer.getSelectedAuto();
         
         //Calls the Selected Path Planner Auto
         m_autonomousCommand = m_robotContainer.getPathPlannerAuto();
