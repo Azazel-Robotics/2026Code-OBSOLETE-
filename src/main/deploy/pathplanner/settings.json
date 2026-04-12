@@ -8,8 +8,9 @@
     "Paths for Auto Right Start"
   ],
   "autoFolders": [
-    "AutoPaths",
-    "Left Path Testing"
+    "auto all",
+    "Left Path Testing",
+    "right testing"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

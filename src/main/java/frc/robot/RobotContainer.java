@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AutoCommands;
 import frc.robot.commands.AutoLeftStartScoring;
+import frc.robot.commands.blueRightShoot;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Index;
@@ -89,6 +90,7 @@ public class RobotContainer {
                 m_autoChooserPathPlanner.addOption("p-Right Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
 
                 m_autoChooserPathPlanner.addOption("use this one blue left/red right", new AutoLeftStartScoring());
+                m_autoChooserPathPlanner.addOption("use for blue right/red left (shooting)", new blueRightShoot());
                 
         }
 
@@ -164,20 +166,22 @@ public class RobotContainer {
                 // shooter short range -> Best used 5-6ft..? from Hub
                 //Driver.leftTrigger().onTrue(shooter.spinShooterMotors(0.65)).onFalse(shooter.spinShooterMotors(0));
                 Driver.leftTrigger().onTrue(AutoCommands.Shoot(shooter, index, .65, .5))
-                                .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+                                .onFalse(AutoCommands.StopShoot(shooter, index));
 
                 // shooter mid range -> Best used 8ft from Hub
                 //Driver.leftBumper().onTrue(shooter.spinShooterMotors(0.75)).onFalse(shooter.spinShooterMotors(0));
                 Driver.leftBumper().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))
-                                .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+                                .onFalse(AutoCommands.StopShoot(shooter, index));
 
                 // shooter long range -> use for Ferrying
                 //Driver.rightTrigger().onTrue(shooter.spinShooterMotors(0.80)).onFalse(shooter.spinShooterMotors(0));
                 Driver.rightTrigger().onTrue(AutoCommands.Shoot(shooter, index, .8, .5))
-                                .onFalse(AutoCommands.Shoot(shooter, index, 0, 0));
+                                .onFalse(AutoCommands.StopShoot(shooter, index));
                 
                 //intake arm up -> added control for Driver autonomy
                  Driver.x().onTrue(intakeArm.spinArmUp(0.4)).onFalse(intakeArm.spinArmUp(0));
+
+                 Driver.povDown().onTrue(shooter.spinShooterMotors(-0.65));
 
                 
                 // Driver.povUp().onTrue(AutoCommands.Shoot(shooter, index, .75, .5))

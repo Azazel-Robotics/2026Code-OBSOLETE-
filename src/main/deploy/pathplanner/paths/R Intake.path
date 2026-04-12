@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.773033333333334,
+        "y": 1.101922222222222
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.022789303328894,
+        "y": 1.0908788780015244
+      },
+      "isLocked": false,
+      "linkedName": "right end enter mid"
+    },
+    {
+      "anchor": {
+        "x": 7.773033333333334,
+        "y": 3.263080942969044
+      },
+      "prevControl": {
+        "x": 7.58905983984709,
+        "y": 3.0938067461921372
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "right end intake"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 89.14913197771449
+  },
+  "reversed": false,
+  "folder": "Paths for Auto Right Start",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 89.13194855025455
+  },
+  "useDefaultConstraints": true
+}
