@@ -27,6 +27,8 @@ public class Shooter extends SubsystemBase {
 
     //declaring and intiallizing Shooter Motors
     private TalonFX shooterMotor = new TalonFX(Constants.Shooter.kShooterMotor);
+
+    //we are changing Neck to a Kracken -> April 12
     private TalonFX shooterNeckMotor = new TalonFX(Constants.Shooter.kShooterNeckMotor);
 
     public Shooter() {

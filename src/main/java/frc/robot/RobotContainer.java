@@ -154,6 +154,8 @@ public class RobotContainer {
                 Operator.povLeft().onTrue(intakeArm.autoSpinArmUp(0.4)).onFalse(intakeArm.autoSpinArmUp(0));
                 Operator.povRight().onTrue(intakeArm.autoSpinArmDown(0.4)).onFalse(intakeArm.autoSpinArmDown(0));
 
+                Operator.y().onTrue(m_robotDrive.runOnce(m_robotDrive::seedFieldCentric));
+
 
                 //Driver's Controls
 

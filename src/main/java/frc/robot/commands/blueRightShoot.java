@@ -29,7 +29,7 @@ public class blueRightShoot extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new PathPlannerAuto("Right Enter Mid"), 
         new WaitCommand(1.9).andThen(new WaitCommand(1.5).deadlineFor(IntakeArm.getInstance().spinArmDown(.65)))),
-      new WaitCommand(.1).deadlineFor(Intake.getInstance().spinIntake(1)),
+        new WaitCommand(.1).deadlineFor(Intake.getInstance().spinIntake(1)),
       
       new PathPlannerAuto("Right Move to Intake"),
 
@@ -40,8 +40,10 @@ public class blueRightShoot extends SequentialCommandGroup {
 
       new PathPlannerAuto("Right Move to Hub 1"),
 
-      new WaitCommand(8.5).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .65, .5))
+      new WaitCommand(8.5).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .65, .5)),
         
+      new WaitCommand(.1).deadlineFor(AutoCommands.StopShoot(Shooter.getInstance(), Index.getInstance()))
+
         );
     
 

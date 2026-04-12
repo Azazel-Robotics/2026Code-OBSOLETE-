@@ -29,7 +29,7 @@ public class AutoLeftStartScoring extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new PathPlannerAuto("Mid"), 
         new WaitCommand(1.9).andThen(new WaitCommand(1.5).deadlineFor(IntakeArm.getInstance().spinArmDown(.65)))),
-      new WaitCommand(.1).deadlineFor(Intake.getInstance().spinIntake(1)),
+        new WaitCommand(.1).deadlineFor(Intake.getInstance().spinIntake(1)),
       
       new PathPlannerAuto("Intake"),
 
@@ -40,12 +40,11 @@ public class AutoLeftStartScoring extends SequentialCommandGroup {
 
       new PathPlannerAuto("Hub 1"),
 
-      new WaitCommand(8.5).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .65, .5))
-        
+      new WaitCommand(8.5).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .65, .5)),
+      
+      new WaitCommand(.1).deadlineFor(AutoCommands.StopShoot(Shooter.getInstance(), Index.getInstance()))
         );
     
-
-
 
     }
 }
