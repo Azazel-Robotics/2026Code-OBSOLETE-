@@ -1,7 +1,8 @@
 package frc.robot;
+
 public class Constants {
     
-    //sets the maximum current of SparkMax and Falcon motors
+    //---------- Maximum Current of SparkMax and Falcon Motors ----------//
     public static final int kMaxCurrent = 40;
     
     public static class Intake{
@@ -10,22 +11,22 @@ public class Constants {
     }
     
     public static class Shooter{
-        //Ids of the shooter motors
+        //IDs of the Shooter Motors
         public static final int kShooterMotor = 17;
         public static final int kShooterNeckMotor = 18;
     }
 
     public static class IntakeArm{
-        //CHECK THIS
+        //ID of the Intake Arm Motor
         public static final int kIntakeArmMotor = 22;
        
-        //CHANGE/CHECK THESE
+        //IDs of the Limit Switches
         public static final int kArmPassive = 0;
         public static final int kArmActive = 1;
     }
 
     public static class Index{
-        //ID of the Index motor
+        //ID of the Index Motor
         public static final int kIntakeIndexMotor = 20;
     }
 }
