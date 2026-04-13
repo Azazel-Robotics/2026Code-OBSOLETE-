@@ -7,17 +7,21 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkLimitSwitch;
 
 public class IntakeArm extends SubsystemBase {
+    
+    private SparkMax intakeArmMotor;
+
+    //---------- Declaring Limit Switches ----------//
+    private SparkLimitSwitch limitUp;
+    private SparkLimitSwitch limitDown;
+
+    //---------- Class Instance Creation ----------//
     private static final IntakeArm instance;
 
     static {
@@ -28,49 +32,36 @@ public class IntakeArm extends SubsystemBase {
         return instance;
     }
 
-    private SparkMax intakeArmMotor;
-
-    // private RelativeEncoder encoder; //was this the one that works..? -AZ
-    // private SparkClosedLoopController armController;
-
-    //limit switchs
-    private SparkLimitSwitch limitUp;
-    private SparkLimitSwitch limitDown;
 
     public IntakeArm() {
 
         // configs for intake arm speed
         intakeArmMotor = new SparkMax(Constants.IntakeArm.kIntakeArmMotor, MotorType.kBrushless);
+
+        //---------- Intake Arm Motor Configuration and Set Current Limit ----------//
         SparkMaxConfig intakeArmConfig = new SparkMaxConfig();
         intakeArmConfig.smartCurrentLimit(Constants.kMaxCurrent);
         intakeArmConfig.idleMode(IdleMode.kBrake);
         intakeArmMotor.configure(intakeArmConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         
-        //initializing limit switches
+        //---------- Initializing Limit Switches ----------//
         limitDown = intakeArmMotor.getForwardLimitSwitch();
         limitUp = intakeArmMotor.getReverseLimitSwitch();
 
-
-        // //initalizing encoder and stuff
-        // encoder = intakeArmMotor.getEncoder(); //idk what this was for..? -AZ
-        // armController = intakeArmMotor.getClosedLoopController();
-        
-        // //we probably need to change the setpoint value..? I just put it on zero for now. -AZ
-        // armController.setSetpoint(0, ControlType.kPosition);
-
-        // //I put zeros as the values for now -> we should figure out the correct tuning for the constants class -AZ
-        // intakeArmConfig.closedLoop
-        // .p(0)
-        // .i(0) //this is not recommended for FRC so maybe we should use the feedforward method instead..? -AZ
-        // .d(0)
-        // .outputRange(0, 0);
-        
-
     }
+
+
     public SparkMax getIntakeArmMotor(){
         return intakeArmMotor;
     }
-/* 
+
+    //many of the if-else constraint/parameters did not work as the motor stopped once the switch was hit
+    //switches were hard coded to stop -> seen in REV Client -AZ
+
+    //---------- Initial Teleop Commands for Intake Arm ----------//
+    //Commands did not work in some cases -> sometimes the arm would go down but never back up and vice versa
+
+    /* 
     //manual up and down, limit switches work HOORAY -JA
     //DOUBLE CHECK which limit switch is up and down -JA
     public Command spinArmUp(double speed) {
@@ -91,29 +82,23 @@ public class IntakeArm extends SubsystemBase {
             return this.runOnce(() -> intakeArmMotor.set(speed));
         }
     }
-*/
+        
+    */
 
-public Command spinArmUp(double speed) {
-    
-    return  this.runOnce(() -> intakeArmMotor.set(-speed));    
-    /* 
-    if(limitUp.isPressed()){
-            return this.runOnce(() -> intakeArmMotor.set(0));
-        } else {
-            return this.runOnce(() -> intakeArmMotor.set(-speed));
-        }
-            */
+    //---------- Teleop Intake Arm Commands ----------//
+    //we got rid of the conditions as the motor was hard coded to stop in REV Client
+
+    public Command spinArmUp(double speed) {
+        return  this.runOnce(() -> intakeArmMotor.set(-speed));    
     }
+    
     public Command spinArmDown(double speed) {
         return this.runOnce(() -> intakeArmMotor.set(speed));
-        /* 
-        if(limitDown.isPressed()){
-            return this.runOnce(() -> intakeArmMotor.set(0));
-        } else {
-            return this.runOnce(() -> intakeArmMotor.set(speed));
-        }
-            */
     }
+
+    //---------- Limit Switches' Accessors ----------//
+    //returns true if the limit switch is pressed
+    
     public boolean getLimitUp() {
         return limitUp.isPressed();
     }
@@ -121,6 +106,8 @@ public Command spinArmUp(double speed) {
     public boolean getLimitDown() {
         return limitDown.isPressed();
     }
+
+    //---------- Testing Intake Arm Commands for Auto Routines ----------//
 
     //added by AZ -> ASK before touching; there is a reason I wrote parameters this way! -AZ
     public Command autoSpinArm(double speed) {
@@ -145,9 +132,6 @@ public Command spinArmUp(double speed) {
             }
             return this.runOnce( () -> intakeArmMotor.set(0));
         }
-
-        
-
     }
     
     //safer versions of autoSpinArm that is more guaranteed with the results -AZ
@@ -164,81 +148,6 @@ public Command spinArmUp(double speed) {
             }
             return this.runOnce( () -> intakeArmMotor.set(0));
         }
-
-    // // POSITIONS OF INTAKE ARM
-    // // encoders stuff
-    // public static enum armStates {
-    //     // change parameters to match positions of arm
-    //     START(0),
-    //     JIGGLE1(20),
-    //     JIGGLE2(40),
-    //     FLOOR(100);
-
-    //     private final double armPosition;
-
-    //     private armStates(double position) {
-    //         this.armPosition = position;
-    //     }
-
-    //     public double getArmPosition() {
-    //         return this.armPosition;
-    //     }
-    // }
-
-    //testing limit switches
-    // // is limit switch pressed
-    // boolean isUpperPressed = !armPassive.get(); // .get() returns false when button is pressed
-    // boolean isLowerPressed = !armActive.get();
-
-    // // MANUAL INTAKE ARM UP AND DOWN limit switches
-    // public Command spinIntakeArmUp(double speed) {
-    //     // account for limit switches
-    //     if (isUpperPressed) {
-    //         return this.runOnce(() ->intakeArmMotor.set(0));
-    //     } else {
-    //         return this.runOnce(() ->intakeArmMotor.set(speed));
-    //     }
-    // }
-
-    // public Command spinIntakeArmDown(double speed) {
-    //     // account for limit switches
-    //     if (isLowerPressed) {
-    //         return this.runOnce(() -> intakeArmMotor.set(0));
-    //     } else {
-    //         return this.runOnce(() -> intakeArmMotor.set(-speed));
-    //     }
-    // }
-
-    /*
-    // JIGGLE FEATURES LOL
-    boolean goUp = true; // goUp = true, motor is going positive direction
-
-    // public void setReferencePoint //what???? I forgot what we were going to put here??? -AZ
-
-    // this is for limit switches
-    public Command intakeArmJiggle() {
-        if (isUpperPressed) {
-            goUp = false;
-            return this.runOnce(() -> intakeArmMotor.set(-0.1));
-        } else if (isLowerPressed) {
-            goUp = true;
-            return this.runOnce(() -> intakeArmMotor.set(0.1));
-        } else if (goUp) {
-            return this.runOnce(() -> intakeArmMotor.set(0.1));
-        } else {
-            return this.runOnce(() -> intakeArmMotor.set(-0.1));
-        }
-    } */
-
-    // to reset position of intake arm to floor, PLEASE CHANGE IDK IF WORK -JA
-    // public Command intakeArmToFloor() {
-    //     if (isLowerPressed) {
-    //         return this.runOnce(() -> intakeArmMotor.set(0));
-    //     } else {
-    //         return this.runOnce(() -> intakeArmMotor.set(-0.1));
-    //     }
-
-    // }
 
     /*
      * //SMARTDASHBOARD THINGS

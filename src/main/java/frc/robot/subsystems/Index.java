@@ -16,6 +16,7 @@ public class Index extends SubsystemBase{
     private SparkMax indexMotor = new SparkMax(Constants.Index.kIntakeIndexMotor, MotorType.kBrushless);
     private boolean motorOn; //used for toggle method
 
+    //---------- Class Instance Creation ----------//
     public static final Index instance;
 
     static {
@@ -26,12 +27,10 @@ public class Index extends SubsystemBase{
         return instance;
     }
 
-    public Command spinIndexZero(){
-        return this.runOnce(() -> indexMotor.set(0));
-    }
 
     public Index() {
-        //configs and sets limits for index motor
+
+       //---------- Index Motor Configuration and Set Current Limit ----------//
         SparkMaxConfig indexConfig = new SparkMaxConfig();
         indexConfig.smartCurrentLimit(Constants.kMaxCurrent);
         indexConfig.idleMode(IdleMode.kBrake); //stops motor from moving when button is not pressed
@@ -45,6 +44,8 @@ public class Index extends SubsystemBase{
     public void periodic() {
         SmartDashboard.putBoolean("Index Motor On", motorOn); //words that show up on dashboard screen :D
     }
+
+    //---------- Teleop Index Commands ----------//
 
     //Hold down button to spin Index motor
     public Command spinIndex(double speed) 
@@ -70,11 +71,17 @@ public class Index extends SubsystemBase{
         return this.runOnce( () -> indexMotor.set(speed));
     }
 
+    //---------- Command to Set Index Motor Speed to Zero ----------//
+    public Command spinIndexZero(){
+        return this.runOnce(() -> indexMotor.set(0));
+    }
+
+    //---------- Auto Routine Index Commands ----------//
 
     //method used to set the speed of the Index during Auto continuously
     public Command spinIndexAuto(double autoSpeed)
     {
-        return this.runOnce( () -> indexMotor.set(-autoSpeed));
+        return this.run( () -> indexMotor.set(-autoSpeed));
     }
 
     //prints out on SmartDashboard if the Index Motor is called during Auto
