@@ -29,4 +29,11 @@ public class Constants {
         //ID of the Index Motor
         public static final int kIntakeIndexMotor = 20;
     }
+
+    //---------- Offseason Testing: Kraken Motor ----------//
+    public static class KrakenConfig {
+        //ID of the Kracken Motor
+        public static final int kKrakenMotor = 30;
+    }
+
 }
