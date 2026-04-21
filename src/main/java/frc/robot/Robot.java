@@ -109,5 +109,10 @@ public class Robot extends TimedRobot {
     public void testExit() {}
 
     @Override
+    public void simulationInit() {
+        CommandScheduler.getInstance().cancelAll();
+    }
+
+    @Override
     public void simulationPeriodic() {}
 }
