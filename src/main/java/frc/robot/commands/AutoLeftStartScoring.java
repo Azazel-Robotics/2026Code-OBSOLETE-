@@ -13,7 +13,7 @@ public class AutoLeftStartScoring extends SequentialCommandGroup {
       new PathPlannerAuto("Backwards"),
         
       //RD: Shoot all 8 balls in Hopper! I Hope
-      //AZ: It did in fact shoot all the preloaded into the Hub!! Yippie!!!
+      //AZ: It did in fact shoot all the preloaded into the Hub!! Yippies!!!
       new WaitCommand(3).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .75, .5)),
       
       new WaitCommand(.1).deadlineFor(AutoCommands.StopShoot(Shooter.getInstance(), Index.getInstance())),
@@ -39,8 +39,10 @@ public class AutoLeftStartScoring extends SequentialCommandGroup {
         new WaitCommand(.5).deadlineFor(IntakeArm.getInstance().spinArmUp(.75))
       ),
 
+      //move back to the Hub to score
       new PathPlannerAuto("Hub 1"),
 
+      //Activates shooter and index to score
       new WaitCommand(8.5).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .65, .5)),
       
       new WaitCommand(.1).deadlineFor(AutoCommands.StopShoot(Shooter.getInstance(), Index.getInstance()))
