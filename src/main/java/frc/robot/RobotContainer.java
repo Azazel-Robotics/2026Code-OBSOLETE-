@@ -96,18 +96,18 @@ public class RobotContainer {
 
                 //---------- Path Planner Auto Options ----------//
 
-                //Non working Left Side Autos -> made on Path Planner GUI
-                m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
-                m_autoChooserPathPlanner.addOption("p-Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
-                m_autoChooserPathPlanner.addOption("p-Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
+                // //Non working Left Side Autos -> made on Path Planner GUI
+                // m_autoChooserPathPlanner.addOption("Path Planner Option: Only Movement", getAutonomousPathPlanner());
+                // m_autoChooserPathPlanner.addOption("p-Left Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying"));
+                // m_autoChooserPathPlanner.addOption("p-Left Side Shoot", new PathPlannerAuto("Auto Left Start Shooting"));
 
-                //Non working Right Side Autos -> taken from Left Side Auto and mirrored
-                m_autoChooserPathPlanner.addOption("p-Right Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying", true));
-                m_autoChooserPathPlanner.addOption("p-Right Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
+                // //Non working Right Side Autos -> taken from Left Side Auto and mirrored
+                // m_autoChooserPathPlanner.addOption("p-Right Side Ferry", new PathPlannerAuto("Auto Left Start Ferrying", true));
+                // m_autoChooserPathPlanner.addOption("p-Right Side Shoot", new PathPlannerAuto("Auto Left Start Shooting", true));
 
                 //Working Autos -> made inside the "commands" folder
-                m_autoChooserPathPlanner.addOption("use this one blue left/red right", new AutoLeftStartScoring());
-                m_autoChooserPathPlanner.addOption("use for blue right/red left (shooting)", new blueRightShoot());
+                m_autoChooserPathPlanner.addOption("use this one blue/red left", new AutoLeftStartScoring());
+                m_autoChooserPathPlanner.addOption("use for blue/red right", new blueRightShoot());
                 m_autoChooserPathPlanner.addOption("USE FOR MIDDLE START", new middleAuto());
                 
         }

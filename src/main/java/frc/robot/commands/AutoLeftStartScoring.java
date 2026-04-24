@@ -13,6 +13,7 @@ public class AutoLeftStartScoring extends SequentialCommandGroup {
       new PathPlannerAuto("Backwards"),
         
       //RD: Shoot all 8 balls in Hopper! I Hope
+      //AZ: It did in fact shoot all the preloaded into the Hub!! Yippie!!!
       new WaitCommand(3).deadlineFor(AutoCommands.Shoot(Shooter.getInstance(), Index.getInstance(), .75, .5)),
       
       new WaitCommand(.1).deadlineFor(AutoCommands.StopShoot(Shooter.getInstance(), Index.getInstance())),
@@ -25,7 +26,7 @@ public class AutoLeftStartScoring extends SequentialCommandGroup {
       */
 
       //Trying to Combine 1: Get in Poisition to collect fuel form mid, 2: IntakeArm Down
-      //According to Path Planner, It clear the trench at 1.9 seconds
+      //According to Path Planner, It clears the trench at 1.9 seconds
       new ParallelCommandGroup(
         new PathPlannerAuto("Mid"), 
         new WaitCommand(1.9).andThen(new WaitCommand(1.5).deadlineFor(IntakeArm.getInstance().spinArmDown(.65)))),
